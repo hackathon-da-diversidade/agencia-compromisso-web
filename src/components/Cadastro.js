@@ -206,7 +206,7 @@ class Cadastro extends Component {
             <input
               className='btn btn-primary btn-raised'
               type='submit'
-              value='Submit'
+              value='Salvar'
             />
           </div>
         </form>
