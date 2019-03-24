@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import icon from './assets/icon.png';
-import banner from './assets/banner.png';
+import icon from '../assets/icon.png';
+import banner from '../assets/banner.png';
 
 class Header extends Component {
   render() {
