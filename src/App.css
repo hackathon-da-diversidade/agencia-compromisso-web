@@ -30,13 +30,41 @@ ul li {
   list-style-type: none;
 }
 
-.btn.btn-raised.btn-primary {
+.agencia-btn-group {
+  margin-top: 60px;
+}
+
+.btn.btn-secondary.btn-raised {
+  margin-top: 20px;
   background-color: #000;
   width: 300px;
   height: 70px;
+}
+
+/* .btn.btn-secondary.btn-raised:focus,
+.btn.btn-secondary.btn-raised:focus-within,
+.btn.btn-secondary.btn-raised:hover,
+.btn.btn-secondary.btn-raised:active {
+  background-color: #fff671 !important;
+  color: black !important;
+}
+
+.btn.btn-secondary.btn-raised:focus .btn.btn-secondary.btn-raised:active {
+  background-color: #fff671 !important;
+  color: black !important;
+} */
+
+.btn.btn-secondary.btn-raised p {
+  margin: 15px 0 0;
   color: white;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 300;
+  line-height: 22px;
+}
+
+.btn-label {
+  width: 100%;
+  height: 100%;
 }
 
 .form-cadastro {
@@ -54,6 +82,8 @@ ul li {
   display: inline-block;
 }
 
-.form-control {
-  /* width: 60vw; */
+.menu {
+  margin-top: 40px;
 }
+
+/* background-color: #ffc42e */
