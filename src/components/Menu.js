@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Header from './Header'
 
 class Menu extends Component {
   render() {
     return (
       <div className='menu'>
+        <Header/>
         <ul>
           <li>
             <a href='/cadastro' className='btn-label text-white'>
