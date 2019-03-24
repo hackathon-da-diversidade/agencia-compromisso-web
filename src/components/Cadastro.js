@@ -1,37 +1,33 @@
 import React, { Component } from 'react'
 
 class Cadastro extends Component {
-
   constructor(props) {
-    super(props);
-    this.state = 
-    {
+    super(props)
+    this.state = {
       nome: '',
       escolaridade: '',
       etnia: ''
-    };
+    }
 
-    this.onNomeChange = this.handleNomeChange.bind(this);
-    this.onEscolaridadeChange = this.handleEscolaridadeChange.bind(this);
-    this.onEtniaChange = this.handleEtniaChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onNomeChange = this.handleNomeChange.bind(this)
+    this.onEscolaridadeChange = this.handleEscolaridadeChange.bind(this)
+    this.onEtniaChange = this.handleEtniaChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleNomeChange = (e) => {
-    this.setState({nome :  e.target.value});  
-  }
-  
-  handleEscolaridadeChange = (e) => {
-    this.setState({escolaridade :  e.target.value});  
+  handleNomeChange = e => {
+    this.setState({ nome: e.target.value })
   }
 
-  handleEtniaChange = (e) => {
-    this.setState({etnia :  e.target.value});  
+  handleEscolaridadeChange = e => {
+    this.setState({ escolaridade: e.target.value })
   }
 
-  handleSubmit = () => {
-
+  handleEtniaChange = e => {
+    this.setState({ etnia: e.target.value })
   }
+
+  handleSubmit = () => {}
 
   render() {
     return (
@@ -40,36 +36,51 @@ class Cadastro extends Component {
         <form className='form-cadastro'>
           <div className='nome form-group'>
             <label>Nome Completo: </label>
-            <input className='form-control' type='text' name='nome' id='nome' value={this.state.nome} onChange={this.handleNomeChange} />
+            <input
+              className='form-control'
+              type='text'
+              name='nome'
+              id='nome'
+              value={this.state.nome}
+              onChange={this.handleNomeChange}
+            />
           </div>
 
           <div className='escolaridade form-group'>
             <label>Escolaridade: </label>
-            <select className='form-control' value={this.state.escolaridade} onChange={this.handleEscolaridadeChange}>
+            <select
+              className='form-control'
+              value={this.state.escolaridade}
+              onChange={this.handleEscolaridadeChange}
+            >
               <option> </option>
               <option> Sem Escolaridade </option>
-              <option > Ensino Fundamental </option>
-              <option > Ensino Fundamental Incompleto </option>
-              <option > Ensino Fundamental Completo </option>
-              <option > Ensino Médio Incompleto </option>
-              <option > Ensino Médio Completo </option>
-              <option > Ensino Técnico Incompleto </option>
-              <option > Ensino Técnico Completo </option>
-              <option > Ensino Superior Incompleto </option>
-              <option > Ensino Superior Completo </option>
+              <option> Ensino Fundamental </option>
+              <option> Ensino Fundamental Incompleto </option>
+              <option> Ensino Fundamental Completo </option>
+              <option> Ensino Médio Incompleto </option>
+              <option> Ensino Médio Completo </option>
+              <option> Ensino Técnico Incompleto </option>
+              <option> Ensino Técnico Completo </option>
+              <option> Ensino Superior Incompleto </option>
+              <option> Ensino Superior Completo </option>
             </select>
           </div>
 
           <div className='etnia form-group'>
             <label>Etnia: </label>
-            <select className='form-control' value={this.state.etnia} onChange={this.handleEtniaChange}>
-              <option > </option>
-              <option > Branco </option>
-              <option > Negro </option>
-              <option > Indígena </option>
-              <option > Amarelo </option>
-              <option > Pardo </option>
-              <option > Prefere Não Declarar </option>
+            <select
+              className='form-control'
+              value={this.state.etnia}
+              onChange={this.handleEtniaChange}
+            >
+              <option> </option>
+              <option> Branco </option>
+              <option> Negro </option>
+              <option> Indígena </option>
+              <option> Amarelo </option>
+              <option> Pardo </option>
+              <option> Prefere Não Declarar </option>
             </select>
           </div>
           <div className='idade form-group'>
@@ -236,7 +247,7 @@ class Cadastro extends Component {
           </div>
           <div className='salvar'>
             <input
-              className='btn btn-primary btn-raised'
+              className='btn btn-secondary btn-raised'
               type='submit'
               value='Salvar'
             />
