@@ -9,12 +9,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <Menu /> */}
         <Router>
           <div className='App'>
             <Switch>
-              {/* <Route exact path='/' /> */}
-
               <Route exact path='/home' component={Menu} />
               <Route exact path='/lista' component={Lista} />
               <Route exact path='/cadastro' component={Cadastro} />
