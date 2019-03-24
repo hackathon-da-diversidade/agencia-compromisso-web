@@ -8,13 +8,17 @@ class Cadastro extends Component {
     {
       nome: '',
       escolaridade: '',
-      etnia: ''
+      etnia: '',
+      ocupacacao: '',
     };
 
     this.onNomeChange = this.handleNomeChange.bind(this);
     this.onEscolaridadeChange = this.handleEscolaridadeChange.bind(this);
     this.onEtniaChange = this.handleEtniaChange.bind(this);
+    this.onOcupaChange = this.handleOcupaChange.bind(this);
+    
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
   handleNomeChange = (e) => {
@@ -29,15 +33,26 @@ class Cadastro extends Component {
     this.setState({etnia :  e.target.value});  
   }
 
-  handleSubmit = () => {
+  handleOcupaChange = (e) => {
+    this.setState({ocupacacao :  e.target.value});  
+  }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    
+    const data = this.state;
+
+    fetch('http://agencia-compromisso-api.herokuapp.com/create', {
+      method : 'POST',
+      body: data
+    });
   }
 
   render() {
     return (
       <div className='cadastro'>
         <h2 className=''>Cadastro</h2>
-        <form className='form-cadastro'>
+        <form className='form-cadastro' onSubmit={this.handleSubmit}>
           <div className='nome form-group'>
             <label>Nome Completo: </label>
             <input className='form-control' type='text' name='nome' id='nome' value={this.state.nome} onChange={this.handleNomeChange} />
@@ -64,11 +79,11 @@ class Cadastro extends Component {
             <label>Etnia: </label>
             <select className='form-control' value={this.state.etnia} onChange={this.handleEtniaChange}>
               <option > </option>
-              <option > Branco </option>
-              <option > Negro </option>
+              <option > Branca </option>
+              <option > Preta </option>
               <option > Indígena </option>
-              <option > Amarelo </option>
-              <option > Pardo </option>
+              <option > Amarela </option>
+              <option > Parda </option>
               <option > Prefere Não Declarar </option>
             </select>
           </div>
@@ -84,7 +99,7 @@ class Cadastro extends Component {
 
           <div className='ocupacao form-group'>
             <label>Ocupação: </label>
-            <input
+            <input value={this.state.ocupacacao} onChange={this.handleOcupaChange}
               className='form-control'
               type='text'
               name='ocupacacao'
@@ -126,19 +141,19 @@ class Cadastro extends Component {
             <label>Moradia: </label> <br />
             <div className='radio'>
               <input name='moradia' id='propria' value='propria' type='radio' />
-              <label for='propria'> Própria </label>
+              <label> Própria </label>
             </div>
             <div className='radio'>
               <input name='moradia' id='alugada' value='alugada' type='radio' />
-              <label for='alugada'> Alugada </label>
+              <label> Alugada </label>
             </div>
             <div className='radio'>
               <input name='moradia' id='cedida' value='cedida' type='radio' />
-              <label for='cedida'> Cedida </label>
+              <label> Cedida </label>
             </div>
             <div className='radio'>
               <input name='moradia' id='moradia' value='outros' type='radio' />
-              <label for='outros'> Outros </label>
+              <label> Outros </label>
             </div>
           </div>
 
@@ -207,7 +222,7 @@ class Cadastro extends Component {
                 value='feminino'
                 type='radio'
               />
-              <label for='feminino'> Feminino </label>
+              <label> Feminino </label>
             </div>
 
             <div className='radio'>
@@ -217,16 +232,16 @@ class Cadastro extends Component {
                 value='masculino'
                 type='radio'
               />
-              <label for='masculino'> Masculino </label>
+              <label> Masculino </label>
             </div>
 
             <div className='radio'>
               <input name='genero' id='outros' type='radio' />
-              <label for='outros'> Outros </label>
+              <label> Outros </label>
             </div>
 
             <div className='form-group'>
-              <label for='obervacoes'>OBS:</label>
+              <label>OBS:</label>
               <input
                 id='observacoes'
                 className='form-control'
@@ -236,7 +251,7 @@ class Cadastro extends Component {
           </div>
           <div className='salvar'>
             <input
-              className='btn btn-primary btn-raised'
+              className='btn btn-secundary btn-raised'
               type='submit'
               value='Salvar'
             />
