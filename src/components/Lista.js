@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import Header from './Header'
 
 class Lista extends Component {
   render() {
     return (
       <div className='lista'>
-        <h2>Lista</h2>
-        <table class="table">
+        <Header title="Lista"/>
+        <table className="table">
           <tbody>
             <tr>
               <td>Ingrid</td>
@@ -21,7 +22,6 @@ class Lista extends Component {
             </tr>
           </tbody>
         </table>
-
       </div>
     )
   }
