@@ -54,6 +54,7 @@ class Cadastro extends Component {
         <h2 className=''>Cadastro</h2>
         <form className='form-cadastro' onSubmit={this.handleSubmit}>
           <div className='nome form-group'>
+          
             <label>Nome Completo: </label>
             <input className='form-control' type='text' name='nome' id='nome' value={this.state.nome} onChange={this.handleNomeChange} />
           </div>
@@ -102,7 +103,7 @@ class Cadastro extends Component {
             <input value={this.state.ocupacacao} onChange={this.handleOcupaChange}
               className='form-control'
               type='text'
-              name='ocupacacao'
+              name='ocupacao'
               id='ocupacao'
             />
           </div>
