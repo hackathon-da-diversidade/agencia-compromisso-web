@@ -1,91 +1,87 @@
 import React, { Component } from 'react'
 
 class Cadastro extends Component {
-
   constructor(props) {
-    super(props);
-    this.state = 
-    {
+    super(props)
+    this.state = {
       nome: '',
       escolaridade: '',
-      etnia: '',
-      ocupacacao: '',
-    };
+      etnia: ''
+    }
 
-    this.onNomeChange = this.handleNomeChange.bind(this);
-    this.onEscolaridadeChange = this.handleEscolaridadeChange.bind(this);
-    this.onEtniaChange = this.handleEtniaChange.bind(this);
-    this.onOcupaChange = this.handleOcupaChange.bind(this);
-    
-    this.handleSubmit = this.handleSubmit.bind(this);
-    
+    this.onNomeChange = this.handleNomeChange.bind(this)
+    this.onEscolaridadeChange = this.handleEscolaridadeChange.bind(this)
+    this.onEtniaChange = this.handleEtniaChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleNomeChange = (e) => {
-    this.setState({nome :  e.target.value});  
-  }
-  
-  handleEscolaridadeChange = (e) => {
-    this.setState({escolaridade :  e.target.value});  
+  handleNomeChange = e => {
+    this.setState({ nome: e.target.value })
   }
 
-  handleEtniaChange = (e) => {
-    this.setState({etnia :  e.target.value});  
+  handleEscolaridadeChange = e => {
+    this.setState({ escolaridade: e.target.value })
   }
 
-  handleOcupaChange = (e) => {
-    this.setState({ocupacacao :  e.target.value});  
+  handleEtniaChange = e => {
+    this.setState({ etnia: e.target.value })
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    
-    const data = this.state;
-
-    fetch('http://agencia-compromisso-api.herokuapp.com/create', {
-      method : 'POST',
-      body: data
-    });
-  }
+  handleSubmit = () => {}
 
   render() {
     return (
       <div className='cadastro'>
         <h2 className=''>Cadastro</h2>
-        <form className='form-cadastro' onSubmit={this.handleSubmit}>
+        <form className='form-cadastro'>
           <div className='nome form-group'>
           
             <label>Nome Completo: </label>
-            <input className='form-control' type='text' name='nome' id='nome' value={this.state.nome} onChange={this.handleNomeChange} />
+            <input
+              className='form-control'
+              type='text'
+              name='nome'
+              id='nome'
+              value={this.state.nome}
+              onChange={this.handleNomeChange}
+            />
           </div>
 
           <div className='escolaridade form-group'>
             <label>Escolaridade: </label>
-            <select className='form-control' value={this.state.escolaridade} onChange={this.handleEscolaridadeChange}>
+            <select
+              className='form-control'
+              value={this.state.escolaridade}
+              onChange={this.handleEscolaridadeChange}
+            >
               <option> </option>
               <option> Sem Escolaridade </option>
-              <option > Ensino Fundamental </option>
-              <option > Ensino Fundamental Incompleto </option>
-              <option > Ensino Fundamental Completo </option>
-              <option > Ensino Médio Incompleto </option>
-              <option > Ensino Médio Completo </option>
-              <option > Ensino Técnico Incompleto </option>
-              <option > Ensino Técnico Completo </option>
-              <option > Ensino Superior Incompleto </option>
-              <option > Ensino Superior Completo </option>
+              <option> Ensino Fundamental </option>
+              <option> Ensino Fundamental Incompleto </option>
+              <option> Ensino Fundamental Completo </option>
+              <option> Ensino Médio Incompleto </option>
+              <option> Ensino Médio Completo </option>
+              <option> Ensino Técnico Incompleto </option>
+              <option> Ensino Técnico Completo </option>
+              <option> Ensino Superior Incompleto </option>
+              <option> Ensino Superior Completo </option>
             </select>
           </div>
 
           <div className='etnia form-group'>
             <label>Etnia: </label>
-            <select className='form-control' value={this.state.etnia} onChange={this.handleEtniaChange}>
-              <option > </option>
-              <option > Branca </option>
-              <option > Preta </option>
-              <option > Indígena </option>
-              <option > Amarela </option>
-              <option > Parda </option>
-              <option > Prefere Não Declarar </option>
+            <select
+              className='form-control'
+              value={this.state.etnia}
+              onChange={this.handleEtniaChange}
+            >
+              <option> </option>
+              <option> Branco </option>
+              <option> Negro </option>
+              <option> Indígena </option>
+              <option> Amarelo </option>
+              <option> Pardo </option>
+              <option> Prefere Não Declarar </option>
             </select>
           </div>
           <div className='idade form-group'>
@@ -100,7 +96,7 @@ class Cadastro extends Component {
 
           <div className='ocupacao form-group'>
             <label>Ocupação: </label>
-            <input value={this.state.ocupacacao} onChange={this.handleOcupaChange}
+            <input
               className='form-control'
               type='text'
               name='ocupacao'
@@ -142,19 +138,19 @@ class Cadastro extends Component {
             <label>Moradia: </label> <br />
             <div className='radio'>
               <input name='moradia' id='propria' value='propria' type='radio' />
-              <label> Própria </label>
+              <label for='propria'> Própria </label>
             </div>
             <div className='radio'>
               <input name='moradia' id='alugada' value='alugada' type='radio' />
-              <label> Alugada </label>
+              <label for='alugada'> Alugada </label>
             </div>
             <div className='radio'>
               <input name='moradia' id='cedida' value='cedida' type='radio' />
-              <label> Cedida </label>
+              <label for='cedida'> Cedida </label>
             </div>
             <div className='radio'>
               <input name='moradia' id='moradia' value='outros' type='radio' />
-              <label> Outros </label>
+              <label for='outros'> Outros </label>
             </div>
           </div>
 
@@ -223,7 +219,7 @@ class Cadastro extends Component {
                 value='feminino'
                 type='radio'
               />
-              <label> Feminino </label>
+              <label for='feminino'> Feminino </label>
             </div>
 
             <div className='radio'>
@@ -233,16 +229,16 @@ class Cadastro extends Component {
                 value='masculino'
                 type='radio'
               />
-              <label> Masculino </label>
+              <label for='masculino'> Masculino </label>
             </div>
 
             <div className='radio'>
               <input name='genero' id='outros' type='radio' />
-              <label> Outros </label>
+              <label for='outros'> Outros </label>
             </div>
 
             <div className='form-group'>
-              <label>OBS:</label>
+              <label for='obervacoes'>OBS:</label>
               <input
                 id='observacoes'
                 className='form-control'
@@ -252,7 +248,7 @@ class Cadastro extends Component {
           </div>
           <div className='salvar'>
             <input
-              className='btn btn-secundary btn-raised'
+              className='btn btn-secondary btn-raised'
               type='submit'
               value='Salvar'
             />

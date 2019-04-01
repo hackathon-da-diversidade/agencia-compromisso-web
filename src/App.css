@@ -86,4 +86,11 @@ ul li {
   margin-top: 40px;
 }
 
-/* background-color: #ffc42e */
+.header .header-title {
+    float: left;
+}
+.header .header-icon {
+    float: left;
+    height: 5vh;
+    margin: 2px;
+}
