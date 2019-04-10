@@ -4,7 +4,7 @@ import Input from '../UI/Input/Input';
 class Cadastro extends Component {
 
   state = {
-    form: {
+    personalDataForm: {
       name: {
         elementType: 'input',
         elementConfig: {
@@ -31,6 +31,137 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
+      address: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'Endereço'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      neighborhood: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'Número'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      number: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Bairro'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      zipCode: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'CEP'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      // TODO - mudar para Radio Button
+      genre: {
+        elementType: 'select',
+        elementConfig: {
+          label: 'Gênero',
+          options: [
+            {
+              value: 'feminino',
+              displayValue: 'Feminino'
+            },
+            {
+              value: 'masculino',
+              displayValue: 'Masculino'
+            },
+            {
+              value: 'outros',
+              displayValue: 'Outros'
+            }
+          ]
+        },
+        validation: {},
+        valid: true
+      },
+    },
+    sizeForm: {
+      bust: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Circuferência Total do Busto (cm):'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      waist: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Circuferência Total da Cintura Alta (cm):'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      hip: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Circuferência do Quadril (cm):'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      height: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Altura:'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+    },
+    socialForm: {
       job: {
         elementType: 'input',
         elementConfig: {
@@ -190,133 +321,9 @@ class Cadastro extends Component {
         validation: {},
         valid: true
       },
-      address: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          label: 'Endereço'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      neighborhood: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          label: 'Número'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      number: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          label: 'Bairro'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      zipCode: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          label: 'CEP'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      bust: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          label: 'Circuferência Total do Busto (cm):'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      waist: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          label: 'Circuferência Total da Cintura Alta (cm):'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      hip: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          label: 'Circuferência do Quadril (cm):'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      height: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'number',
-          label: 'Altura:'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
-      // TODO - mudar para Radio Button
-      genre: {
-        elementType: 'select',
-        elementConfig: {
-          label: 'Gênero',
-          options: [
-            {
-              value: 'feminino',
-              displayValue: 'Feminino'
-            },
-            {
-              value: 'masculino',
-              displayValue: 'Masculino'
-            },
-            {
-              value: 'outros',
-              displayValue: 'Outros'
-            }
-          ]
-        },
-        validation: {},
-        valid: true
-      },
+      
+      
+      
       comments: {
         elementType: 'input',
         elementConfig: {
@@ -335,9 +342,9 @@ class Cadastro extends Component {
     loading: false
   }
 
-  inputChangedHandler = (event, inputIdentifier) => {
+  socialHandler = (event, inputIdentifier) => {
     const updatedForm = {
-      ...this.state.form
+      ...this.state.socialForm
     }
     const updatedFormElement = { ...updatedForm[inputIdentifier] }
 
@@ -356,7 +363,59 @@ class Cadastro extends Component {
     }
 
     this.setState({
-      form: updatedForm,
+      socialForm: updatedForm,
+      formIsValid: formIsValid
+    });
+  }
+
+  personalDataHandler = (event, inputIdentifier) => {
+    const updatedForm = {
+      ...this.state.personalDataForm
+    }
+    const updatedFormElement = { ...updatedForm[inputIdentifier] }
+
+    updatedFormElement.value = event.target.value;
+
+    // TODO
+    updatedFormElement.valid = true;
+
+    updatedFormElement.touched = true;
+
+    updatedForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedForm) {
+      formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+    }
+
+    this.setState({
+      personalDataForm: updatedForm,
+      formIsValid: formIsValid
+    });
+  }
+
+  sizeHandler = (event, inputIdentifier) => {
+    const updatedForm = {
+      ...this.state.sizeForm
+    }
+    const updatedFormElement = { ...updatedForm[inputIdentifier] }
+
+    updatedFormElement.value = event.target.value;
+
+    // TODO
+    updatedFormElement.valid = true;
+
+    updatedFormElement.touched = true;
+
+    updatedForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedForm) {
+      formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+    }
+
+    this.setState({
+      sizeForm: updatedForm,
       formIsValid: formIsValid
     });
   }
@@ -364,16 +423,30 @@ class Cadastro extends Component {
   handleSubmit = () => { }
 
   render() {
-    const formElements = [];
-    for (let key in this.state.form) {
-      formElements.push({
+    const personalDataFormElements = [];
+    for (let key in this.state.personalDataForm) {
+      personalDataFormElements.push({
         id: key,
-        config: this.state.form[key]
+        config: this.state.personalDataForm[key]
       })
     }
-    let form = (
+    const sizeFormElements = [];
+    for (let key in this.state.sizeForm) {
+      sizeFormElements.push({
+        id: key,
+        config: this.state.sizeForm[key]
+      })
+    }
+    const socialFormElements = [];
+    for (let key in this.state.socialForm) {
+      socialFormElements.push({
+        id: key,
+        config: this.state.socialForm[key]
+      })
+    }
+    let personalDataForm = (
       <form onSubmit={this.handleSubmit}>
-        {formElements.map(formElement => (
+        {personalDataFormElements.map(formElement => (
           <Input
             label={formElement.config.elementConfig.label}
             key={formElement.id}
@@ -383,14 +456,48 @@ class Cadastro extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+            changed={(event) => this.personalDataHandler(event, formElement.id)} />
+        ))}
+      </form>
+    );
+    let sizeForm = (
+      <form onSubmit={this.handleSubmit}>
+        {sizeFormElements.map(formElement => (
+          <Input
+            label={formElement.config.elementConfig.label}
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
+            changed={(event) => this.sizeHandler(event, formElement.id)} />
+        ))}
+      </form>
+    );
+    let socialForm = (
+      <form onSubmit={this.handleSubmit}>
+        {socialFormElements.map(formElement => (
+          <Input
+            label={formElement.config.elementConfig.label}
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
+            changed={(event) => this.socialHandler(event, formElement.id)} />
         ))}
       </form>
     );
     return (
       <div className='cadastro'>
         <h2 className=''>Cadastro</h2>
-        {form}
+        {personalDataForm}
+        {sizeForm}
+        {socialForm}
       </div>
     )
   }
