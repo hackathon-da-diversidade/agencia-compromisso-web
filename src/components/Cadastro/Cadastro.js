@@ -1,90 +1,168 @@
 import React, { Component } from 'react'
+import Input from '../UI/Input/Input';
 
 class Cadastro extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      nome: '',
-      escolaridade: '',
-      etnia: ''
+
+    state = {
+      form: {
+          name: {
+              elementType: 'input',
+              elementConfig: {
+                  type: 'text',
+                  label: 'Nome'
+              },
+              value: '',
+              validation: {
+                  required: true
+              },
+              valid: false,
+              touched: false
+          },
+          schooling: {
+              elementType: 'select',
+              elementConfig: {
+                label: 'Escolariade',
+                  options: [
+                      {
+                          value: 'sem-escolaridade',
+                          displayValue: 'Sem Escolaridade'
+                      },
+                      {
+                        value: 'fundamental-incompleto',
+                        displayValue: 'Ensino Fundamental Incompleto'
+                      },
+                      {
+                        value: 'fundamental-completo',
+                        displayValue: 'Ensino Fundamental Completo'
+                      },
+                      {
+                        value: 'medio-incompleto',
+                        displayValue: 'Ensino Médio Incompleto'
+                      },
+                      {
+                        value: 'medio-completo',
+                        displayValue: 'Ensino Médio Completo'
+                      },
+                      {
+                        value: 'tecnico-incompleto',
+                        displayValue: 'Ensino Técnico Incompleto'
+                      },
+                      {
+                        value: 'tecnico-completo',
+                        displayValue: 'Ensino Técnico Completo'
+                      },
+                      {
+                        value: 'superior-incompleto',
+                        displayValue: 'Ensino Superior Incompleto'
+                      },
+                      {
+                        value: 'superior-completo',
+                        displayValue: 'Ensino Superior Completo'
+                      },
+                  ]
+              },
+              value: 'teste',
+              validation: {},
+              valid: true           
+          },
+          race: {
+            elementType: 'select',
+            elementConfig: {
+              label: 'Raça',
+                options: [
+                    {
+                        value: 'branco',
+                        displayValue: 'Branco'
+                    },
+                    {
+                      value: 'negro',
+                      displayValue: 'Negro'
+                    },
+                    {
+                      value: 'indigena',
+                      displayValue: 'Indígena'
+                    },
+                    {
+                      value: 'asiatico',
+                      displayValue: 'Asiático'
+                    },
+                    {
+                      value: 'pardo',
+                      displayValue: 'Pardo'
+                    },
+                    {
+                      value: 'nao-declara',
+                      displayValue: 'Prefere Não Declarar'
+                    },
+                ]
+            },
+            value: 'teste',
+            validation: {},
+            valid: true           
+        }
+      },
+      formIsValid: false,
+      loading: false
+  }
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedForm = {
+        ...this.state.form
+    }
+    const updatedFormElement = { ...updatedForm[inputIdentifier] }
+    
+    updatedFormElement.value = event.target.value;
+
+    // TODO
+    updatedFormElement.valid = true;
+
+    updatedFormElement.touched = true; 
+
+    updatedForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedForm) {
+        formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
     }
 
-    this.onNomeChange = this.handleNomeChange.bind(this)
-    this.onEscolaridadeChange = this.handleEscolaridadeChange.bind(this)
-    this.onEtniaChange = this.handleEtniaChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleNomeChange = e => {
-    this.setState({ nome: e.target.value })
-  }
-
-  handleEscolaridadeChange = e => {
-    this.setState({ escolaridade: e.target.value })
-  }
-
-  handleEtniaChange = e => {
-    this.setState({ etnia: e.target.value })
-  }
+    this.setState({
+        form: updatedForm,
+        formIsValid: formIsValid
+    });
+}
 
   handleSubmit = () => {}
 
   render() {
+      const formElements = [];
+        for (let key in this.state.form) {
+            formElements.push({
+                id: key,
+                config: this.state.form[key]
+            })
+        }
+        let form = (                
+            <form onSubmit={this.handleSubmit}>
+                {formElements.map(formElement => (
+                    <Input 
+                    label={formElement.config.elementConfig.label}
+                    key={formElement.id}
+                    elementType={formElement.config.elementType}
+                    elementConfig={formElement.config.elementConfig}
+                    value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldValidate={formElement.config.validation}
+                    touched={formElement.config.touched}
+                    changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                ))}
+            </form>
+        );
     return (
       <div className='cadastro'>
         <h2 className=''>Cadastro</h2>
-        <form className='form-cadastro'>
-          <div className='nome form-group'>
-          
-            <label>Nome Completo: </label>
-            <input
-              className='form-control'
-              type='text'
-              name='nome'
-              id='nome'
-              value={this.state.nome}
-              onChange={this.handleNomeChange}
-            />
-          </div>
-
-          <div className='escolaridade form-group'>
-            <label>Escolaridade: </label>
-            <select
-              className='form-control'
-              value={this.state.escolaridade}
-              onChange={this.handleEscolaridadeChange}
-            >
-              <option> </option>
-              <option> Sem Escolaridade </option>
-              <option> Ensino Fundamental </option>
-              <option> Ensino Fundamental Incompleto </option>
-              <option> Ensino Fundamental Completo </option>
-              <option> Ensino Médio Incompleto </option>
-              <option> Ensino Médio Completo </option>
-              <option> Ensino Técnico Incompleto </option>
-              <option> Ensino Técnico Completo </option>
-              <option> Ensino Superior Incompleto </option>
-              <option> Ensino Superior Completo </option>
-            </select>
-          </div>
-
-          <div className='etnia form-group'>
-            <label>Etnia: </label>
-            <select
-              className='form-control'
-              value={this.state.etnia}
-              onChange={this.handleEtniaChange}
-            >
-              <option> </option>
-              <option> Branco </option>
-              <option> Negro </option>
-              <option> Indígena </option>
-              <option> Amarelo </option>
-              <option> Pardo </option>
-              <option> Prefere Não Declarar </option>
-            </select>
-          </div>
-          <div className='idade form-group'>
+          {form}
+     
+         {/*  <div className='idade form-group'>
             <label>Idade: </label>
             <input
               className='form-control'
@@ -252,8 +330,7 @@ class Cadastro extends Component {
               type='submit'
               value='Salvar'
             />
-          </div>
-        </form>
+          </div> */}
       </div>
     )
   }

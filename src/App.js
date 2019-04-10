@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Lista from './components/Lista'
 import Menu from './components/Menu'
-import Cadastro from './components/Cadastro'
+import Cadastro from './components/Cadastro/Cadastro'
 import './App.css'
 
 class App extends Component {

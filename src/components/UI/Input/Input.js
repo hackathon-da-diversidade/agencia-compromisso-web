@@ -19,10 +19,9 @@ const input = (props) => {
             break;
         case ('select'):
             inputElement = (
-                <select value={props.value}>
+                <select value={props.value} onChange={props.changed}>
                     {props.elementConfig.options.map(option => (
                         <option 
-                        onChange={props.changed}
                         key={option.value}
                         value={option.value}> 
                         {option.displayValue} </option>
