@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import Input from '../UI/Input/Input';
+import DadosBasicos from './DadosBasicos/DadosBasicos';
+import Medidas from './Medidas/Medidas';
+import Social from './Social/Social';
 
 class Cadastro extends Component {
 
@@ -44,10 +46,10 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      neighborhood: {
+      number: {
         elementType: 'input',
         elementConfig: {
-          type: 'text',
+          type: 'number',
           label: 'Número'
         },
         value: '',
@@ -57,10 +59,10 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      number: {
+      neighborhood: {
         elementType: 'input',
         elementConfig: {
-          type: 'number',
+          type: 'text',
           label: 'Bairro'
         },
         value: '',
@@ -342,29 +344,30 @@ class Cadastro extends Component {
     loading: false
   }
 
-  socialHandler = (event, inputIdentifier) => {
-    const updatedForm = {
-      ...this.state.socialForm
-    }
+  setUpdatedForm = (updatedForm, event, inputIdentifier) => {
     const updatedFormElement = { ...updatedForm[inputIdentifier] }
-
     updatedFormElement.value = event.target.value;
 
     // TODO
     updatedFormElement.valid = true;
-
     updatedFormElement.touched = true;
-
     updatedForm[inputIdentifier] = updatedFormElement;
 
     let formIsValid = true;
     for (let inputIdentifier in updatedForm) {
       formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
     }
+    return { updatedForm, formIsValid };
+  }
 
+  socialHandler = (event, inputIdentifier) => {
+    const updatedForm = {
+      ...this.state.socialForm
+    }
+    const newForm = this.setUpdatedForm(updatedForm, event, inputIdentifier);
     this.setState({
-      socialForm: updatedForm,
-      formIsValid: formIsValid
+      socialForm: newForm.updatedForm,
+      formIsValid: newForm.formIsValid
     });
   }
 
@@ -372,25 +375,10 @@ class Cadastro extends Component {
     const updatedForm = {
       ...this.state.personalDataForm
     }
-    const updatedFormElement = { ...updatedForm[inputIdentifier] }
-
-    updatedFormElement.value = event.target.value;
-
-    // TODO
-    updatedFormElement.valid = true;
-
-    updatedFormElement.touched = true;
-
-    updatedForm[inputIdentifier] = updatedFormElement;
-
-    let formIsValid = true;
-    for (let inputIdentifier in updatedForm) {
-      formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
-    }
-
+    const newForm = this.setUpdatedForm(updatedForm, event, inputIdentifier);
     this.setState({
-      personalDataForm: updatedForm,
-      formIsValid: formIsValid
+      personalDataForm: newForm.updatedForm,
+      formIsValid: newForm.formIsValid
     });
   }
 
@@ -398,106 +386,33 @@ class Cadastro extends Component {
     const updatedForm = {
       ...this.state.sizeForm
     }
-    const updatedFormElement = { ...updatedForm[inputIdentifier] }
-
-    updatedFormElement.value = event.target.value;
-
-    // TODO
-    updatedFormElement.valid = true;
-
-    updatedFormElement.touched = true;
-
-    updatedForm[inputIdentifier] = updatedFormElement;
-
-    let formIsValid = true;
-    for (let inputIdentifier in updatedForm) {
-      formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
-    }
-
+    const newForm = this.setUpdatedForm(updatedForm, event, inputIdentifier);
     this.setState({
-      sizeForm: updatedForm,
-      formIsValid: formIsValid
+      sizeForm: newForm.updatedForm,
+      formIsValid: newForm.formIsValid
     });
   }
 
-  handleSubmit = () => { }
+  handleSubmit = () => {
+    console.log(this.state.personalDataForm);
+    console.log(this.state.sizeForm);
+    console.log(this.state.socialForm);
+
+   }
 
   render() {
-    const personalDataFormElements = [];
-    for (let key in this.state.personalDataForm) {
-      personalDataFormElements.push({
-        id: key,
-        config: this.state.personalDataForm[key]
-      })
-    }
-    const sizeFormElements = [];
-    for (let key in this.state.sizeForm) {
-      sizeFormElements.push({
-        id: key,
-        config: this.state.sizeForm[key]
-      })
-    }
-    const socialFormElements = [];
-    for (let key in this.state.socialForm) {
-      socialFormElements.push({
-        id: key,
-        config: this.state.socialForm[key]
-      })
-    }
-    let personalDataForm = (
-      <form onSubmit={this.handleSubmit}>
-        {personalDataFormElements.map(formElement => (
-          <Input
-            label={formElement.config.elementConfig.label}
-            key={formElement.id}
-            elementType={formElement.config.elementType}
-            elementConfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            shouldValidate={formElement.config.validation}
-            touched={formElement.config.touched}
-            changed={(event) => this.personalDataHandler(event, formElement.id)} />
-        ))}
-      </form>
-    );
-    let sizeForm = (
-      <form onSubmit={this.handleSubmit}>
-        {sizeFormElements.map(formElement => (
-          <Input
-            label={formElement.config.elementConfig.label}
-            key={formElement.id}
-            elementType={formElement.config.elementType}
-            elementConfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            shouldValidate={formElement.config.validation}
-            touched={formElement.config.touched}
-            changed={(event) => this.sizeHandler(event, formElement.id)} />
-        ))}
-      </form>
-    );
-    let socialForm = (
-      <form onSubmit={this.handleSubmit}>
-        {socialFormElements.map(formElement => (
-          <Input
-            label={formElement.config.elementConfig.label}
-            key={formElement.id}
-            elementType={formElement.config.elementType}
-            elementConfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            shouldValidate={formElement.config.validation}
-            touched={formElement.config.touched}
-            changed={(event) => this.socialHandler(event, formElement.id)} />
-        ))}
-      </form>
-    );
     return (
-      <div className='cadastro'>
-        <h2 className=''>Cadastro</h2>
-        {personalDataForm}
-        {sizeForm}
-        {socialForm}
+      <div>
+        <DadosBasicos 
+        data={this.state.personalDataForm}
+        changeHandler={this.personalDataHandler}></DadosBasicos>
+        <Medidas 
+        data={this.state.sizeForm}
+        changeHandler={this.sizeHandler}></Medidas>
+        <Social 
+        data={this.state.socialForm}
+        changeHandler={this.socialHandler}></Social>
+        <button onClick={this.handleSubmit}> Enviar </button>
       </div>
     )
   }

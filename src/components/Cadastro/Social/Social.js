@@ -1,18 +1,18 @@
 import React from 'react'
 import Input from '../../UI/Input/Input';
 
-const dadosBasicos = (props) => {
-        const personalDataFormElements = [];
+const social = (props) => {
+        const socialFormElements = [];
         for (let key in props.data) {
-        personalDataFormElements.push({
+          socialFormElements.push({
             id: key,
             config: props.data[key]
         })
         }
 
-        let personalDataForm = (
+        let socialForm = (
             <form>
-              {personalDataFormElements.map(formElement => (
+              {socialFormElements.map(formElement => (
                 <Input
                   label={formElement.config.elementConfig.label}
                   key={formElement.id}
@@ -27,8 +27,8 @@ const dadosBasicos = (props) => {
             </form>
           );
         return (
-            personalDataForm
+            socialForm
         );
 }
 
-export default dadosBasicos;
+export default social;
