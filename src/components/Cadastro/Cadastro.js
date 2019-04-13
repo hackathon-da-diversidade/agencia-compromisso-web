@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { registrationType } from './registrationType';
+import { ModeloFactory } from './ModeloFactory';
 
 import DadosBasicos from './DadosBasicos/DadosBasicos';
 import Medidas from './Medidas/Medidas';
@@ -19,6 +20,19 @@ class Cadastro extends Component {
         elementConfig: {
           type: 'text',
           label: 'Nome'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          label: 'Email'
         },
         value: '',
         validation: {
@@ -404,7 +418,35 @@ class Cadastro extends Component {
   }
 
   handleSubmit = () => {
-    // TODO - salvar 
+    const personalDataForm = this.state.personalDataForm;
+    const sizeForm = this.state.sizeForm;
+    const socialForm = this.state.socialForm;
+
+    const model = ModeloFactory({
+      name: personalDataForm.name.value,
+      age: '',
+      email: personalDataForm.email.value,
+      number: personalDataForm.number.value,
+      address: personalDataForm.address.value,
+      neighborhood: '',
+      zipCode: '',
+      genre: personalDataForm.genre.value,
+      bust: sizeForm.bust.value,
+      waist: sizeForm.waist.value,
+      hip: sizeForm.hip.value,
+      height: sizeForm.height.value,
+      job: socialForm.job.value,
+      schooling: socialForm.schooling.value,
+      race: socialForm.race.value,
+      people: socialForm.people.value,
+      income: socialForm.income.value,
+      children: socialForm.children.value,
+      housing: socialForm.housing.value,
+      LGBTQI: '',
+      comments: socialForm.comments.value
+    });
+
+    console.log(model);
    }
 
   render() {
