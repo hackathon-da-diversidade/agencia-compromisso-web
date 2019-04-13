@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+
+import { registrationType } from './registrationType';
+
 import DadosBasicos from './DadosBasicos/DadosBasicos';
 import Medidas from './Medidas/Medidas';
 import Social from './Social/Social';
-import { registrationType } from './registrationType';
 import Header from '../Header'
+import Button from '../UI/Button/Button';
+
 import classes from './Cadastro.module.css';
 
 class Cadastro extends Component {
@@ -416,7 +420,7 @@ class Cadastro extends Component {
         <Social 
         data={this.state.socialForm}
         changeHandler={this.changeHandler}></Social>
-        <button onClick={this.handleSubmit}> Enviar </button>
+        <Button clicked={this.handleSubmit}> Salvar </Button>
       </div>
     )
   }
