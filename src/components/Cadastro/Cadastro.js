@@ -345,11 +345,19 @@ class Cadastro extends Component {
     loading: false
   }
 
+  changeHandler = (event, inputIdentifier, type) => {
+    const currentForm = {
+      ...this.state[type]
+    }
+    const updatedForm = this.setUpdatedForm(currentForm, event, inputIdentifier);
+    this.setState(this.updateState(updatedForm, type))
+  }
+
   setUpdatedForm = (form, event, inputIdentifier) => {
     const updatedFormElement = { ...form[inputIdentifier] }
     updatedFormElement.value = event.target.value;
 
-    // TODO
+    // TODO - validação 
     updatedFormElement.valid = true;
     updatedFormElement.touched = true;
     form[inputIdentifier] = updatedFormElement;
@@ -359,14 +367,6 @@ class Cadastro extends Component {
       formIsValid = form[inputIdentifier].valid && formIsValid;
     }
     return { form, formIsValid };
-  }
-
-  changeHandler = (event, inputIdentifier, type) => {
-    const currentForm = {
-      ...this.state[type]
-    }
-    const updatedForm = this.setUpdatedForm(currentForm, event, inputIdentifier);
-    this.setState(this.updateState(updatedForm, type))
   }
 
   updateState = (updatedForm, type) => {
