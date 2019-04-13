@@ -71,11 +71,3 @@ ul li {
   margin-top: 40px;
 }
 
-.header .header-title {
-    float: left;
-}
-.header .header-icon {
-    float: left;
-    height: 5vh;
-    margin: 2px;
-}

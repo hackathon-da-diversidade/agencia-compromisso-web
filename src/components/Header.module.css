@@ -1,0 +1,12 @@
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.HeaderIcon {
+    float: left;
+    width: 10vh;
+    margin: 2px;
+    padding: 20px 0;
+}

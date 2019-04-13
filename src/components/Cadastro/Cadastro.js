@@ -401,7 +401,7 @@ class Cadastro extends Component {
   render() {
     return (
       <div className={classes.Cadastro}>
-        <Header title="Cadastro"/>
+        <Header/>
         <DadosBasicos 
         data={this.state.personalDataForm}
         changeHandler={this.changeHandler}></DadosBasicos>
