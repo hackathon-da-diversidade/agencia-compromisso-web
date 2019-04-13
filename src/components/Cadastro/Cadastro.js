@@ -3,6 +3,8 @@ import DadosBasicos from './DadosBasicos/DadosBasicos';
 import Medidas from './Medidas/Medidas';
 import Social from './Social/Social';
 import { registrationType } from './registrationType';
+import Header from '../Header';
+import classes from './Cadastro.module.css';
 
 class Cadastro extends Component {
 
@@ -393,15 +395,13 @@ class Cadastro extends Component {
   }
 
   handleSubmit = () => {
-    console.log(this.state.personalDataForm);
-    console.log(this.state.sizeForm);
-    console.log(this.state.socialForm);
-
+    // TODO - salvar 
    }
 
   render() {
     return (
-      <div>
+      <div className={classes.Cadastro}>
+        <Header title="Cadastro"/>
         <DadosBasicos 
         data={this.state.personalDataForm}
         changeHandler={this.changeHandler}></DadosBasicos>

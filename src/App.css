@@ -67,21 +67,6 @@ ul li {
   height: 100%;
 }
 
-.form-cadastro {
-  width: 70vw;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.form-group {
-  text-align: left;
-  color: #c3c3c3;
-}
-
-.form-cadastro {
-  display: inline-block;
-}
-
 .menu {
   margin-top: 40px;
 }

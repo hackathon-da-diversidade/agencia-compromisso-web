@@ -1,0 +1,11 @@
+.Cadastro form {
+    display: inline-block;
+    width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Cadastro form .FormGroup {
+    text-align: left;
+    color: #c3c3c3;
+}
