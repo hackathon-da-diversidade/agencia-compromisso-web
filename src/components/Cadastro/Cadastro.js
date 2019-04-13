@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import DadosBasicos from './DadosBasicos/DadosBasicos';
 import Medidas from './Medidas/Medidas';
 import Social from './Social/Social';
+import { registrationType } from './registrationType';
 
 class Cadastro extends Component {
 
@@ -344,53 +345,51 @@ class Cadastro extends Component {
     loading: false
   }
 
-  setUpdatedForm = (updatedForm, event, inputIdentifier) => {
-    const updatedFormElement = { ...updatedForm[inputIdentifier] }
+  setUpdatedForm = (form, event, inputIdentifier) => {
+    const updatedFormElement = { ...form[inputIdentifier] }
     updatedFormElement.value = event.target.value;
 
     // TODO
     updatedFormElement.valid = true;
     updatedFormElement.touched = true;
-    updatedForm[inputIdentifier] = updatedFormElement;
+    form[inputIdentifier] = updatedFormElement;
 
     let formIsValid = true;
-    for (let inputIdentifier in updatedForm) {
-      formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+    for (let inputIdentifier in form) {
+      formIsValid = form[inputIdentifier].valid && formIsValid;
     }
-    return { updatedForm, formIsValid };
+    return { form, formIsValid };
   }
 
-  socialHandler = (event, inputIdentifier) => {
-    const updatedForm = {
-      ...this.state.socialForm
+  changeHandler = (event, inputIdentifier, type) => {
+    const currentForm = {
+      ...this.state[type]
     }
-    const newForm = this.setUpdatedForm(updatedForm, event, inputIdentifier);
-    this.setState({
-      socialForm: newForm.updatedForm,
-      formIsValid: newForm.formIsValid
-    });
+    const updatedForm = this.setUpdatedForm(currentForm, event, inputIdentifier);
+    this.setState(this.updateState(updatedForm, type))
   }
 
-  personalDataHandler = (event, inputIdentifier) => {
-    const updatedForm = {
-      ...this.state.personalDataForm
+  updateState = (updatedForm, type) => {
+    let state;
+    switch(type) {
+      case registrationType.PERSONAL:
+        return {
+          personalDataForm: updatedForm.form,
+          formIsValid: updatedForm.formIsVali
+        }
+      case registrationType.SIZE:
+        return {
+          sizeForm: updatedForm.form,
+          formIsValid: updatedForm.formIsValid
+        };
+      case registrationType.SOCIAL:
+        return {
+          socialForm: updatedForm.form,
+          formIsValid: updatedForm.formIsValid
+        };
+      default:
+        return state;
     }
-    const newForm = this.setUpdatedForm(updatedForm, event, inputIdentifier);
-    this.setState({
-      personalDataForm: newForm.updatedForm,
-      formIsValid: newForm.formIsValid
-    });
-  }
-
-  sizeHandler = (event, inputIdentifier) => {
-    const updatedForm = {
-      ...this.state.sizeForm
-    }
-    const newForm = this.setUpdatedForm(updatedForm, event, inputIdentifier);
-    this.setState({
-      sizeForm: newForm.updatedForm,
-      formIsValid: newForm.formIsValid
-    });
   }
 
   handleSubmit = () => {
@@ -405,17 +404,17 @@ class Cadastro extends Component {
       <div>
         <DadosBasicos 
         data={this.state.personalDataForm}
-        changeHandler={this.personalDataHandler}></DadosBasicos>
+        changeHandler={this.changeHandler}></DadosBasicos>
         <Medidas 
         data={this.state.sizeForm}
-        changeHandler={this.sizeHandler}></Medidas>
+        changeHandler={this.changeHandler}></Medidas>
         <Social 
         data={this.state.socialForm}
-        changeHandler={this.socialHandler}></Social>
+        changeHandler={this.changeHandler}></Social>
         <button onClick={this.handleSubmit}> Enviar </button>
       </div>
     )
   }
 }
 
-export default Cadastro
+export default Cadastro;

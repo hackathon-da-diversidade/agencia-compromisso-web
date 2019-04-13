@@ -1,5 +1,6 @@
 import React from 'react'
 import Input from '../../UI/Input/Input';
+import { registrationType } from '../registrationType'
 
 const dadosBasicos = (props) => {
         const personalDataFormElements = [];
@@ -22,7 +23,8 @@ const dadosBasicos = (props) => {
                   invalid={!formElement.config.valid}
                   shouldValidate={formElement.config.validation}
                   touched={formElement.config.touched}
-                  changed={(event) => props.changeHandler(event, formElement.id)} />
+                  changed={
+                    (event) => props.changeHandler(event, formElement.id, registrationType.PERSONAL)} />
               ))}
             </form>
           );
