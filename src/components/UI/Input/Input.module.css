@@ -1,0 +1,41 @@
+.Input {
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #cfcfcf;
+    width: 100%;
+    margin: 10px 0;
+    color: #949494;
+}
+
+.Input:focus {
+    outline-color: transparent;
+}
+
+::-webkit-input-placeholder { 
+    color: #949494;
+    opacity: 1; 
+  }
+:-ms-input-placeholder { 
+    color: #949494;
+    opacity: 1; 
+  }
+::-ms-input-placeholder { 
+    color: #949494;
+    opacity: 1; 
+  }
+::placeholder { 
+    color: #949494;
+    opacity: 1; 
+  }
+
+.LabelForCheckbox {
+    color: #949494;
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+.Checkbox {
+    position: absolute;
+    right: 0;
+}

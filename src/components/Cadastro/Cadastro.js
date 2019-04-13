@@ -3,7 +3,7 @@ import DadosBasicos from './DadosBasicos/DadosBasicos';
 import Medidas from './Medidas/Medidas';
 import Social from './Social/Social';
 import { registrationType } from './registrationType';
-import Header from '../Header';
+import Header from '../Header'
 import classes from './Cadastro.module.css';
 
 class Cadastro extends Component {
@@ -88,7 +88,6 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      // TODO - mudar para Radio Button
       genre: {
         elementType: 'select',
         elementConfig: {
@@ -299,7 +298,6 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      // TODO - alterar para radio button - precisa ser implementado aindan no Input.js
       housing: {
         elementType: 'select',
         elementConfig: {
@@ -326,13 +324,20 @@ class Cadastro extends Component {
         validation: {},
         valid: true
       },
-      
-      
-      
+      LGBTQI: {
+        elementType: 'checkbox',
+        elementConfig: {
+          type: 'checkbox',
+          label: 'LGBTQI+:'
+        },
+        value: false,
+        valid: false,
+        touched: false
+      },
       comments: {
         elementType: 'input',
         elementConfig: {
-          type: 'textarea',
+          type: 'input',
           label: 'Observações:'
         },
         value: '',
