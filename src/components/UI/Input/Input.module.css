@@ -1,10 +1,8 @@
 .Input {
     border: none;
     background-color: transparent;
-    border-bottom: 1px solid #cfcfcf;
     width: 100%;
-    margin: 10px 0;
-    color: #949494;
+    margin-top: 2rem;
 }
 
 .Input:focus {

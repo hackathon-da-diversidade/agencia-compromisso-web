@@ -11,6 +11,13 @@ import Button from '../UI/Button/Button';
 
 import classes from './Cadastro.module.css';
 
+import axios from '../../axios';
+
+// TODO - validação 
+// TODO - resposta após request
+// TODO - datepicker pra data de nascimento
+// TODO - dados do responsável 
+// TODO - LGBTQ não está persistindo 
 class Cadastro extends Component {
 
   state = {
@@ -67,7 +74,20 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      number: {
+      phoneNumber: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Telefone'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      addressNumber: {
         elementType: 'input',
         elementConfig: {
           type: 'number',
@@ -424,12 +444,13 @@ class Cadastro extends Component {
 
     const model = ModeloFactory({
       name: personalDataForm.name.value,
-      age: '',
+      age: personalDataForm.age.value,
       email: personalDataForm.email.value,
-      number: personalDataForm.number.value,
+      phoneNumber: personalDataForm.phoneNumber.value,
+      addressNumber: personalDataForm.addressNumber.value,
       address: personalDataForm.address.value,
-      neighborhood: '',
-      zipCode: '',
+      neighborhood: personalDataForm.neighborhood.value,
+      zipCode: personalDataForm.zipCode.value,
       genre: personalDataForm.genre.value,
       bust: sizeForm.bust.value,
       waist: sizeForm.waist.value,
@@ -442,11 +463,21 @@ class Cadastro extends Component {
       income: socialForm.income.value,
       children: socialForm.children.value,
       housing: socialForm.housing.value,
-      LGBTQI: '',
+      LGBTQI: socialForm.LGBTQI.value,
       comments: socialForm.comments.value
     });
 
-    console.log(model);
+    this.saveModel(model);
+   }
+
+   saveModel = (model) => {
+    axios.post('create', model)
+    .then(res => {
+        // TODO - yay it worked
+    })
+    .catch(err => {
+        // TODO - something
+    })
    }
 
   render() {

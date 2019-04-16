@@ -6,18 +6,20 @@ const input = (props) => {
 
     let inputElement = null;
 
+    const joinedClasses = [classes.Input, 'form-control'].join(' ');
+
     switch(props.elementType) {
         case ('input'):
             inputElement = <input 
             placeholder={props.label}
-            className={classes.Input}
+            className={joinedClasses}
             onChange={props.changed}
             {...props.elementConfig}
             value={props.value}/>
             break;
         case ('textArea'):
             inputElement = <textarea 
-            className={classes.Input}
+            className={joinedClasses}
             onChange={props.changed}
             {...props.elementConfig}
             value={props.value}/>
@@ -37,7 +39,7 @@ const input = (props) => {
         case ('select'):
             inputElement = (
                 <select 
-                className={classes.Input}
+                className={joinedClasses}
                 value={props.value} 
                 onChange={props.changed}>
                 <option key={props.value}>{props.label}</option>
@@ -58,7 +60,7 @@ const input = (props) => {
     }
 
     return(
-        <div>
+        <div className="form-group">
             {inputElement}
         </div>
         );
