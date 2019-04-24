@@ -1,8 +1,7 @@
 export const ModeloFactory = (
     {
         name='', 
-        // TODO - no modelo ta 'nascimento', verificar qual o correto
-        age='', 
+        birth='', 
         email='',
         phoneNumber='',
         addressNumber='',
@@ -27,7 +26,7 @@ export const ModeloFactory = (
     ) => { 
         return {
             nome: name,
-            data_nascimento: 'TODO',
+            data_nascimento: birth,
             email: email,
             telefone: phoneNumber,
             endereco_logradouro: address,

@@ -72,3 +72,7 @@ ul li {
   margin-top: 40px;
 }
 
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  width: 100%;
+}
+

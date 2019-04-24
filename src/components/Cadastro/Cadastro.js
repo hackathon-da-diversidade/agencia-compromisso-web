@@ -15,9 +15,9 @@ import axios from '../../axios';
 
 // TODO - validação 
 // TODO - resposta após request
-// TODO - datepicker pra data de nascimento
 // TODO - dados do responsável 
 // TODO - LGBTQ não está persistindo 
+// TODO - salvar redireciona pra 'lista'
 class Cadastro extends Component {
 
   state = {
@@ -48,11 +48,11 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      age: {
-        elementType: 'input',
+      birth: {
+        elementType: 'date',
         elementConfig: {
-          type: 'number',
-          label: 'Idade'
+          type: 'date',
+          label: 'Data de nascimento'
         },
         value: '',
         validation: {
@@ -220,7 +220,7 @@ class Cadastro extends Component {
       schooling: {
         elementType: 'select',
         elementConfig: {
-          label: 'Escolariade',
+          label: 'Escolaridade',
           options: [
             {
               value: 'sem-escolaridade',
@@ -400,7 +400,11 @@ class Cadastro extends Component {
 
   setUpdatedForm = (form, event, inputIdentifier) => {
     const updatedFormElement = { ...form[inputIdentifier] }
-    updatedFormElement.value = event.target.value;
+    if (event && event.target) {
+      updatedFormElement.value = event.target.value;
+    } else if (event) {
+      updatedFormElement.value = event;
+    }
 
     // TODO - validação 
     updatedFormElement.valid = true;
@@ -444,7 +448,7 @@ class Cadastro extends Component {
 
     const model = ModeloFactory({
       name: personalDataForm.name.value,
-      age: personalDataForm.age.value,
+      birth: personalDataForm.age.value,
       email: personalDataForm.email.value,
       phoneNumber: personalDataForm.phoneNumber.value,
       addressNumber: personalDataForm.addressNumber.value,
@@ -473,7 +477,7 @@ class Cadastro extends Component {
    saveModel = (model) => {
     axios.post('create', model)
     .then(res => {
-        // TODO - yay it worked
+        // TODO - yay it worked - enviar pra outra página 
     })
     .catch(err => {
         // TODO - something

@@ -2,6 +2,13 @@ import React from 'react';
 
 import classes from './Input.module.css';
 
+import DatePicker, { registerLocale } from 'react-datepicker';
+import pt from 'date-fns/locale/pt';
+import "react-datepicker/dist/react-datepicker.css" 
+
+registerLocale('pt', pt);
+
+
 const input = (props) => {
 
     let inputElement = null;
@@ -51,6 +58,17 @@ const input = (props) => {
                     ))}
                 </select>
             )
+            break;
+        case ('date'):
+            inputElement = ( <DatePicker
+                className={joinedClasses}
+                selected={props.value}
+                onChange={props.changed}
+                dateFormat="dd/MM/yyyy"
+                maxDate={new Date()}
+                locale="pt"
+                placeholderText={props.label}
+            /> )
             break;
         default:
             inputElement = <input 

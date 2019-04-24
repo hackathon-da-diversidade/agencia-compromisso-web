@@ -35,7 +35,7 @@ describe('<DadosBasicos />', () => {
                     valid: false,
                     touched: false
                   },
-                  age: {
+                  birth: {
                     elementType: 'input',
                     elementConfig: {
                       type: 'number',
