@@ -40,7 +40,7 @@ const input = (props) => {
                 className={classes.Checkbox}
                 onChange={props.changed}
                 {...props.elementConfig}
-                value={props.value} />
+                checked={props.value} />
             </label>
             break;
         case ('select'):
@@ -62,7 +62,7 @@ const input = (props) => {
         case ('date'):
             inputElement = ( <DatePicker
                 className={joinedClasses}
-                selected={props.value}
+                selected={props.value !== '' ? props.value : null}
                 onChange={props.changed}
                 dateFormat="dd/MM/yyyy"
                 maxDate={new Date()}

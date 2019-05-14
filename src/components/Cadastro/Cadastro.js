@@ -16,7 +16,6 @@ import axios from '../../axios';
 // TODO - validação 
 // TODO - resposta após request
 // TODO - dados do responsável 
-// TODO - LGBTQ não está persistindo 
 // TODO - salvar redireciona pra 'lista'
 class Cadastro extends Component {
 
@@ -400,10 +399,15 @@ class Cadastro extends Component {
 
   setUpdatedForm = (form, event, inputIdentifier) => {
     const updatedFormElement = { ...form[inputIdentifier] }
-    if (event && event.target) {
-      updatedFormElement.value = event.target.value;
-    } else if (event) {
-      updatedFormElement.value = event;
+    switch (inputIdentifier) {
+      case 'LGBTQI':
+        updatedFormElement.value = event.target.checked;
+        break;
+      case 'birth':
+        updatedFormElement.value = event;
+        break;
+      default:
+        updatedFormElement.value = event.target.value;
     }
 
     // TODO - validação 
