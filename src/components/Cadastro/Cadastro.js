@@ -57,6 +57,7 @@ class Cadastro extends Component {
         validation: {
           required: true
         },
+        underage: false,
         valid: false,
         touched: false
       },
@@ -405,6 +406,7 @@ class Cadastro extends Component {
         break;
       case 'birth':
         updatedFormElement.value = event;
+        updatedFormElement.underage = this.calculateAge(event);
         break;
       default:
         updatedFormElement.value = event.target.value;
@@ -420,6 +422,13 @@ class Cadastro extends Component {
       formIsValid = form[inputIdentifier].valid && formIsValid;
     }
     return { form, formIsValid };
+  }
+
+  calculateAge = (birthDate) => { 
+    const dateDiff = Date.now() - birthDate.getTime();
+    const ageDate = new Date(dateDiff); 
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    return age < 18;
   }
 
   updateState = (updatedForm, type) => {
