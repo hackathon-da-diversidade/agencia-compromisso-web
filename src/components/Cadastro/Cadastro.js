@@ -61,6 +61,62 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
+      guardianName: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'Nome da responsável'
+        },
+        value: '',
+        validation: {
+          required: false
+        },
+        hide: true,
+        valid: false,
+        touched: false
+      },
+     guardianBirth: {
+        elementType: 'date',
+        elementConfig: {
+          type: 'date',
+          label: 'Data de nascimento da responsável'
+        },
+        value: '',
+        validation: {
+          required: false
+        },
+        hide: true,
+        valid: false,
+        touched: false
+      },
+      guardianEmail: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          label: 'Email da responsável'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        hide: true,
+        valid: false,
+        touched: false
+      },
+      guardianPhoneNumber: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          label: 'Telefone da responsável'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        hide: true,
+        valid: false,
+        touched: false
+      },
       address: {
         elementType: 'input',
         elementConfig: {
@@ -408,6 +464,9 @@ class Cadastro extends Component {
         updatedFormElement.value = event;
         updatedFormElement.underage = this.calculateAge(event);
         break;
+      case 'guardianBirth':
+        updatedFormElement.value = event;
+        break;
       default:
         updatedFormElement.value = event.target.value;
     }
@@ -461,7 +520,11 @@ class Cadastro extends Component {
 
     const model = ModeloFactory({
       name: personalDataForm.name.value,
-      birth: personalDataForm.age.value,
+      birth: personalDataForm.birth.value,
+      guardianName: personalDataForm.guardianName.value,
+      guardianBirth: personalDataForm.guardianBirth.value,
+      guardianEmail: personalDataForm.guardianEmail.value,
+      guardianPhoneNumber: personalDataForm.guardianPhoneNumber.value,
       email: personalDataForm.email.value,
       phoneNumber: personalDataForm.phoneNumber.value,
       addressNumber: personalDataForm.addressNumber.value,
