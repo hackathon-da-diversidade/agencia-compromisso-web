@@ -13,10 +13,6 @@ import classes from './Cadastro.module.css';
 
 import axios from '../../axios';
 
-// TODO - validação 
-// TODO - resposta após request
-// TODO - dados do responsável 
-// TODO - salvar redireciona pra 'lista'
 class Cadastro extends Component {
 
   state = {
@@ -117,19 +113,6 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
-      address: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'text',
-          label: 'Endereço'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false
-      },
       phoneNumber: {
         elementType: 'input',
         elementConfig: {
@@ -143,11 +126,37 @@ class Cadastro extends Component {
         valid: false,
         touched: false
       },
+      address: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'Endereço'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
       addressNumber: {
         elementType: 'input',
         elementConfig: {
           type: 'number',
           label: 'Número'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      addressComplement: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'Complemento'
         },
         value: '',
         validation: {
@@ -174,6 +183,32 @@ class Cadastro extends Component {
         elementConfig: {
           type: 'number',
           label: 'CEP'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      city: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'Cidade'
+        },
+        value: '',
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      country: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          label: 'País'
         },
         value: '',
         validation: {
@@ -443,7 +478,8 @@ class Cadastro extends Component {
       },
     },
     formIsValid: false,
-    loading: false
+    loading: false,
+    error: false
   }
 
   changeHandler = (event, inputIdentifier, type) => {
@@ -471,7 +507,6 @@ class Cadastro extends Component {
         updatedFormElement.value = event.target.value;
     }
 
-    // TODO - validação 
     updatedFormElement.valid = true;
     updatedFormElement.touched = true;
     form[inputIdentifier] = updatedFormElement;
@@ -496,17 +531,20 @@ class Cadastro extends Component {
       case registrationType.PERSONAL:
         return {
           personalDataForm: updatedForm.form,
-          formIsValid: updatedForm.formIsVali
+          formIsValid: updatedForm.formIsValid,
+          error: false
         }
       case registrationType.SIZE:
         return {
           sizeForm: updatedForm.form,
-          formIsValid: updatedForm.formIsValid
+          formIsValid: updatedForm.formIsValid,
+          error: false
         };
       case registrationType.SOCIAL:
         return {
           socialForm: updatedForm.form,
-          formIsValid: updatedForm.formIsValid
+          formIsValid: updatedForm.formIsValid,
+          error: false
         };
       default:
         return state;
@@ -529,7 +567,10 @@ class Cadastro extends Component {
       phoneNumber: personalDataForm.phoneNumber.value,
       addressNumber: personalDataForm.addressNumber.value,
       address: personalDataForm.address.value,
+      addressComplement: personalDataForm.addressComplement.value,
       neighborhood: personalDataForm.neighborhood.value,
+      city: personalDataForm.city.value,
+      country: personalDataForm.country.value,
       zipCode: personalDataForm.zipCode.value,
       genre: personalDataForm.genre.value,
       bust: sizeForm.bust.value,
@@ -553,14 +594,22 @@ class Cadastro extends Component {
    saveModel = (model) => {
     axios.post('create', model)
     .then(res => {
-        // TODO - yay it worked - enviar pra outra página 
+      this.props.history.push({
+        pathname: '/lista'
+    });
     })
     .catch(err => {
-        // TODO - something
+        this.setState({
+          error: true
+        });
     })
    }
 
   render() {
+    let error = null;
+    if (this.state.error) {
+      error = ( <span className={classes.Error}> Ocorreu um erro ao salvar os dados. Tente novamente. </span>)
+    }
     return (
       <div className={classes.Cadastro}>
         <Header/>
@@ -574,6 +623,7 @@ class Cadastro extends Component {
         data={this.state.socialForm}
         changeHandler={this.changeHandler}></Social>
         <Button clicked={this.handleSubmit}> Salvar </Button>
+        {error}
       </div>
     )
   }
