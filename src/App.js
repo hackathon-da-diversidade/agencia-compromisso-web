@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Lista from './components/Lista'
 import Menu from './components/Menu'
 import Cadastro from './components/Cadastro/Cadastro'
+import Modelo from './components/Modelo/Modelo'
 import './App.css'
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
               <Route exact path='/' component={Menu} />
               <Route exact path='/lista' component={Lista} />
               <Route exact path='/cadastro' component={Cadastro} />
+              <Route path='/modelo/:id' component={Modelo} />
             </Switch>
           </div>
         </Router>
