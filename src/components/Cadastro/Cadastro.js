@@ -606,6 +606,7 @@ class Cadastro extends Component {
       job: socialForm.job.value,
       schooling: socialForm.schooling.value,
       race: socialForm.race.value,
+      availability: socialForm.availability.value,
       people: socialForm.people.value,
       income: socialForm.income.value,
       children: socialForm.children.value,
