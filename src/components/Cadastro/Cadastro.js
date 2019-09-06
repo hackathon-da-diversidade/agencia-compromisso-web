@@ -388,6 +388,32 @@ class Cadastro extends Component {
         validation: {},
         valid: true
       },
+      availability: {
+        elementType: 'select',
+        elementConfig: {
+          label: 'Disponibilidade',
+          options: [
+            {
+              value: 'manhã',
+              displayValue: 'Manhã'
+            },
+            {
+              value: 'tarde',
+              displayValue: 'Tarde'
+            },
+            {
+              value: 'final-de-semana',
+              displayValue: 'Final de semana'
+            },
+            {
+              value: 'total',
+              displayValue: 'Total'
+            },
+          ]
+      },
+      validation: {},
+        valid: true
+    },
       people: {
         elementType: 'input',
         elementConfig: {
