@@ -24,6 +24,7 @@ class Lista extends Component {
       }
     })
     .catch(err => {
+      // TODO: lidar com o erro
       this.setState({
         error: true
       })
@@ -31,8 +32,9 @@ class Lista extends Component {
    }
 
    showModelInfo(model) {
-     // TODO - mostrar informações completas do modelo em outra página
-      console.log(model)
+     this.props.history.push({
+      pathname: `/modelo/${model._id.$oid}`
+      });
    }
 
   

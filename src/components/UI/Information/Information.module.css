@@ -1,0 +1,12 @@
+.Information {
+    border: none;
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    padding-left: 5%;
+}
+
+span {
+    padding: 0.5rem;
+    text-align: left;
+}
