@@ -394,7 +394,7 @@ class Cadastro extends Component {
           label: 'Disponibilidade',
           options: [
             {
-              value: 'manhã',
+              value: 'manha',
               displayValue: 'Manhã'
             },
             {
