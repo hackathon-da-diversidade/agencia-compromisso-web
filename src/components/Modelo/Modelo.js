@@ -44,6 +44,7 @@ class Modelo extends Component {
                 <Information label="Gênero: " value={this.state.model.genero}></Information>
                 <Information label="LGBTQ+: " value={this.state.model.lgbtqia}></Information>
                 <Information label="Raça: " value={this.state.model.etnia}></Information>
+                <Information label="Disponibilidade: " value={this.state.model.disponibilidade}></Information>
                 <h2> Medidas </h2>
                 <Information label="Altura: " value={this.state.model.medida_altura}></Information>
                 <Information label="Busto: " value={this.state.model.medida_busto}></Information>

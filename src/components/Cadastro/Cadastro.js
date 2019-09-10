@@ -388,6 +388,32 @@ class Cadastro extends Component {
         validation: {},
         valid: true
       },
+      availability: {
+        elementType: 'select',
+        elementConfig: {
+          label: 'Disponibilidade',
+          options: [
+            {
+              value: 'manha',
+              displayValue: 'Manhã'
+            },
+            {
+              value: 'tarde',
+              displayValue: 'Tarde'
+            },
+            {
+              value: 'final-de-semana',
+              displayValue: 'Final de semana'
+            },
+            {
+              value: 'total',
+              displayValue: 'Total'
+            },
+          ]
+      },
+      validation: {},
+        valid: true
+    },
       people: {
         elementType: 'input',
         elementConfig: {
@@ -580,6 +606,7 @@ class Cadastro extends Component {
       job: socialForm.job.value,
       schooling: socialForm.schooling.value,
       race: socialForm.race.value,
+      availability: socialForm.availability.value,
       people: socialForm.people.value,
       income: socialForm.income.value,
       children: socialForm.children.value,
