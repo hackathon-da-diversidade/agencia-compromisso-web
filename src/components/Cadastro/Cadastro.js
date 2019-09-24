@@ -639,7 +639,7 @@ class Cadastro extends Component {
     }
     return (
       <div className={classes.Cadastro}>
-        <Header/>
+        <Header title="Cadastro" />
         <DadosBasicos 
         data={this.state.personalDataForm}
         changeHandler={this.changeHandler}></DadosBasicos>

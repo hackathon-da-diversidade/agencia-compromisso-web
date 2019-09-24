@@ -4,11 +4,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 3vh;
+}
+.HeaderIcon {
+    width: 10vh;
+    margin: 0 1vh;
 }
 
-.HeaderIcon {
-    float: left;
-    width: 10vh;
-    margin: 2px;
-    padding: 20px 0;
+.HeaderTitle {
+    text-transform: uppercase;
+}
+
+.HeaderBack {
+    position: absolute;
+    left: 0;
+    font-size: 9vh;
+    color: black;
+    text-decoration: none;
+}
+
+.HeaderBack:hover {
+    text-decoration: none;
+    color: #ffc42e;
 }
