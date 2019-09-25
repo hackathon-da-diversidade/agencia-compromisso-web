@@ -12,13 +12,14 @@ describe('<Header />', () => {
       expect(wrapper.find('.Header')).toHaveLength(1);
       expect(wrapper.find('.HeaderIcon')).toHaveLength(1);
       expect(wrapper.find('.HeaderBack')).toHaveLength(1);
+      expect(wrapper.find('.HeaderBack').prop('href')).toBe('/');
     });
 
     it('should render one component <Header /> with Title', () => {
-      let wrapper = shallow(<Header title="Test"/>);
+      let wrapper = shallow(<Header title="This is a test"/>);
       let headerTitle = wrapper.find('.HeaderTitle');
       expect(headerTitle).toHaveLength(1);
-      expect(headerTitle.text()).toBe("Test");
+      expect(headerTitle.text()).toBe('This is a test');
     });
 
 });

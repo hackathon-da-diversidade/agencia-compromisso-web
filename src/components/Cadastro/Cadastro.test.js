@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { configure, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import Cadastro from './Cadastro';
@@ -11,17 +11,16 @@ import Header from '../Header';
 
 configure({adapter: new Adapter()})
 
-
 describe('<Cadastro />', () => {
     let wrapper;
     beforeEach(() => {
-        wrapper = mount(<Cadastro />);
+        wrapper = shallow(<Cadastro />);
     });
 
-    it('should render one component <Header /> with a correct Title', () => {
+    it('should render one component <Header /> with Cadastro as the title', () => {
         let header = wrapper.find(Header);
         expect(header).toHaveLength(1);
-        expect(header.find(".HeaderTitle").text()).toBe("Cadastro");
+        expect(header.prop("title")).toBe("Cadastro");
     });
 
     it('should render one component <DadosBasicos />', () => {
