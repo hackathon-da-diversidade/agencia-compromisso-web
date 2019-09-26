@@ -12,7 +12,7 @@ describe('<Header />', () => {
       expect(wrapper.find('.Header')).toHaveLength(1);
       expect(wrapper.find('.HeaderIcon')).toHaveLength(1);
       expect(wrapper.find('.HeaderBack')).toHaveLength(1);
-      expect(wrapper.find('.HeaderBack').prop('href')).toBe('/');
+      expect(wrapper.find('.HeaderBack').prop('to')).toBe('/');
     });
 
     it('should render one component <Header /> with Title', () => {
