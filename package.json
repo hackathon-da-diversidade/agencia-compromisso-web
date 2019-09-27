@@ -4,15 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
-    "date-fns": "^2.0.0-alpha.27",
-    "enzyme": "3.9.0",
-    "enzyme-adapter-react-16": "1.12.1",
-    "react": "16.8.5",
-    "react-datepicker": "^2.4.0",
-    "react-dom": "16.8.5",
-    "react-router-dom": "5.0.0",
-    "react-scripts": "2.1.8"
+    "date-fns": "^2.3.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "react": "16.9.0",
+    "react-datepicker": "^2.9.6",
+    "react-dom": "16.9.0",
+    "react-router-dom": "5.1.0",
+    "react-scripts": "3.1.2"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
