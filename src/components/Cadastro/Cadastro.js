@@ -8,6 +8,9 @@ import Medidas from './Medidas/Medidas';
 import Social from './Social/Social';
 import Header from '../Header'
 import Button from '../UI/Button/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import classes from './Cadastro.module.css';
 
@@ -16,6 +19,7 @@ import axios from '../../axios';
 class Cadastro extends Component {
 
   state = {
+    selectedTabIndex: 0,
     personalDataForm: {
       name: {
         elementType: 'input',
@@ -630,25 +634,63 @@ class Cadastro extends Component {
           error: true
         });
     })
-   }
+   };
+
+   handleChange = (event, newValue) => {
+     this.setState({selectedTabIndex: newValue});
+   };
 
   render() {
     let error = null;
     if (this.state.error) {
       error = ( <span className={classes.Error}> Ocorreu um erro ao salvar os dados. Tente novamente. </span>)
     }
+
+    let conteudoTab;
+    switch (this.state.selectedTabIndex) {
+      case 0:
+        conteudoTab = (
+          <DadosBasicos 
+          data={this.state.personalDataForm}
+          changeHandler={this.changeHandler}></DadosBasicos>);
+        break;
+      case 1:
+        conteudoTab = (
+          <Medidas 
+          data={this.state.sizeForm}
+          changeHandler={this.changeHandler}></Medidas>);
+        break;
+      case 2:
+        conteudoTab = (
+          <Social 
+          data={this.state.socialForm}
+          changeHandler={this.changeHandler}></Social>);
+        break;
+      default:
+        conteudoTab = (<div>estranho</div>);
+        break;
+    }
+
     return (
       <div className={classes.Cadastro}>
         <Header title="Cadastro" />
-        <DadosBasicos 
-        data={this.state.personalDataForm}
-        changeHandler={this.changeHandler}></DadosBasicos>
-        <Medidas 
-        data={this.state.sizeForm}
-        changeHandler={this.changeHandler}></Medidas>
-        <Social 
-        data={this.state.socialForm}
-        changeHandler={this.changeHandler}></Social>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={this.state.selectedTabIndex}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
+            <Tab label="Dados Básicos" />
+            <Tab label="Medidas" />
+            <Tab label="Social" />
+          </Tabs>
+        </AppBar>
+        {conteudoTab}
+        
         <Button clicked={this.handleSubmit}> Salvar </Button>
         {error}
       </div>
