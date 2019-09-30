@@ -23,15 +23,24 @@ describe('<Cadastro />', () => {
         expect(header.prop("title")).toBe("Cadastro");
     });
 
-    it('should render one component <DadosBasicos />', () => {
+    it('should start rendering one component <DadosBasicos />', () => {
         expect(wrapper.find(DadosBasicos)).toHaveLength(1);
+        expect(wrapper.find(Medidas)).toHaveLength(0);
+        expect(wrapper.find(Social)).toHaveLength(0);
     });
 
-    it('should render one component <Medidas />', () => {
+    it('should switch tab and render one component <Medidas />', () => {
+        wrapper.setState({selectedTabIndex: 1});
+        expect(wrapper.find(DadosBasicos)).toHaveLength(0);
         expect(wrapper.find(Medidas)).toHaveLength(1);
+        expect(wrapper.find(Social)).toHaveLength(0);
     });
 
-    it('should render one component <Social />', () => {
+    it('should switch tab and render one component <Social />', () => {
+        wrapper.setState({selectedTabIndex: 2});
+        expect(wrapper.find(DadosBasicos)).toHaveLength(0);
+        expect(wrapper.find(Medidas)).toHaveLength(0);
         expect(wrapper.find(Social)).toHaveLength(1);
     });
+
 });
