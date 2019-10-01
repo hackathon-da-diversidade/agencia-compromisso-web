@@ -4,7 +4,7 @@ import { registrationType } from './registrationType';
 import { ModeloFactory } from './ModeloFactory';
 
 import DadosBasicos from './DadosBasicos/DadosBasicos';
-import Medidas from './Medidas/Medidas';
+import Measures from './Measures/Measures';
 import Social from './Social/Social';
 import Header from '../Header'
 import Button from '../UI/Button/Button';
@@ -640,6 +640,10 @@ class Cadastro extends Component {
     this.setState({selectedTabIndex: newValue});
   };
 
+  onMeasuresChange = (measures) => {
+    this.setState({measures: measures});
+  };
+
   renderTab = () => {
     switch (this.state.selectedTabIndex) {
       case 0:
@@ -649,9 +653,8 @@ class Cadastro extends Component {
           </DadosBasicos>);
       case 1:
         return (
-          <Medidas data={this.state.sizeForm}
-            changeHandler={this.changeHandler}>
-          </Medidas>);
+          <Measures data={this.state.measures} onMeasuresChange={this.onMeasuresChange} />
+        )
       case 2:
         return (
           <Social data={this.state.socialForm}
@@ -678,8 +681,7 @@ class Cadastro extends Component {
             indicatorColor="primary"
             textColor="primary"
             variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example">
+            scrollButtons="auto">
             <Tab label="Dados Básicos" />
             <Tab label="Medidas" />
             <Tab label="Social" />

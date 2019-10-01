@@ -10,10 +10,6 @@
     color: #c3c3c3;
 }
 
-.Cadastro .Button {
-    display: block;
-}
-
 .Cadastro .Error {
     display: block;
     padding-bottom: 10px;

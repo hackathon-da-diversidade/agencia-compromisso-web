@@ -1,0 +1,22 @@
+.Field {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.Field label {
+    display: block;
+    text-align: left;
+    margin: 0;
+    color: #949494;
+}
+
+.Field input {
+  width: 100%;
+}
+
+.Field input:focus {
+  outline-color: transparent;
+}
+
