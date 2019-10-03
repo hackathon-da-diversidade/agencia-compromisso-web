@@ -5,8 +5,8 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import Cadastro from './Cadastro';
 import DadosBasicos from './DadosBasicos/DadosBasicos';
-import Measures from './Measures/Measures';
-import Social from './Social/Social';
+import MeasuresForm from './MeasuresForm/MeasuresForm';
+import SocialForm from './SocialForm/SocialForm';
 import Header from '../Header';
 
 configure({adapter: new Adapter()})
@@ -25,22 +25,22 @@ describe('<Cadastro />', () => {
 
     it('should start rendering one component <DadosBasicos />', () => {
         expect(wrapper.find(DadosBasicos)).toHaveLength(1);
-        expect(wrapper.find(Measures)).toHaveLength(0);
-        expect(wrapper.find(Social)).toHaveLength(0);
+        expect(wrapper.find(MeasuresForm)).toHaveLength(0);
+        expect(wrapper.find(SocialForm)).toHaveLength(0);
     });
 
-    it('should switch tab and render one component <Measures />', () => {
+    it('should switch tab and render one component <MeasuresForm />', () => {
         wrapper.setState({selectedTabIndex: 1});
         expect(wrapper.find(DadosBasicos)).toHaveLength(0);
-        expect(wrapper.find(Measures)).toHaveLength(1);
-        expect(wrapper.find(Social)).toHaveLength(0);
+        expect(wrapper.find(MeasuresForm)).toHaveLength(1);
+        expect(wrapper.find(SocialForm)).toHaveLength(0);
     });
 
-    it('should switch tab and render one component <Social />', () => {
+    it('should switch tab and only render one component <SocialForm />', () => {
         wrapper.setState({selectedTabIndex: 2});
         expect(wrapper.find(DadosBasicos)).toHaveLength(0);
-        expect(wrapper.find(Measures)).toHaveLength(0);
-        expect(wrapper.find(Social)).toHaveLength(1);
+        expect(wrapper.find(MeasuresForm)).toHaveLength(0);
+        expect(wrapper.find(SocialForm)).toHaveLength(1);
     });
 
 });

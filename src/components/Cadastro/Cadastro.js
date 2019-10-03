@@ -4,8 +4,9 @@ import { registrationType } from './registrationType';
 import { ModeloFactory } from './ModeloFactory';
 
 import DadosBasicos from './DadosBasicos/DadosBasicos';
-import Measures from './Measures/Measures';
-import Social from './Social/Social';
+import MeasuresForm from './MeasuresForm/MeasuresForm';
+import SocialForm from './SocialForm/SocialForm';
+import Social from './SocialForm/Social';
 import Header from '../Header'
 import Button from '../UI/Button/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -298,7 +299,7 @@ class Cadastro extends Component {
         touched: false
       },
     },
-    socialForm: {
+    socialFormOld: {
       job: {
         elementType: 'input',
         elementConfig: {
@@ -640,8 +641,12 @@ class Cadastro extends Component {
     this.setState({selectedTabIndex: newValue});
   };
 
-  onMeasuresChange = (measures) => {
-    this.setState({measures: measures});
+  onMeasuresFormChange = (measuresForm) => {
+    this.setState({measuresForm: measuresForm});
+  };
+
+  onSocialFormChange = (socialForm) => {
+    this.setState({socialForm: socialForm});
   };
 
   renderTab = () => {
@@ -653,11 +658,15 @@ class Cadastro extends Component {
           </DadosBasicos>);
       case 1:
         return (
-          <Measures data={this.state.measures} onMeasuresChange={this.onMeasuresChange} />
+          <MeasuresForm data={this.state.measuresForm} onChange={this.onMeasuresFormChange} />
         )
       case 2:
         return (
-          <Social data={this.state.socialForm}
+          <SocialForm data={this.state.socialForm} onChange={this.onSocialFormChange} />
+        )
+      case 3:
+        return (
+          <Social data={this.state.socialFormOld}
             changeHandler={this.changeHandler}>
           </Social>);
       default:
@@ -685,6 +694,7 @@ class Cadastro extends Component {
             <Tab label="Dados Básicos" />
             <Tab label="Medidas" />
             <Tab label="Social" />
+            <Tab label="Social old" />
           </Tabs>
         </AppBar>
         {this.renderTab()}
