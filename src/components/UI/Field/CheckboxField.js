@@ -6,9 +6,10 @@ import classes from './Field.module.css'
 class CheckboxField extends Component {
 
   onChange = (event) => {
-    event.target.canonicalValue = event.target.checked;
-    this.props.onChange(event);
-  }
+    this.props.onChange({
+      [event.target.name]: event.target.checked
+    });
+  };
 
   render() {
     return (

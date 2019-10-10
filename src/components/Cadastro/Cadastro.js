@@ -640,15 +640,13 @@ class Cadastro extends Component {
     this.setState({selectedTabIndex: newValue});
   };
 
-  onMeasuresFormChange = (event) => {
-    let measuresForm = {...this.state.measuresForm};
-    measuresForm[event.target.name] = event.target.canonicalValue;
+  onMeasuresFormChange = (updatedFields) => {
+    let measuresForm = {...this.state.measuresForm, ...updatedFields};
     this.setState({measuresForm});
   };
 
-  onSocialFormChange = (event) => {
-    let socialForm = {...this.state.socialForm};
-    socialForm[event.target.name] = event.target.canonicalValue;
+  onSocialFormChange = (updatedFields) => {
+    let socialForm = {...this.state.socialForm, ...updatedFields};
     this.setState({socialForm});
   };
 

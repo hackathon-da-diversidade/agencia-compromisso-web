@@ -6,9 +6,10 @@ import classes from './Field.module.css'
 class NumberField extends Component {
 
   onChange = (event) => {
-    event.target.canonicalValue = event.target.value;
-    this.props.onChange(event);
-  }
+    this.props.onChange({
+      [event.target.name]: event.target.value
+    });
+  };
 
   render() {
     return (
