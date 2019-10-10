@@ -6,7 +6,6 @@ import { ModeloFactory } from './ModeloFactory';
 import DadosBasicos from './DadosBasicos/DadosBasicos';
 import MeasuresForm from './MeasuresForm/MeasuresForm';
 import SocialForm from './SocialForm/SocialForm';
-import Social from './SocialForm/Social';
 import Header from '../Header'
 import Button from '../UI/Button/Button';
 import AppBar from '@material-ui/core/AppBar';
