@@ -5,28 +5,17 @@ import NumberField from '../../UI/Field/NumberField';
 
 class MeasuresForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = props.data;
-  }
-
-  handleChange = (event) => {
-      this.setState({[event.target.name]: event.target.value}, 
-      () => this.props.onChange(this.state)
-    );
-  }
-
   render() {
     return (
       <Formik
-        initialValues={{...this.state}}
+        initialValues={{...this.props.data}}
         enableReinitialize="true"
         render={() => (
           <Form>
-            <NumberField name="bust" label="Circunferência total do busto (cm)" onChange={this.handleChange}/>
-            <NumberField name="waist" label="Circunferência total da cintura alta (cm)" onChange={this.handleChange}/>
-            <NumberField name="hip" label="Circunferência total do quadril (cm)" onChange={this.handleChange}/>
-            <NumberField name="height" label="Altura (cm)" onChange={this.handleChange}/>
+            <NumberField name="bust" label="Circunferência total do busto (cm)" onChange={this.props.onChange}/>
+            <NumberField name="waist" label="Circunferência total da cintura alta (cm)" onChange={this.props.onChange}/>
+            <NumberField name="hip" label="Circunferência total do quadril (cm)" onChange={this.props.onChange}/>
+            <NumberField name="height" label="Altura (cm)" onChange={this.props.onChange}/>
           </Form>
         )}
       />

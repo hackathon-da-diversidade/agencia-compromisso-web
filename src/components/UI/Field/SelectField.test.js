@@ -12,7 +12,7 @@ describe('<SelectField />', () => {
 
     it('should render one component <SelectField /> with the provided <option/> fields', () => {
         let wrapper = mount(<Formik>
-                              <SelectField options={[
+                              <SelectField onChange={() => {}} options={[
                                 {label:'Test 01', value: 'test1'},
                                 {label:'Test 02', value: 'test2'},
                                 {label:'Test 03', value: 'test3'},

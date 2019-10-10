@@ -5,7 +5,8 @@ import classes from './Field.module.css'
 
 class TextField extends Component {
 
-  handleChange = (event) => {
+  onChange = (event) => {
+    event.target.canonicalValue = event.target.value;
     this.props.onChange(event);
   }
 
@@ -13,7 +14,7 @@ class TextField extends Component {
     return (
             <div className={classes.Field + " form-group"}>
                 <label htmlFor={this.props.name}>{this.props.label}</label>
-                <Field type="text" name={this.props.name} onChange={this.handleChange} className="form-control" />
+                <Field type="text" name={this.props.name} onChange={this.onChange} className="form-control" />
             </div>
         )
     };

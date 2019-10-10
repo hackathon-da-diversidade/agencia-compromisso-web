@@ -5,7 +5,8 @@ import classes from './Field.module.css'
 
 class SelectField extends Component {
 
-  handleChange = (event) => {
+  onChange = (event) => {
+    event.target.canonicalValue = event.target.value;
     this.props.onChange(event);
   }
 
@@ -14,7 +15,7 @@ class SelectField extends Component {
     return (
             <div className={classes.Field + " form-group"}>
                 <label htmlFor={this.props.name}>{this.props.label}</label>
-                <Field component="select" name={this.props.name} onChange={this.handleChange} className="form-control">
+                <Field component="select" name={this.props.name} onChange={this.onChange} className="form-control">
                   {options.map((option) => 
                     (<option key={option.value} value={option.value}>{option.label}</option>))
                   }
