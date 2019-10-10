@@ -668,11 +668,6 @@ class Cadastro extends Component {
         return (
           <SocialForm data={this.state.socialForm} onChange={this.onSocialFormChange} />
         )
-      case 3:
-        return (
-          <Social data={this.state.socialFormOld}
-            changeHandler={this.changeHandler}>
-          </Social>);
       default:
         return (<div></div>);
     }
@@ -698,7 +693,6 @@ class Cadastro extends Component {
             <Tab label="Dados Básicos" />
             <Tab label="Medidas" />
             <Tab label="Social" />
-            <Tab label="Social old" />
           </Tabs>
         </AppBar>
         {this.renderTab()}
