@@ -8,27 +8,14 @@ configure({adapter: new Adapter()})
 
 describe('<MeasuresForm />', () => {
     let wrapper;
-    beforeEach(() => {
+
+    it('should show default fields', () => {
         wrapper = mount(<MeasuresForm />);
+
+        expect(wrapper.find("NumberField[name='bust']")).toHaveLength(1);
+        expect(wrapper.find("NumberField[name='waist']")).toHaveLength(1);
+        expect(wrapper.find("NumberField[name='hip']")).toHaveLength(1);
+        expect(wrapper.find("NumberField[name='height']")).toHaveLength(1);
     });
 
-    it('should have bust <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='bust']");
-        expect(field).toHaveLength(1);
-    });
-
-    it('should have waist <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='waist']");
-        expect(field).toHaveLength(1);
-    });
-
-    it('should have hip <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='hip']");
-        expect(field).toHaveLength(1);
-    });
-
-    it('should have height <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='height']");
-        expect(field).toHaveLength(1);
-    });
 });

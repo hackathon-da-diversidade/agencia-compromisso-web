@@ -8,53 +8,19 @@ configure({adapter: new Adapter()})
 
 describe('<SocialForm />', () => {
     let wrapper;
-    beforeEach(() => {
-        wrapper = mount(<SocialForm />);
+
+    it('should show default fields', () => {
+      wrapper = mount(<SocialForm />);
+
+       expect(wrapper.find("TextField[name='job']")).toHaveLength(1);
+       expect(wrapper.find("SelectField[name='schooling']")).toHaveLength(1);
+       expect(wrapper.find("SelectField[name='race']")).toHaveLength(1);
+       expect(wrapper.find("NumberField[name='people']")).toHaveLength(1);
+       expect(wrapper.find("NumberField[name='income']")).toHaveLength(1);
+       expect(wrapper.find("NumberField[name='children']")).toHaveLength(1);
+       expect(wrapper.find("SelectField[name='housing']")).toHaveLength(1);
+       expect(wrapper.find("CheckboxField[name='lgbtqia']")).toHaveLength(1);
+       expect(wrapper.find("TextField[name='comments']")).toHaveLength(1);
     });
-
-    it('should have job <TextField />', () => {
-       let field = wrapper.find("TextField[name='job']");
-       expect(field).toHaveLength(1);
-    });
-
-    it('should have schooling <SelectField />', () => {
-        let field = wrapper.find("SelectField[name='schooling']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have race <SelectField />', () => {
-        let field = wrapper.find("SelectField[name='race']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have people <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='people']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have income <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='income']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have children <NumberField />', () => {
-        let field = wrapper.find("NumberField[name='children']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have housing <SelectField />', () => {
-        let field = wrapper.find("SelectField[name='housing']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have lgbtqia <CheckboxField />', () => {
-        let field = wrapper.find("CheckboxField[name='lgbtqia']");
-        expect(field).toHaveLength(1);
-     });
-
-     it('should have comments <TextField />', () => {
-        let field = wrapper.find("TextField[name='comments']");
-        expect(field).toHaveLength(1);
-     });
     
 });
