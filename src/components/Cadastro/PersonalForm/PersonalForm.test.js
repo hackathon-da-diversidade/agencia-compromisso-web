@@ -22,7 +22,7 @@ describe('<PersonalForm />', () => {
         expect(wrapper.find("NumberField[name='addressNumber']")).toHaveLength(1);
         expect(wrapper.find("TextField[name='addressComplement']")).toHaveLength(1);
         expect(wrapper.find("TextField[name='neighborhood']")).toHaveLength(1);
-        expect(wrapper.find("TextField[name='zipCode']")).toHaveLength(1);
+        expect(wrapper.find("MaskedField[name='zipCode']")).toHaveLength(1);
         expect(wrapper.find("TextField[name='city']")).toHaveLength(1);
         expect(wrapper.find("TextField[name='country']")).toHaveLength(1);
     });

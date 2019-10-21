@@ -17,8 +17,7 @@ class DateField extends Component {
     }
 
     this.props.onChange({
-      [event.target.name]: isValid ? event.target.valueAsDate : undefined,
-      //[event.target.name + "AsDate"]: isValid ? event.target.valueAsDate : undefined,
+      [event.target.name]: isValid ? event.target.valueAsDate : undefined
     });
   };
 

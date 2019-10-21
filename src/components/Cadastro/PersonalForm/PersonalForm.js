@@ -7,6 +7,7 @@ import EmailField from '../../UI/Field/EmailField';
 import PhoneField from '../../UI/Field/PhoneField';
 import NumberField from '../../UI/Field/NumberField';
 import SelectField from '../../UI/Field/SelectField';
+import MaskedField from '../../UI/Field/MaskedField';
 
 class PersonalForm extends Component {
 
@@ -53,7 +54,8 @@ class PersonalForm extends Component {
             <NumberField name="addressNumber" label="Número" onChange={this.props.onChange}/>
             <TextField name="addressComplement" label="Complemento" onChange={this.props.onChange}/>
             <TextField name="neighborhood" label="Bairro" onChange={this.props.onChange}/>
-            <TextField name="zipCode" label="CEP" onChange={this.props.onChange}/>
+            <MaskedField name="zipCode" label="CEP" onChange={this.props.onChange}
+              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-',  /\d/, /\d/, /\d/]}/>
             <TextField name="city" label="Cidade" onChange={this.props.onChange}/>
             <TextField name="country" label="País" onChange={this.props.onChange}/>
           </Form>
