@@ -8,7 +8,6 @@ import classes from './Field.module.css'
 class MaskedField extends Component {
 
   onChange = (event) => {
-    console.log(event.target.value);
     this.props.onChange({
       [event.target.name]: event.target.value,
     });
