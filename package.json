@@ -18,6 +18,7 @@
     "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
+    "cypress": "^3.8.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0"
   },
