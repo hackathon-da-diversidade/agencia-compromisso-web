@@ -39,7 +39,11 @@ class SocialForm extends Component {
                   { value: 'pardo', label: 'Pardo' }
               ]}
             />
-            <CheckboxField name="lgbtqia" label="Pertence à comunidade LGBTQIA+" onChange={this.props.onChange} />
+            <CheckboxField type="radio" name="lgbtqia" label="Pertence à comunidade LGBTQIA+" onChange={this.props.onChange} 
+            options={[
+              { value: true, label: 'Sim' },
+              { value: false, label: 'Não' }
+            ]}/>
             <NumberField name="income" label="Renda mensal" onChange={this.props.onChange} min="0.00" step="0.01" />
             <NumberField name="people" label="Número de residentes no domicílio" onChange={this.props.onChange} />
             <NumberField name="children" label="Número de filhos e/ou dependentes" onChange={this.props.onChange} />

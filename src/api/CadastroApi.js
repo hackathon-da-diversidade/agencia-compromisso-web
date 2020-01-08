@@ -6,6 +6,9 @@ export default class CadastroApi {
     }
 
     async criarModelo(model) {
-        return (await axios.post(this.baseUrl, model))
+        const url = `${this.baseUrl}/fit-model`
+        console.log('aaaaaaaaaaa',model);
+        
+        return (await axios.post(url, model)).data
     }
 }

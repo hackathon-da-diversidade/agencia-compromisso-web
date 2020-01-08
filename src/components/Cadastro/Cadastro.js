@@ -9,38 +9,40 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import classes from './Cadastro.module.css';
+import CadastroApi from '../../api/CadastroApi'
 
-import axios from '../../axios';
+import classes from './Cadastro.module.css';
 
 class Cadastro extends Component {
 
   state = {
     selectedTabIndex: 0,
+    personalForm: {},
+    measuresForm:{},
+    socialForm:{}
+  }
+
+  constructor( props ) {
+    super( props )
+    this.cadastroApi = new CadastroApi()
   }
 
     handleSubmit = () => {
-      const personalForm = this.state.personalForm;
-      const measuresForm = this.state.measuresForm;
-      const socialForm = this.state.socialForm;
-
+      const {personalForm,measuresForm,socialForm} = this.state
       const model = {...personalForm, ...measuresForm, ...socialForm};
       console.log(model);
       this.saveModel(model);
   }
 
-  saveModel = (model) => {
-    axios.post('create', model)
-    .then(res => {
-      this.props.history.push({
-        pathname: '/lista'
-    });
-    })
-    .catch(err => {
-        this.setState({
-          error: true
-        });
-    })
+  saveModel = async (model) => {
+    const { history } = this.props
+    try{
+      await this.cadastroApi.criarModelo(model)
+      history.push({pathname: '/lista'})
+    }
+    catch(error){
+      console.log(error);
+    }
   };
 
   handleSelectTabChange = (event, newValue) => {

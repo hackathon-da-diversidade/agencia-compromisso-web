@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Field } from 'formik'
 
-import classes from './Field.module.css'
+import './Field.module.css'
 
 class CheckboxField extends Component {
 
@@ -12,16 +11,23 @@ class CheckboxField extends Component {
   };
 
   render() {
+    const options = this.props.options ? this.props.options : [];
+    const { label, name, type,onClick } = this.props;
     return (
-            <div className={classes.Field + " form-group"}>
-                <label htmlFor={this.props.name}>{this.props.label}</label>
-                <Field render={({ field }) => (
-                  <input type="checkbox" name={this.props.name} onChange={this.onChange} className="form-control"
-                    checked={field.value[this.props.name]} />
-                )}/>
-            </div>
-        )
-    };
+      <>
+      <label htmlFor={name}>{label}</label>
+      <div>
+        {options.map((option) => {
+          return <span>
+            <input onClick={onClick} type={type} name={name} id={option.value} key={option.value} value={option.value} onChange={this.onChange}/>
+            <label for={option.value}>{option.label}</label>
+          </span>
+        })
+        }
+      </div>
+      </>
+    )
+  };
 }
 
 export default CheckboxField;
