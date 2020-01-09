@@ -3,7 +3,6 @@ import Header from './Header'
 import axios from '../axios'
 import dayjs from 'dayjs'
 
-import ListaApi from '../api/ListaApi'
 
 
 class Lista extends Component {
@@ -14,22 +13,22 @@ class Lista extends Component {
   }
 
   componentDidMount() {
-    this.listaApi = new ListaApi()
+    // this.listaApi = new ListaApi()
     this.loadModels()
   }
 
-  loadModels = async() => {
-    try {
-      const res = await this.listaApi.listarModelos();
-      this.setState({
-        models: res.data
-      })
-    } catch {
-      this.setState({
-        error: true
-      })
-    }
-   }
+  // loadModels = async() => {
+  //   try {
+  //     const res = await this.listaApi.listarModelos();
+  //     this.setState({
+  //       models: res.data
+  //     })
+  //   } catch {
+  //     this.setState({
+  //       error: true
+  //     })
+  //   }
+  //  }
 
    showModelInfo(model) {
      this.props.history.push({

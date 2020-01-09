@@ -9,7 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import CadastroApi from '../../api/CadastroApi'
+import fitModelAPI from '../../api/fitModelAPI'
 
 import classes from './Cadastro.module.css';
 
@@ -24,12 +24,11 @@ class Cadastro extends Component {
 
   constructor( props ) {
     super( props )
-    this.cadastroApi = new CadastroApi()
   }
 
     handleSubmit = () => {
       const {personalForm,measuresForm,socialForm} = this.state
-      const model = {...personalForm, sizes:measuresForm, ...socialForm};
+      const model = {...personalForm, sizes: measuresForm, ...socialForm};
       console.log(model);
       this.saveModel(model);
   }
@@ -37,8 +36,9 @@ class Cadastro extends Component {
   saveModel = async (model) => {
     const { history } = this.props
     try{
-      await this.cadastroApi.criarModelo(model)
-      history.push({pathname: '/lista'})
+      const id = await fitModelAPI.create(model)
+      console.log("id:", id)
+      history.push({pathname: '/'})
     }
     catch(error){
       console.log(error);
