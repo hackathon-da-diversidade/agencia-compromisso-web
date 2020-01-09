@@ -16,9 +16,9 @@ class SelectField extends Component {
     return (
             <div className={classes.Field + " form-group"}>
                 <label htmlFor={this.props.name}>{this.props.label}</label>
-                <Field component="select" name={this.props.name} onChange={this.onChange} className="form-control">
+                <Field component="select" name={this.props.name} onChange={this.onChange} className="form-control" defaultValue={this.props.defaultValue}>
                   {options.map((option) => 
-                    (<option key={option.value} value={option.value}>{option.label}</option>))
+                    (<option key={option.value} {...option}>{option.label}</option>))
                   }
                 </Field>
             </div>

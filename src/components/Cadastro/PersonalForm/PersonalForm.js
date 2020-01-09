@@ -72,8 +72,9 @@ class PersonalForm extends Component {
 
             <MaskedField name="phoneNumber" label="Telefone" type="tel" onChange={onChange}
               mask={['(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]} />
-            <SelectField name="genderExpression" label="Expressão de Gênero" onChange={onChange}
+            <SelectField name="genderExpression" label="Expressão de Gênero" onChange={onChange} defaultValue=""
               options={[
+                { value: '', hidden: true, label:'' },
                 { value: 'FEMALE', label: 'Feminina' },
                 { value: 'MALE', label: 'Masculina' },
                 { value: 'NON_BINARY', label: 'Não-binária' },

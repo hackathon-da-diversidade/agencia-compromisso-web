@@ -29,7 +29,7 @@ class Cadastro extends Component {
 
     handleSubmit = () => {
       const {personalForm,measuresForm,socialForm} = this.state
-      const model = {...personalForm, ...measuresForm, ...socialForm};
+      const model = {...personalForm, sizes:measuresForm, ...socialForm};
       console.log(model);
       this.saveModel(model);
   }

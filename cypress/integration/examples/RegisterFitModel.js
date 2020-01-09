@@ -12,7 +12,7 @@ describe('Should access registration page and register fit model', function () {
   it('Fills birthday', function () {
     cy.get('input[name="birthday"]')
       .type('20081995')
-      .should('have.value', '20/08/1995')
+      .should('have.value', '20-08-1995')
   })
   it('Selects gender expression', function () {
     cy.get('select[name="genderExpression"]')
@@ -22,15 +22,15 @@ describe('Should access registration page and register fit model', function () {
     cy.contains('Medidas').click()
   })
   it('Fills bust circumference', function () {
-    cy.get('input[name="bust"]')
+    cy.get('input[name="totalBustCircumference"]')
       .type(100)
   })
   it('Fills waist circumference', function () {
-    cy.get('input[name="waist"]')
+    cy.get('input[name="totalWaistCircumference"]')
       .type(100)
   })
   it('Fills hip circumference', function () {
-    cy.get('input[name="hip"]')
+    cy.get('input[name="totalHipCircumference"]')
       .type(100)
   })
   it('Fills height', function () {

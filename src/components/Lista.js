@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Header from './Header'
-import axios from '../axios';
+import axios from '../axios'
+import dayjs from 'dayjs'
+
+import ListaApi from '../api/ListaApi'
 
 
 class Lista extends Component {
@@ -11,41 +14,47 @@ class Lista extends Component {
   }
 
   componentDidMount() {
+    this.listaApi = new ListaApi()
     this.loadModels()
   }
 
-  loadModels = () => {
-    axios.get('modelo/list')
-    .then(res => {
-      if (res && res.data) {
-        this.setState({
-          models: res.data
-        })
-      }
-    })
-    .catch(err => {
-      // TODO: lidar com o erro
+  loadModels = async() => {
+    try {
+      const res = await this.listaApi.listarModelos();
+      this.setState({
+        models: res.data
+      })
+    } catch {
       this.setState({
         error: true
       })
-    })
+    }
    }
 
    showModelInfo(model) {
      this.props.history.push({
-      pathname: `/modelo/${model._id.$oid}`
+      pathname: `/modelo/${model.id}`
       });
    }
 
-  
+
+    calculateAge(model){
+    if (!model || model.birthday== null) {
+      return 0;
+    } 
+    return dayjs().diff(model.birthday, 'year');  
+  }
+
   render() {
     return (
       <div className='lista'>
         <Header title="Lista"/>
         <ul className="table">
           {this.state.models.map(model => (
-            <li key={model._id.$oid}> 
-                <p onClick={() => this.showModelInfo(model)}> {model.nome} </p>
+            <li key={model.id}> 
+                <p className="model-name" onClick={() => this.showModelInfo(model)}> {model.name}</p>
+          <p className="model-data"> {model.genderExpression} | {model.phoneNumber} | {this.calculateAge(model)} anos </p>
+                <br></br>
             </li>
             ))}
         </ul>
