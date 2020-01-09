@@ -13,39 +13,28 @@ describe('<PersonalForm />', () => {
         wrapper = mount(<PersonalForm />);
 
         expect(wrapper.find("TextField[name='name']")).toHaveLength(1);
-        expect(wrapper.find("EmailField[name='email']")).toHaveLength(1);
-        expect(wrapper.find("PhoneField[name='phoneNumber']")).toHaveLength(1);
-        expect(wrapper.find("SelectField[name='gender']")).toHaveLength(1);
-        expect(wrapper.find("DateField[name='birth']")).toHaveLength(1);
+        expect(wrapper.find("MaskedField[name='phoneNumber']")).toHaveLength(1);
+        expect(wrapper.find("SelectField[name='genderExpression']")).toHaveLength(1);
+        expect(wrapper.find("MaskedField[name='birthday']")).toHaveLength(1);
 
         expect(wrapper.find("TextField[name='address']")).toHaveLength(1);
-        expect(wrapper.find("NumberField[name='addressNumber']")).toHaveLength(1);
-        expect(wrapper.find("TextField[name='addressComplement']")).toHaveLength(1);
-        expect(wrapper.find("TextField[name='neighborhood']")).toHaveLength(1);
-        expect(wrapper.find("MaskedField[name='zipCode']")).toHaveLength(1);
-        expect(wrapper.find("TextField[name='city']")).toHaveLength(1);
-        expect(wrapper.find("TextField[name='country']")).toHaveLength(1);
     });
 
     it('should not show guardian related fields for models over 18', () => {
         wrapper = mount(<PersonalForm />);
 
         expect(wrapper.find("TextField[name='guardianName']")).toHaveLength(0);
-        expect(wrapper.find("DateField[name='guardianBirth']")).toHaveLength(0);
-        expect(wrapper.find("EmailField[name='guardianEmail']")).toHaveLength(0);
-        expect(wrapper.find("PhoneField[name='guardianPhoneNumber']")).toHaveLength(0);
+        expect(wrapper.find("MaskedField[name='guardianPhoneNumber']")).toHaveLength(0);
     });
 
     it('should show guardian related fields for underage models', () => {
         let data = {
-            birth: new Date()
+            birthday: '01/01/' + new Date().getFullYear()
         };
         wrapper = mount(<PersonalForm data={data} />);
 
         expect(wrapper.find("TextField[name='guardianName']")).toHaveLength(1);
-        expect(wrapper.find("DateField[name='guardianBirth']")).toHaveLength(1);
-        expect(wrapper.find("EmailField[name='guardianEmail']")).toHaveLength(1);
-        expect(wrapper.find("PhoneField[name='guardianPhoneNumber']")).toHaveLength(1);
+        expect(wrapper.find("MaskedField[name='guardianPhoneNumber']")).toHaveLength(1);
     });
 
 

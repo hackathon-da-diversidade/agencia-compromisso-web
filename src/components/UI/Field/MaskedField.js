@@ -20,6 +20,7 @@ class MaskedField extends Component {
                 <Field render={({ field }) => (
                     <MaskedInput
                       mask={this.props.mask}
+                      type={this.props.type}
                       guide={true}
                       keepCharPositions={false}
                       name={this.props.name}

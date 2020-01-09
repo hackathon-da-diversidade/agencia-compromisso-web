@@ -12,9 +12,9 @@ describe('<MeasuresForm />', () => {
     it('should show default fields', () => {
         wrapper = mount(<MeasuresForm />);
 
-        expect(wrapper.find("NumberField[name='bust']")).toHaveLength(1);
-        expect(wrapper.find("NumberField[name='waist']")).toHaveLength(1);
-        expect(wrapper.find("NumberField[name='hip']")).toHaveLength(1);
+        expect(wrapper.find("NumberField[name='totalBustCircumference']")).toHaveLength(1);
+        expect(wrapper.find("NumberField[name='totalWaistCircumference']")).toHaveLength(1);
+        expect(wrapper.find("NumberField[name='totalHipCircumference']")).toHaveLength(1);
         expect(wrapper.find("NumberField[name='height']")).toHaveLength(1);
     });
 

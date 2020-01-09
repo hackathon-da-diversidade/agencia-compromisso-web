@@ -18,9 +18,9 @@ class CheckboxField extends Component {
       <label htmlFor={name}>{label}</label>
       <div>
         {options.map((option) => {
-          return <span>
-            <input onClick={onClick} type={type} name={name} id={option.value} key={option.value} value={option.value} onChange={this.onChange}/>
-            <label for={option.value}>{option.label}</label>
+          return <span key={option.value.toString()}>
+            <input onClick={onClick} type={type} name={name} id={option.value.toString()} value={option.value} onChange={this.onChange}/>
+            <label htmlFor={option.value.toString()}>{option.label}</label>
           </span>
         })
         }
