@@ -1,0 +1,17 @@
+.FitModelForm form {
+  display: inline-block;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.FitModelForm form .FormGroup {
+  text-align: left;
+  color: #c3c3c3;
+}
+
+.FitModelForm .Error {
+  display: block;
+  padding-bottom: 10px;
+  color: red;
+}
