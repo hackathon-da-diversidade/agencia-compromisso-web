@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import dayjs from 'dayjs';
 
@@ -7,12 +7,10 @@ import SelectField from '../../UI/Field/SelectField';
 import MaskedField from '../../UI/Field/MaskedField';
 import CheckboxField from '../../UI/Field/CheckboxField';
 
-class PersonalForm extends Component {
-  state = {
-    inProjects: false,
-  };
+export default ({ data = {}, onChange }) => {
+  const [inProjects, setInProjects] = useState(false);
 
-  isUnderage = person => {
+  const isUnderage = person => {
     if (!person || !person.birthday) {
       return false;
     }
@@ -26,132 +24,120 @@ class PersonalForm extends Component {
     }
   };
 
-  checkProject = event => {
-    this.setState({
-      inProjects: event.target.value,
-    });
+  const checkProject = event => {
+    setInProjects(event.target.value);
   };
 
-  render() {
-    const { data = {}, onChange } = this.props;
+  return (
+    <Formik
+      initialValues={{ ...data }}
+      enableReinitialize="true"
+      render={() => (
+        <Form>
+          <TextField name="name" label="Nome completo *" onChange={onChange} />
+          <MaskedField
+            name="birthday"
+            label="Data de nascimento"
+            onChange={onChange}
+            mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+          />
+          {isUnderage(data) ? (
+            <>
+              <TextField
+                name="guardianName"
+                label="Nome da pessoa responsável"
+                onChange={onChange}
+              />
+              <MaskedField
+                name="guardianPhoneNumber"
+                label="Telefone da pessoa responsável"
+                type="tel"
+                onChange={onChange}
+                mask={[
+                  '(',
+                  /\d/,
+                  /\d/,
+                  ')',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ]}
+              />
+            </>
+          ) : null}
+          <CheckboxField
+            type="checkbox"
+            name="availability"
+            label="Disponibilidade"
+            onChange={onChange}
+            options={[
+              { value: 'MORNING', label: 'Manhã' },
+              { value: 'AFTERNOON', label: 'Tarde' },
+              { value: 'ALLDAY', label: 'Dia todo' },
+            ]}
+          />
+          <CheckboxField
+            type="radio"
+            name="inProjects"
+            label="Participação em outros projetos?"
+            onChange={() => false}
+            onClick={checkProject}
+            options={[
+              { value: true, label: 'Sim' },
+              { value: false, label: 'Não' },
+            ]}
+          />
+          {inProjects && (
+            <TextField name="projects" label="Projetos" onChange={onChange} />
+          )}
 
-    return (
-      <Formik
-        initialValues={{ ...data }}
-        enableReinitialize="true"
-        render={() => (
-          <Form>
-            <TextField
-              name="name"
-              label="Nome completo *"
-              onChange={onChange}
-            />
-            <MaskedField
-              name="birthday"
-              label="Data de nascimento"
-              onChange={onChange}
-              mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-            />
-            {this.isUnderage(data) ? (
-              <>
-                <TextField
-                  name="guardianName"
-                  label="Nome da pessoa responsável"
-                  onChange={onChange}
-                />
-                <MaskedField
-                  name="guardianPhoneNumber"
-                  label="Telefone da pessoa responsável"
-                  type="tel"
-                  onChange={onChange}
-                  mask={[
-                    '(',
-                    /\d/,
-                    /\d/,
-                    ')',
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                  ]}
-                />
-              </>
-            ) : null}
-            <CheckboxField
-              type="checkbox"
-              name="availability"
-              label="Disponibilidade"
-              onChange={onChange}
-              options={[
-                { value: 'MORNING', label: 'Manhã' },
-                { value: 'AFTERNOON', label: 'Tarde' },
-                { value: 'ALLDAY', label: 'Dia todo' },
-              ]}
-            />
-            <CheckboxField
-              type="radio"
-              name="inProjects"
-              label="Participação em outros projetos?"
-              onChange={onChange}
-              onClick={this.checkProject}
-              options={[
-                { value: true, label: 'Sim' },
-                { value: false, label: 'Não' },
-              ]}
-            />
-            {data.inProjects && (
-              <TextField name="projects" label="Projetos" onChange={onChange} />
-            )}
+          <MaskedField
+            name="phoneNumber"
+            label="Telefone"
+            type="tel"
+            onChange={onChange}
+            mask={[
+              '(',
+              /\d/,
+              /\d/,
+              ')',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+            ]}
+          />
+          <SelectField
+            name="genderExpression"
+            label="Expressão de Gênero"
+            onChange={onChange}
+            defaultValue=""
+            options={[
+              { value: '', hidden: true, label: '' },
+              { value: 'FEMALE', label: 'Feminina' },
+              { value: 'MALE', label: 'Masculina' },
+              { value: 'NON_BINARY', label: 'Não-binária' },
+              {
+                value: 'PREFER_NOT_TO_INFORM',
+                label: 'Prefere não informar',
+              },
+            ]}
+          />
 
-            <MaskedField
-              name="phoneNumber"
-              label="Telefone"
-              type="tel"
-              onChange={onChange}
-              mask={[
-                '(',
-                /\d/,
-                /\d/,
-                ')',
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-              ]}
-            />
-            <SelectField
-              name="genderExpression"
-              label="Expressão de Gênero"
-              onChange={onChange}
-              defaultValue=""
-              options={[
-                { value: '', hidden: true, label: '' },
-                { value: 'FEMALE', label: 'Feminina' },
-                { value: 'MALE', label: 'Masculina' },
-                { value: 'NON_BINARY', label: 'Não-binária' },
-                {
-                  value: 'PREFER_NOT_TO_INFORM',
-                  label: 'Prefere não informar',
-                },
-              ]}
-            />
-
-            <TextField name="address" label="Endereço" onChange={onChange} />
-          </Form>
-        )}
-      />
-    );
-  }
-}
-
-export default PersonalForm;
+          <TextField name="address" label="Endereço" onChange={onChange} />
+        </Form>
+      )}
+    />
+  );
+};

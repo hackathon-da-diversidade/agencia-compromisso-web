@@ -25,7 +25,6 @@ export default ({ history }) => {
   const saveFitModel = async () => {
     try {
       const id = await fitModelAPI.create(fitModelData);
-      console.log('id:', fitModelData);
       history.push('/');
     } catch (error) {
       setHasError(true);
