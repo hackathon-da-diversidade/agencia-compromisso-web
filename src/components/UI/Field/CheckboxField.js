@@ -23,7 +23,7 @@ class CheckboxField extends Component {
                   onClick={onClick}
                   type={type}
                   name={name}
-                  id={option.value.toString()}
+                  id={`${option.value.toString()}-${name}`}
                   value={option.value}
                   onChange={this.onChange}
                 />

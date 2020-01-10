@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 
 import PersonalForm from './PersonalForm/PersonalForm';
 import MeasuresForm from './MeasuresForm/MeasuresForm';
@@ -25,7 +25,7 @@ export default ({ history }) => {
   const saveFitModel = async () => {
     try {
       const id = await fitModelAPI.create(fitModelData);
-      history.push('/');
+      history.push(`/fit-model/${id}`);
     } catch (error) {
       setHasError(true);
     }

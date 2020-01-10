@@ -118,6 +118,8 @@ export default ({ data = {}, onChange }) => {
               /\d/,
             ]}
           />
+          <TextField name="address" label="Endereço" onChange={onChange} />
+
           <SelectField
             name="genderExpression"
             label="Expressão de Gênero"
@@ -135,7 +137,51 @@ export default ({ data = {}, onChange }) => {
             ]}
           />
 
-          <TextField name="address" label="Endereço" onChange={onChange} />
+          <CheckboxField
+            type="radio"
+            name="lgbtqia"
+            label="Pertence à comunidade LGBTQIA+"
+            onChange={onChange}
+            options={[
+              { value: true, label: 'Sim' },
+              { value: false, label: 'Não' },
+            ]}
+          />
+
+          <SelectField
+            name="education"
+            label="Escolaridade"
+            onChange={onChange}
+            options={[
+              { value: 'NO_EDUCATION', label: '(sem escolaridade)' },
+              {
+                value: 'INCOMPLETE_MIDDLE_SCHOOL',
+                label: 'Ensino fundamental incompleto',
+              },
+              {
+                value: 'MIDDLE_SCHOOL',
+                label: 'Ensino fundamental completo',
+              },
+              {
+                value: 'INCOMPLETE_HIGH_SCHOOL',
+                label: 'Ensino médio incompleto',
+              },
+              { value: 'HIGH_SCHOOL', label: 'Ensino médio completo' },
+              {
+                value: 'INCOMPLETE_TECHNICAL_SCHOOL',
+                label: 'Ensino técnico incompleto',
+              },
+              { value: 'TECHNICAL_SCHOOL', label: 'Ensino técnico completo' },
+              {
+                value: 'INCOMPLETE_HIGHER_EDUCATION',
+                label: 'Ensino superior incompleto',
+              },
+              {
+                value: 'HIGHER_EDUCATION',
+                label: 'Ensino superior completo',
+              },
+            ]}
+          />
         </Form>
       )}
     />

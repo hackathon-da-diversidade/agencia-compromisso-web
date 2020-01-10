@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Formik, Form } from 'formik'
+import React, { Component } from 'react';
+import { Formik, Form } from 'formik';
 
 import CheckboxField from '../../UI/Field/CheckboxField';
 import NumberField from '../../UI/Field/NumberField';
@@ -7,60 +7,107 @@ import SelectField from '../../UI/Field/SelectField';
 import TextField from '../../UI/Field/TextField';
 
 class SocialForm extends Component {
-
   render() {
     return (
       <Formik
-        initialValues={{...this.props.data}}
+        initialValues={{ ...this.props.data }}
         enableReinitialize="true"
         render={() => (
           <Form>
-            <TextField name="job" label="Ocupação" onChange={this.props.onChange}/>
-            <SelectField name="schooling" label="Escolaridade" onChange={this.props.onChange}
+            <SelectField
+              name="ethnicity"
+              label="Etnia"
+              defaultValue=""
+              onChange={this.props.onChange}
               options={[
-                  { value: 'sem-escolaridade', label: '(sem escolaridade)' },
-                  { value: 'fundamental-incompleto', label: 'Ensino fundamental incompleto' },
-                  { value: 'fundamental-completo', label: 'Ensino fundamental completo' },
-                  { value: 'medio-incompleto', label: 'Ensino médio incompleto' },
-                  { value: 'medio-completo', label: 'Ensino médio completo' },
-                  { value: 'tecnico-incompleto', label: 'Ensino técnico incompleto' },
-                  { value: 'tecnico-completo', label: 'Ensino técnico completo' },
-                  { value: 'superior-incompleto', label: 'Ensino superior incompleto' },
-                  { value: 'superior-completo', label: 'Ensino superior completo' }
+                { value: 'EAST_ASIANS', label: 'Asiático' },
+                { value: 'WHITE', label: 'Branco' },
+                { value: 'NATIVE', label: 'Indígena' },
+                { value: 'BLACK', label: 'Negro' },
+                { value: 'PARDO', label: 'Pardo' },
+                { value: 'PREFER_NOT_TO_INFORM', label: '(não declarada)' },
               ]}
             />
-            <SelectField name="race" label="Raça" onChange={this.props.onChange}
+
+            <CheckboxField
+              type="radio"
+              name="housing"
+              label="Moradia"
+              onChange={this.props.onChange}
               options={[
-                  { value: 'nao-declara', label: '(não declarada)' },
-                  { value: 'asiatico', label: 'Asiático' },
-                  { value: 'branco', label: 'Branco' },
-                  { value: 'indigena', label: 'Indígena' },
-                  { value: 'negro', label: 'Negro' },
-                  { value: 'pardo', label: 'Pardo' }
+                { value: 'OWN', label: 'Própria' },
+                { value: 'RENTED', label: 'Alugada' },
+                { value: 'OTHER', label: 'Outros' },
               ]}
             />
-            <CheckboxField type="radio" name="lgbtqia" label="Pertence à comunidade LGBTQIA+" onChange={this.props.onChange} 
-            options={[
-              { value: true, label: 'Sim' },
-              { value: false, label: 'Não' }
-            ]}/>
-            <NumberField name="income" label="Renda mensal" onChange={this.props.onChange} min="0.00" step="0.01" />
-            <NumberField name="people" label="Número de residentes no domicílio" onChange={this.props.onChange} />
-            <NumberField name="children" label="Número de filhos e/ou dependentes" onChange={this.props.onChange} />
-            <SelectField name="housing" label="Moradia" onChange={this.props.onChange}
+
+            <NumberField
+              name="numberOfResidents"
+              label="Quantidade de moradores"
+              onChange={this.props.onChange}
+            />
+
+            <TextField
+              name="occupation"
+              label="Ocupação"
+              onChange={this.props.onChange}
+            />
+
+            <CheckboxField
+              type="radio"
+              name="occupationMode"
+              label="Modalide da ocupação"
+              onChange={this.props.onChange}
               options={[
-                  { value: 'nao-declara', label: '(não declarada)' },
-                  { value: 'propria', label: 'Própria' },
-                  { value: 'alugada', label: 'Alugada' },
-                  { value: 'cedida', label: 'Cedida' },
-                  { value: 'outros', label: 'Outros' }
+                { value: 'FIXED', label: 'Fixa' },
+                { value: 'AUTONOMOUS', label: 'Autônoma' },
               ]}
             />
-            <TextField name="comments" label="Comentários adicionais" onChange={this.props.onChange} />
+
+            <SelectField
+              name="familyIncome"
+              label="Renda familiar"
+              defaultValue=""
+              onChange={this.props.onChange}
+              options={[
+                {
+                  value: 'LESS_THAN_ONE_MINIMUM_WAGE',
+                  label: 'Menos de 1 salário mínimo',
+                },
+                { value: 'ONE_MINIMUM_WAGE', label: '1 salário mínimo' },
+                {
+                  value: 'TWO_MINIMUM_WAGE',
+                  label: '2 salários mínimos',
+                },
+                { value: 'THREE_MINIMUM_WAGE', label: '3 salários mínimos' },
+                {
+                  value: 'MORE_THAN_THREE_MINIMUM_WAGE',
+                  label: 'Mais de 3 salários mínimos',
+                },
+              ]}
+            />
+
+            <CheckboxField
+              type="radio"
+              name="haveChildren"
+              label="Tem filhos?"
+              onChange={() => false}
+              options={[
+                { value: true, label: 'Sim' },
+                { value: false, label: 'Não' },
+              ]}
+            />
+
+            <NumberField
+              name="numberOfChildren"
+              label="Quantos?"
+              onChange={this.props.onChange}
+            />
           </Form>
         )}
       />
-  )};
+    );
+  }
 }
 
 export default SocialForm;
