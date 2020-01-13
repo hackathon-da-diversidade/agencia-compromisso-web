@@ -16,6 +16,7 @@ class NumberField extends Component {
         <label htmlFor={this.props.name}>{this.props.label}</label>
         <Field
           type="number"
+          value={this.props.value}
           name={this.props.name}
           onChange={this.onChange}
           className="form-control"

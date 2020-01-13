@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
 
 import TextField from '../../UI/Field/TextField';
@@ -7,25 +8,62 @@ import SelectField from '../../UI/Field/SelectField';
 import MaskedField from '../../UI/Field/MaskedField';
 import CheckboxField from '../../UI/Field/CheckboxField';
 
-export default ({ data = {}, onChange }) => {
+dayjs.extend(customParseFormat);
+
+function PersonalForm({ data = {}, onChange }) {
   const [inProjects, setInProjects] = useState(false);
 
-  const isUnderage = person => {
-    if (!person || !person.birthday) {
-      return false;
-    }
+  const isUnderage = birthday => {
+    const parseDate = dayjs(birthday, 'DD-MM-YYYY');
+    return dayjs().diff(parseDate, 'year') < 18;
+  };
 
-    if (person && Date.parse(person.birthday)) {
-      const parseDate = dayjs(person.birthday).format('DD/MM/YYYY');
-      const birthday = new Date(parseDate);
-      const eighteen = 31556952000 * 18;
-      const differenceFromNowInMs = Date.now() - birthday.getTime();
-      return differenceFromNowInMs <= eighteen;
+  const renderGuardianFields = () => {
+    if (!dayjs(data.birthday, 'DD-MM-YYYY').isValid()) return;
+
+    if (isUnderage(data.birthday)) {
+      return (
+        <>
+          <TextField
+            name="guardianName"
+            label="Nome da pessoa responsável"
+            onChange={onChange}
+          />
+          <MaskedField
+            name="guardianPhoneNumber"
+            label="Telefone da pessoa responsável"
+            type="tel"
+            onChange={onChange}
+            mask={[
+              '(',
+              /\d/,
+              /\d/,
+              ')',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+            ]}
+          />
+        </>
+      );
+    } else if (data.guardianName || data.guardianPhoneNumber) {
+      onChange({ guardianName: '', guardianPhoneNumber: '' });
+      return;
     }
   };
 
-  const checkProject = event => {
-    setInProjects(event.target.value);
+  const handleInProjects = ({ inProjects }) => {
+    setInProjects(inProjects);
+
+    if (inProjects === 'false') {
+      onChange({ projects: '' });
+    }
   };
 
   return (
@@ -41,36 +79,7 @@ export default ({ data = {}, onChange }) => {
             onChange={onChange}
             mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
           />
-          {isUnderage(data) ? (
-            <>
-              <TextField
-                name="guardianName"
-                label="Nome da pessoa responsável"
-                onChange={onChange}
-              />
-              <MaskedField
-                name="guardianPhoneNumber"
-                label="Telefone da pessoa responsável"
-                type="tel"
-                onChange={onChange}
-                mask={[
-                  '(',
-                  /\d/,
-                  /\d/,
-                  ')',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ]}
-              />
-            </>
-          ) : null}
+          {renderGuardianFields()}
           <CheckboxField
             type="checkbox"
             name="availability"
@@ -86,14 +95,13 @@ export default ({ data = {}, onChange }) => {
             type="radio"
             name="inProjects"
             label="Participação em outros projetos?"
-            onChange={() => false}
-            onClick={checkProject}
+            onChange={handleInProjects}
             options={[
               { value: true, label: 'Sim' },
               { value: false, label: 'Não' },
             ]}
           />
-          {inProjects && (
+          {inProjects === 'true' && (
             <TextField name="projects" label="Projetos" onChange={onChange} />
           )}
 
@@ -153,6 +161,7 @@ export default ({ data = {}, onChange }) => {
             label="Escolaridade"
             onChange={onChange}
             options={[
+              { value: '', hidden: true, label: '' },
               { value: 'NO_EDUCATION', label: '(sem escolaridade)' },
               {
                 value: 'INCOMPLETE_MIDDLE_SCHOOL',
@@ -186,4 +195,6 @@ export default ({ data = {}, onChange }) => {
       )}
     />
   );
-};
+}
+
+export default PersonalForm;

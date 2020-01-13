@@ -10,12 +10,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import fitModelAPI from '../../api/fitModelAPI';
-
 import classes from './FitModelForm.module.css';
 
 const TABS = [PersonalForm, MeasuresForm, SocialForm];
 
-export default ({ history }) => {
+function FitModelForm({ history }) {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [fitModelData, setFitModelData] = useState({});
   const [hasError, setHasError] = useState(false);
@@ -67,4 +66,6 @@ export default ({ history }) => {
       )}
     </div>
   );
-};
+}
+
+export default FitModelForm;

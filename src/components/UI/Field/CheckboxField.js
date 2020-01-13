@@ -17,17 +17,18 @@ class CheckboxField extends Component {
         <label htmlFor={name}>{label}</label>
         <div>
           {options.map(option => {
+            const id = `${option.value.toString()}-${name}`;
             return (
-              <span key={option.value.toString()}>
+              <span key={id}>
                 <input
                   onClick={onClick}
                   type={type}
                   name={name}
-                  id={`${option.value.toString()}-${name}`}
+                  id={id}
                   value={option.value}
                   onChange={this.onChange}
                 />
-                <label htmlFor={option.value.toString()}>{option.label}</label>
+                <label htmlFor={id}>{option.label}</label>
               </span>
             );
           })}

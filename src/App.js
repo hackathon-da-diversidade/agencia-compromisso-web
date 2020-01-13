@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Lista from './components/Lista';
 import Menu from './components/Menu';
-import FitModelForm from './components/Cadastro/FitModelForm';
+import FitModelForm from './components/FitModelForm/FitModelForm';
 import Modelo from './components/Modelo/Modelo';
 import './App.css';
 
