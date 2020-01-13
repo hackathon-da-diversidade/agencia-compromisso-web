@@ -1,0 +1,22 @@
+.Card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  max-width: 400px;
+  padding: 8px 16px;
+  margin: auto;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  text-align: left;
+  font-size: 14px;
+}
+
+.Card:hover {
+  background-color: #f1f1f1;
+}
+
+.FitModelInfo {
+  display: block;
+  padding: 0;
+}

@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import fitModelAPI from '../api/fitModelAPI';
+
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
+
+import Card from '@material-ui/core/Card';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import classes from './Lista.module.css';
+
+dayjs.extend(customParseFormat);
 
 class Lista extends Component {
   state = {
@@ -9,22 +19,21 @@ class Lista extends Component {
   };
 
   componentDidMount() {
-    // this.listaApi = new ListaApi()
     this.loadModels();
   }
 
-  // loadModels = async() => {
-  //   try {
-  //     const res = await this.listaApi.listarModelos();
-  //     this.setState({
-  //       models: res.data
-  //     })
-  //   } catch {
-  //     this.setState({
-  //       error: true
-  //     })
-  //   }
-  //  }
+  loadModels = async () => {
+    try {
+      const res = await fitModelAPI.getAll();
+      this.setState({
+        models: res.data,
+      });
+    } catch {
+      this.setState({
+        error: true,
+      });
+    }
+  };
 
   showModelInfo(model) {
     this.props.history.push({
@@ -36,33 +45,33 @@ class Lista extends Component {
     if (!model || model.birthday == null) {
       return 0;
     }
-    return dayjs().diff(model.birthday, 'year');
+    console.log(model.birthday);
+    console.log(dayjs(model.birthday, 'DD-MM-YYYY'));
+    return dayjs().diff(dayjs(model.birthday, 'DD-MM-YYYY'), 'year');
   }
 
   render() {
     return (
-      <div className="lista">
+      <>
         <Header title="Lista" />
-        <ul className="table">
-          {this.state.models.map(model => (
-            <li key={model.id}>
-              <p
-                className="model-name"
-                onClick={() => this.showModelInfo(model)}
-              >
-                {' '}
-                {model.name}
-              </p>
-              <p className="model-data">
-                {' '}
-                {model.genderExpression} | {model.phoneNumber} |{' '}
-                {this.calculateAge(model)} anos{' '}
-              </p>
-              <br></br>
-            </li>
-          ))}
-        </ul>
-      </div>
+        {this.state.models.map(model => (
+          <Card
+            key={model.id}
+            className={classes.Card}
+            variant="outlined"
+            onClick={() => this.showModelInfo(model)}
+          >
+            <div>
+              <strong>{model.name}</strong>
+              <span className={classes.FitModelInfo}>
+                {model.genderExpression} | {this.calculateAge(model)} anos |
+                {model.phoneNumber}
+              </span>
+            </div>
+            <ArrowForwardIcon className={classes.ForwardIcon} />
+          </Card>
+        ))}
+      </>
     );
   }
 }
