@@ -53,7 +53,7 @@ function PersonalForm({ data = {}, onChange }) {
         </>
       );
     } else if (data.guardianName || data.guardianPhoneNumber) {
-      onChange({ guardianName: '', guardianPhoneNumber: '' });
+      onChange({ guardianName: null, guardianPhoneNumber: null });
       return;
     }
   };
@@ -62,7 +62,7 @@ function PersonalForm({ data = {}, onChange }) {
     setInProjects(inProjects);
 
     if (inProjects === 'false') {
-      onChange({ projects: '' });
+      onChange({ projects: null });
     }
   };
 

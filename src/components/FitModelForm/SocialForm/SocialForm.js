@@ -13,8 +13,14 @@ function SocialForm({ data = {}, onChange }) {
     setHasChildren(hasChildren);
 
     if (hasChildren === 'false') {
-      onChange({ numberOfChildren: '' });
+      onChange({ numberOfChildren: null });
     }
+  };
+
+  const onChangeSocialInformation = socialInformation => {
+    return onChange({
+      socialInformation: { ...data.socialInformation, ...socialInformation },
+    });
   };
 
   return (
@@ -27,7 +33,7 @@ function SocialForm({ data = {}, onChange }) {
             name="ethnicity"
             label="Etnia"
             defaultValue=""
-            onChange={onChange}
+            onChange={onChangeSocialInformation}
             options={[
               { value: '', hidden: true, label: '' },
               { value: 'EAST_ASIANS', label: 'Amarela' },
@@ -43,7 +49,7 @@ function SocialForm({ data = {}, onChange }) {
             type="radio"
             name="housing"
             label="Moradia"
-            onChange={onChange}
+            onChange={onChangeSocialInformation}
             options={[
               { value: 'OWN', label: 'Própria' },
               { value: 'RENTED', label: 'Alugada' },
@@ -54,16 +60,20 @@ function SocialForm({ data = {}, onChange }) {
           <NumberField
             name="numberOfResidents"
             label="Quantidade de moradores"
-            onChange={onChange}
+            onChange={onChangeSocialInformation}
           />
 
-          <TextField name="occupation" label="Ocupação" onChange={onChange} />
+          <TextField
+            name="occupation"
+            label="Ocupação"
+            onChange={onChangeSocialInformation}
+          />
 
           <CheckboxField
             type="radio"
             name="occupationMode"
             label="Modalide da ocupação"
-            onChange={onChange}
+            onChange={onChangeSocialInformation}
             options={[
               { value: 'FIXED', label: 'Fixa' },
               { value: 'AUTONOMOUS', label: 'Autônoma' },
@@ -74,7 +84,7 @@ function SocialForm({ data = {}, onChange }) {
             name="familyIncome"
             label="Renda familiar"
             defaultValue=""
-            onChange={onChange}
+            onChange={onChangeSocialInformation}
             options={[
               { value: '', hidden: true, label: '' },
               {
@@ -109,7 +119,7 @@ function SocialForm({ data = {}, onChange }) {
             <NumberField
               name="numberOfChildren"
               label="Quantos?"
-              onChange={onChange}
+              onChange={onChangeSocialInformation}
             />
           )}
         </Form>

@@ -23,8 +23,10 @@ function FitModelForm({ history }) {
 
   const saveFitModel = async () => {
     try {
-      const id = await fitModelAPI.create(fitModelData);
-      history.push(`/fit-model/${id}`);
+      const { headers } = await fitModelAPI.create(fitModelData);
+      const locationArray = headers.location.split('/');
+      const id = locationArray[locationArray.length - 1];
+      history.push(`/modelo/${id}`);
     } catch (error) {
       setHasError(true);
     }
