@@ -12,6 +12,13 @@ import classes from './Lista.module.css';
 
 dayjs.extend(customParseFormat);
 
+const gender = {
+  MALE: 'Masculina',
+  FEMALE: 'Feminina',
+  NON_BINARY: 'Não-binária',
+  PREFER_NOT_TO_INFORM: 'Expressão de gênero não informada',
+};
+
 class Lista extends Component {
   state = {
     models: [],
@@ -45,8 +52,6 @@ class Lista extends Component {
     if (!model || model.birthday == null) {
       return 0;
     }
-    console.log(model.birthday);
-    console.log(dayjs(model.birthday, 'DD-MM-YYYY'));
     return dayjs().diff(dayjs(model.birthday, 'DD-MM-YYYY'), 'year');
   }
 
@@ -64,8 +69,8 @@ class Lista extends Component {
             <div>
               <strong>{model.name}</strong>
               <span className={classes.FitModelInfo}>
-                {model.genderExpression} | {this.calculateAge(model)} anos |
-                {model.phoneNumber}
+                {gender[model.genderExpression]} | {this.calculateAge(model)}{' '}
+                anos | {model.phoneNumber}
               </span>
             </div>
             <ArrowForwardIcon className={classes.ForwardIcon} />
