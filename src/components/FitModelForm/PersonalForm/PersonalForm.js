@@ -81,7 +81,7 @@ function PersonalForm({ data = {}, onChange }) {
           />
           {renderGuardianFields()}
           <CheckboxField
-            type="checkbox"
+            type="radio"
             name="availability"
             label="Disponibilidade"
             onChange={onChange}

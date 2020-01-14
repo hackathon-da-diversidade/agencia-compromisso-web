@@ -3,6 +3,7 @@
   width: 90vw;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 
 .FitModelForm form .FormGroup {
