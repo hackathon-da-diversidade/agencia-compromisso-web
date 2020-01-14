@@ -5,11 +5,11 @@ import MeasuresForm from './MeasuresForm/MeasuresForm';
 import SocialForm from './SocialForm/SocialForm';
 import Header from '../Header';
 import Button from '../UI/Button/Button';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import fitModelAPI from '../../api/fitModelAPI';
+
 import classes from './FitModelForm.module.css';
 
 const TABS = [PersonalForm, MeasuresForm, SocialForm];
@@ -35,22 +35,20 @@ function FitModelForm({ history }) {
   return (
     <div className={classes.FitModelForm}>
       <Header title="Cadastro" />
-      <AppBar position="static" color="default">
-        <Tabs
-          value={selectedTabIndex}
-          onChange={(event, index) => {
-            setSelectedTabIndex(index);
-          }}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          <Tab label="Pessoal" />
-          <Tab label="Medidas" />
-          <Tab label="Social" />
-        </Tabs>
-      </AppBar>
+      <Tabs
+        value={selectedTabIndex}
+        onChange={(event, index) => {
+          setSelectedTabIndex(index);
+        }}
+        variant="scrollable"
+        scrollButtons="auto"
+        className={classes.Tabs}
+        TabIndicatorProps={{ className: classes.Indicator }}
+      >
+        <Tab label="PESSOAL" />
+        <Tab label="MEDIDAS" />
+        <Tab label="SOCIAL" />
+      </Tabs>
       <TabComponent
         data={fitModelData}
         onChange={updatedFields => {
