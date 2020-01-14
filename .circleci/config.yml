@@ -3,10 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:12.9.1-browsers
-    filters:
-      branches:
-        only:
-          - api-class
     working_directory: ~/repo
     steps:
       - checkout
@@ -20,3 +16,23 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn test
+  deploy-staging:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Staging
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME_STG.git master
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: api-class
