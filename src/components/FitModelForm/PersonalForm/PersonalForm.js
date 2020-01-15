@@ -72,12 +72,18 @@ function PersonalForm({ data = {}, onChange }) {
       enableReinitialize="true"
       render={() => (
         <Form>
-          <TextField name="name" label="Nome completo *" onChange={onChange} />
+          <TextField
+            name="name"
+            label="Nome completo"
+            onChange={onChange}
+            required
+          />
           <MaskedField
             name="birthday"
             label="Data de nascimento"
             onChange={onChange}
             mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+            required
           />
           {renderGuardianFields()}
           <CheckboxField
@@ -143,6 +149,7 @@ function PersonalForm({ data = {}, onChange }) {
                 label: 'Prefere não informar',
               },
             ]}
+            required
           />
 
           <CheckboxField

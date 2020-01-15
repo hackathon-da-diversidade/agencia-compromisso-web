@@ -18,21 +18,25 @@ export default ({ data = {}, onChange }) => {
             name="totalBustCircumference"
             label="Circunferência total do busto (cm)"
             onChange={onChangeSizes}
+            required
           />
           <NumberField
             name="totalWaistCircumference"
             label="Circunferência total da cintura alta (cm)"
             onChange={onChangeSizes}
+            required
           />
           <NumberField
             name="totalHipCircumference"
             label="Circunferência total do quadril (cm)"
             onChange={onChangeSizes}
+            required
           />
           <NumberField
             name="height"
             label="Altura (cm)"
             onChange={onChangeSizes}
+            required
           />
         </Form>
       )}

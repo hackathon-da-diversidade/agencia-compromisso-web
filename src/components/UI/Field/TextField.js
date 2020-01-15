@@ -13,13 +13,19 @@ class TextField extends Component {
   render() {
     return (
       <div className={classes.Field + ' form-group'}>
-        <label htmlFor={this.props.name}>{this.props.label}</label>
+        <label
+          htmlFor={this.props.name}
+          className={this.props.required ? classes.Required : ''}
+        >
+          {this.props.label}
+        </label>
         <Field
           type="text"
           value={this.props.value}
           name={this.props.name}
           onChange={this.onChange}
           className="form-control"
+          required={this.props.required}
         />
       </div>
     );

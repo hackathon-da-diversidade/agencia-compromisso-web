@@ -29,3 +29,8 @@
 .Field input[type='checkbox']:hover {
   cursor: pointer;
 }
+
+.Required::after {
+  content: '*';
+  margin-left: 5px;
+}

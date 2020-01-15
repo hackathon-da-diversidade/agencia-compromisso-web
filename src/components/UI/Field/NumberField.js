@@ -13,7 +13,12 @@ class NumberField extends Component {
   render() {
     return (
       <div className={classes.Field + ' form-group'}>
-        <label htmlFor={this.props.name}>{this.props.label}</label>
+        <label
+          htmlFor={this.props.name}
+          className={this.props.required ? classes.Required : ''}
+        >
+          {this.props.label}
+        </label>
         <Field
           type="number"
           value={this.props.value}
@@ -22,6 +27,7 @@ class NumberField extends Component {
           className="form-control"
           min={this.props.min}
           step={this.props.step}
+          required={this.props.required}
         />
       </div>
     );

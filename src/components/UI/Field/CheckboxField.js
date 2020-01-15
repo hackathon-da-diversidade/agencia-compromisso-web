@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import './Field.module.css';
+import { Required } from './Field.module.css';
+import { Wrapper, Options, Option } from './CheckboxField.module.css';
 
 class CheckboxField extends Component {
   onChange = event => {
@@ -11,15 +12,17 @@ class CheckboxField extends Component {
 
   render() {
     const options = this.props.options ? this.props.options : [];
-    const { label, name, type, onClick } = this.props;
+    const { label, name, type, onClick, required } = this.props;
     return (
-      <>
-        <label htmlFor={name}>{label}</label>
-        <div>
+      <div className={Wrapper}>
+        <label htmlFor={name} className={required ? Required : ''}>
+          {label}
+        </label>
+        <div className={Options}>
           {options.map(option => {
             const id = `${option.value.toString()}-${name}`;
             return (
-              <span key={id}>
+              <span key={id} className={Option}>
                 <input
                   onClick={onClick}
                   type={type}
@@ -27,13 +30,14 @@ class CheckboxField extends Component {
                   id={id}
                   value={option.value}
                   onChange={this.onChange}
+                  required={required}
                 />
                 <label htmlFor={id}>{option.label}</label>
               </span>
             );
           })}
         </div>
-      </>
+      </div>
     );
   }
 }

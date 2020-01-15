@@ -1,9 +1,15 @@
+.FitModelForm {
+  max-width: 600px;
+  margin: auto;
+}
+
 .FitModelForm form {
   display: inline-block;
   width: 90vw;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
+  width: 100%;
 }
 
 .FitModelForm form .FormGroup {
