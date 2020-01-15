@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import Card from '@material-ui/core/Card';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import classes from './Lista.module.css';
+import classes from './List.module.css';
 
 dayjs.extend(customParseFormat);
 
@@ -19,7 +19,7 @@ const gender = {
   PREFER_NOT_TO_INFORM: 'Gênero não informado',
 };
 
-class Lista extends Component {
+class List extends Component {
   state = {
     models: [],
     error: false,
@@ -62,13 +62,14 @@ class Lista extends Component {
         {this.state.models.map(model => (
           <Card
             key={model.id}
+            name="fitModelCard"
             className={classes.Card}
             variant="outlined"
             onClick={() => this.showModelInfo(model)}
           >
             <div>
-              <strong>{model.name}</strong>
-              <span className={classes.FitModelInfo}>
+              <strong name="fitModelName">{model.name}</strong>
+              <span name="fitModelInfo" className={classes.FitModelInfo}>
                 {gender[model.genderExpression]} | {this.calculateAge(model)}{' '}
                 anos | {model.phoneNumber}
               </span>
@@ -81,4 +82,4 @@ class Lista extends Component {
   }
 }
 
-export default Lista;
+export default List;

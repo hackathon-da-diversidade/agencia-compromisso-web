@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Lista from './components/Lista';
+import List from './components/List';
 import Menu from './components/Menu';
 import FitModelForm from './components/FitModelForm/FitModelForm';
 import Modelo from './components/Modelo/Modelo';
@@ -14,7 +14,7 @@ class App extends Component {
           <div className="App">
             <Switch>
               <Route exact path="/" component={Menu} />
-              <Route exact path="/lista" component={Lista} />
+              <Route exact path="/lista" component={List} />
               <Route exact path="/cadastro" component={FitModelForm} />
               <Route path="/modelo/:id" component={Modelo} />
             </Switch>
