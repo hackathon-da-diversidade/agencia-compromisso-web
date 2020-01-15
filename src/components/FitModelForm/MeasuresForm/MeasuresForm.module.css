@@ -1,0 +1,18 @@
+.InfoIcon {
+  margin-left: 10px;
+}
+
+.ModalImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.CloseIcon {
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  background-color: black;
+  color: white;
+}
