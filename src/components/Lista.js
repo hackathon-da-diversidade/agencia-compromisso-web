@@ -13,10 +13,10 @@ import classes from './Lista.module.css';
 dayjs.extend(customParseFormat);
 
 const gender = {
-  MALE: 'Masculina',
-  FEMALE: 'Feminina',
+  MALE: 'Homem',
+  FEMALE: 'Mulher',
   NON_BINARY: 'Não-binária',
-  PREFER_NOT_TO_INFORM: 'Expressão de gênero não informada',
+  PREFER_NOT_TO_INFORM: 'Gênero não informado',
 };
 
 class Lista extends Component {
