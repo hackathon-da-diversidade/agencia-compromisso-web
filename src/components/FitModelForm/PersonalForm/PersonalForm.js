@@ -11,8 +11,6 @@ import CheckboxField from '../../UI/Field/CheckboxField';
 dayjs.extend(customParseFormat);
 
 function PersonalForm({ data = {}, onChange }) {
-  const [inProjects, setInProjects] = useState(false);
-
   const isUnderage = birthday => {
     const parseDate = dayjs(birthday, 'DD-MM-YYYY');
     return dayjs().diff(parseDate, 'year') < 18;
@@ -28,12 +26,14 @@ function PersonalForm({ data = {}, onChange }) {
             name="guardianName"
             label="Nome da pessoa responsável"
             onChange={onChange}
+            value={data.guardianName}
           />
           <MaskedField
             name="guardianPhoneNumber"
             label="Telefone da pessoa responsável"
             type="tel"
             onChange={onChange}
+            value={data.guardianPhoneNumber}
             mask={[
               '(',
               /\d/,
@@ -59,11 +59,10 @@ function PersonalForm({ data = {}, onChange }) {
   };
 
   const handleInProjects = ({ inProjects }) => {
-    setInProjects(inProjects);
-
-    if (inProjects === 'false') {
-      onChange({ projects: null });
-    }
+    onChange({
+      projects: inProjects === 'yes' ? data.projects : null,
+      inProjects,
+    });
   };
 
   return (
@@ -75,12 +74,14 @@ function PersonalForm({ data = {}, onChange }) {
           <TextField
             name="name"
             label="Nome completo"
+            value={data.name}
             onChange={onChange}
             required
           />
           <MaskedField
             name="birthday"
             label="Data de nascimento"
+            value={data.birthday}
             onChange={onChange}
             mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
             required
@@ -90,6 +91,7 @@ function PersonalForm({ data = {}, onChange }) {
             type="radio"
             name="availability"
             label="Disponibilidade"
+            value={data.availability}
             onChange={onChange}
             options={[
               { value: 'MORNING', label: 'Manhã' },
@@ -102,13 +104,19 @@ function PersonalForm({ data = {}, onChange }) {
             name="inProjects"
             label="Participação em outros projetos?"
             onChange={handleInProjects}
+            value={data.inProjects}
             options={[
-              { value: true, label: 'Sim' },
-              { value: false, label: 'Não' },
+              { value: 'yes', label: 'Sim' },
+              { value: 'no', label: 'Não' },
             ]}
           />
-          {inProjects === 'true' && (
-            <TextField name="projects" label="Projetos" onChange={onChange} />
+          {data.inProjects === 'yes' && (
+            <TextField
+              name="projects"
+              label="Projetos"
+              onChange={onChange}
+              value={data.projects}
+            />
           )}
 
           <MaskedField
@@ -116,6 +124,7 @@ function PersonalForm({ data = {}, onChange }) {
             label="Telefone"
             type="tel"
             onChange={onChange}
+            value={data.phoneNumber}
             mask={[
               '(',
               /\d/,
@@ -132,13 +141,18 @@ function PersonalForm({ data = {}, onChange }) {
               /\d/,
             ]}
           />
-          <TextField name="address" label="Endereço" onChange={onChange} />
+          <TextField
+            name="address"
+            label="Endereço"
+            onChange={onChange}
+            value={data.address}
+          />
 
           <SelectField
             name="genderExpression"
             label="Expressão de Gênero"
             onChange={onChange}
-            defaultValue=""
+            value={data.genderExpression}
             options={[
               { value: '', hidden: true, label: '' },
               { value: 'FEMALE', label: 'Feminina' },
@@ -157,9 +171,10 @@ function PersonalForm({ data = {}, onChange }) {
             name="lgbtqia"
             label="Pertence à comunidade LGBTQIA+"
             onChange={onChange}
+            value={data.lgbtqia}
             options={[
-              { value: true, label: 'Sim' },
-              { value: false, label: 'Não' },
+              { value: 'yes', label: 'Sim' },
+              { value: 'no', label: 'Não' },
             ]}
           />
 
@@ -167,6 +182,7 @@ function PersonalForm({ data = {}, onChange }) {
             name="education"
             label="Escolaridade"
             onChange={onChange}
+            value={data.education}
             options={[
               { value: '', hidden: true, label: '' },
               { value: 'NO_EDUCATION', label: '(sem escolaridade)' },

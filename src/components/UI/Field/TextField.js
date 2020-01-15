@@ -21,7 +21,7 @@ class TextField extends Component {
         </label>
         <Field
           type="text"
-          value={this.props.value}
+          value={this.props.value || ''}
           name={this.props.name}
           onChange={this.onChange}
           className="form-control"

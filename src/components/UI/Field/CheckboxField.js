@@ -12,7 +12,7 @@ class CheckboxField extends Component {
 
   render() {
     const options = this.props.options ? this.props.options : [];
-    const { label, name, type, onClick, required } = this.props;
+    const { label, name, type, onClick, value, required } = this.props;
     return (
       <div className={Wrapper}>
         <label htmlFor={name} className={required ? Required : ''}>
@@ -30,6 +30,7 @@ class CheckboxField extends Component {
                   id={id}
                   value={option.value}
                   onChange={this.onChange}
+                  checked={option.value === value}
                   required={required}
                 />
                 <label htmlFor={id}>{option.label}</label>

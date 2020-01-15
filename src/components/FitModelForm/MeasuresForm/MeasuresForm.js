@@ -10,11 +10,12 @@ import NumberField from '../../UI/Field/NumberField';
 import classes from './MeasuresForm.module.css';
 
 export default ({ data = {}, onChange }) => {
+  const sizes = data.sizes || {};
   const [open, setOpen] = useState(false);
   const [currentImageUrl, setCurrentImageUrl] = useState();
 
   const onChangeSizes = measures => {
-    return onChange({ sizes: { ...data.sizes, ...measures } });
+    return onChange({ sizes: { ...sizes, ...measures } });
   };
 
   const handleOpen = url => {
@@ -44,7 +45,7 @@ export default ({ data = {}, onChange }) => {
 
   return (
     <Formik
-      initialValues={{ ...data.sizes }}
+      initialValues={{ ...sizes }}
       enableReinitialize="true"
       render={() => (
         <Form>
@@ -65,6 +66,7 @@ export default ({ data = {}, onChange }) => {
                 </>
               }
               onChange={onChangeSizes}
+              value={sizes.totalBustCircumference}
               required
             />
           </div>
@@ -83,6 +85,7 @@ export default ({ data = {}, onChange }) => {
                 </>
               }
               onChange={onChangeSizes}
+              value={sizes.totalWaistCircumference}
               required
             />
           </div>
@@ -103,6 +106,7 @@ export default ({ data = {}, onChange }) => {
                 </>
               }
               onChange={onChangeSizes}
+              value={sizes.totalHipCircumference}
               required
             />
           </div>
@@ -123,6 +127,7 @@ export default ({ data = {}, onChange }) => {
                 </>
               }
               onChange={onChangeSizes}
+              value={sizes.height}
               required
             />
           </div>

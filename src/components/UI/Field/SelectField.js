@@ -26,7 +26,7 @@ class SelectField extends Component {
           name={this.props.name}
           onChange={this.onChange}
           className="form-control"
-          defaultValue={this.props.defaultValue}
+          value={this.props.value || ''}
           required={this.props.required}
         >
           {options.map(option => (

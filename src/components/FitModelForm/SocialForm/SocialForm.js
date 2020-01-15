@@ -7,32 +7,31 @@ import SelectField from '../../UI/Field/SelectField';
 import TextField from '../../UI/Field/TextField';
 
 function SocialForm({ data = {}, onChange }) {
-  const [hasChildren, setHasChildren] = useState(false);
-
+  const socialInformation = data.socialInformation || {};
   const handleHasChildren = ({ hasChildren }) => {
-    setHasChildren(hasChildren);
-
-    if (hasChildren === 'false') {
-      onChange({ numberOfChildren: null });
-    }
+    onChangeSocialInformation({
+      numberOfChildren:
+        hasChildren === 'yes' ? socialInformation.numberOfChildren : null,
+      hasChildren,
+    });
   };
 
-  const onChangeSocialInformation = socialInformation => {
+  const onChangeSocialInformation = newSocialInformation => {
     return onChange({
-      socialInformation: { ...data.socialInformation, ...socialInformation },
+      socialInformation: { ...socialInformation, ...newSocialInformation },
     });
   };
 
   return (
     <Formik
-      initialValues={{ ...data }}
+      initialValues={{ ...socialInformation }}
       enableReinitialize="true"
       render={() => (
         <Form>
           <SelectField
             name="ethnicity"
             label="Etnia"
-            defaultValue=""
+            value={socialInformation.ethnicity}
             onChange={onChangeSocialInformation}
             options={[
               { value: '', hidden: true, label: '' },
@@ -50,6 +49,7 @@ function SocialForm({ data = {}, onChange }) {
             name="housing"
             label="Moradia"
             onChange={onChangeSocialInformation}
+            value={socialInformation.housing}
             options={[
               { value: 'OWN', label: 'Própria' },
               { value: 'RENTED', label: 'Alugada' },
@@ -61,12 +61,14 @@ function SocialForm({ data = {}, onChange }) {
             name="numberOfResidents"
             label="Quantidade de moradores"
             onChange={onChangeSocialInformation}
+            value={socialInformation.numberOfResidents}
           />
 
           <TextField
             name="occupation"
             label="Ocupação"
             onChange={onChangeSocialInformation}
+            value={socialInformation.occupation}
           />
 
           <CheckboxField
@@ -74,6 +76,7 @@ function SocialForm({ data = {}, onChange }) {
             name="occupationMode"
             label="Modalide da ocupação"
             onChange={onChangeSocialInformation}
+            value={socialInformation.occupationMode}
             options={[
               { value: 'FIXED', label: 'Fixa' },
               { value: 'AUTONOMOUS', label: 'Autônoma' },
@@ -83,7 +86,7 @@ function SocialForm({ data = {}, onChange }) {
           <SelectField
             name="familyIncome"
             label="Renda familiar"
-            defaultValue=""
+            value={socialInformation.familyIncome}
             onChange={onChangeSocialInformation}
             options={[
               { value: '', hidden: true, label: '' },
@@ -109,17 +112,19 @@ function SocialForm({ data = {}, onChange }) {
             name="hasChildren"
             label="Tem filhos?"
             onChange={handleHasChildren}
+            value={socialInformation.hasChildren}
             options={[
-              { value: true, label: 'Sim' },
-              { value: false, label: 'Não' },
+              { value: 'yes', label: 'Sim' },
+              { value: 'no', label: 'Não' },
             ]}
           />
 
-          {hasChildren === 'true' && (
+          {socialInformation.hasChildren === 'yes' && (
             <NumberField
               name="numberOfChildren"
               label="Quantos?"
               onChange={onChangeSocialInformation}
+              value={socialInformation.numberOfChildren}
             />
           )}
         </Form>
