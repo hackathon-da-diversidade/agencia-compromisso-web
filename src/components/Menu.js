@@ -7,10 +7,15 @@ class Menu extends Component {
     return (
       <div className="menu">
         <img
+          className="icon"
           src={icon}
           alt="ícone estilizado com o perfil de uma mulher com uma fita métrica no black power"
         ></img>
-        <img src={banner} alt="banner da Agência Compromisso"></img>
+        <img
+          className="banner"
+          src={banner}
+          alt="banner da Agência Compromisso"
+        ></img>
 
         <ul className="agencia-btn-group">
           <li>

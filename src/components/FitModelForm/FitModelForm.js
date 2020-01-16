@@ -34,7 +34,7 @@ function FitModelForm({ history }) {
 
   return (
     <div className={classes.FitModelForm}>
-      <Header title="Cadastro" />
+      <Header />
       <Tabs
         value={selectedTabIndex}
         onChange={(event, index) => {
