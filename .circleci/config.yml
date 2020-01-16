@@ -15,6 +15,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn lint
       - run: yarn test
   deploy-staging:
     docker:
