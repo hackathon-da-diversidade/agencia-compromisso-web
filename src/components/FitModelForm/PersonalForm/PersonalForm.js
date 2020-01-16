@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form } from 'formik';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import dayjs from 'dayjs';
@@ -12,12 +12,12 @@ dayjs.extend(customParseFormat);
 
 function PersonalForm({ data = {}, onChange }) {
   const isUnderage = birthday => {
-    const parseDate = dayjs(birthday, 'DD-MM-YYYY');
+    const parseDate = dayjs(birthday, 'DD/MM/YYYY');
     return dayjs().diff(parseDate, 'year') < 18;
   };
 
   const renderGuardianFields = () => {
-    if (!dayjs(data.birthday, 'DD-MM-YYYY').isValid()) return;
+    if (!dayjs(data.birthday, 'DD/MM/YYYY').isValid()) return;
 
     if (isUnderage(data.birthday)) {
       return (
@@ -83,7 +83,7 @@ function PersonalForm({ data = {}, onChange }) {
             label="Data de nascimento"
             value={data.birthday}
             onChange={onChange}
-            mask={[/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+            mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
             required
           />
           {renderGuardianFields()}

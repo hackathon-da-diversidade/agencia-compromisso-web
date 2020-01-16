@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form } from 'formik';
 
 import CheckboxField from '../../UI/Field/CheckboxField';

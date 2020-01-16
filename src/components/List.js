@@ -52,7 +52,7 @@ class List extends Component {
     if (!model || model.birthday == null) {
       return 0;
     }
-    return dayjs().diff(dayjs(model.birthday, 'DD-MM-YYYY'), 'year');
+    return dayjs().diff(dayjs(model.birthday, 'DD/MM/YYYY'), 'year');
   }
 
   render() {

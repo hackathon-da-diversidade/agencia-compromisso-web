@@ -12,7 +12,7 @@ describe('Should access registration page and register fit model', function() {
   it('Fills birthday', function() {
     cy.get('input[name="birthday"]')
       .type('20081995')
-      .should('have.value', '20-08-1995');
+      .should('have.value', '20/08/1995');
   });
   it('Selects gender expression', function() {
     cy.get('select[name="genderExpression"]').select('Feminina');
