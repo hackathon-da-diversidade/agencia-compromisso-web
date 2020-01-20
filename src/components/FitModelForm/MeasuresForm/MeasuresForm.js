@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 
-import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 
@@ -56,20 +55,13 @@ export default ({ data = {}, onChange }) => {
           <div className={classes.SizeField}>
             <NumberField
               name="totalBustCircumference"
-              label={
-                <>
-                  Circunferência total do busto (cm)
-                  <InfoIcon
-                    className={classes.InfoIcon}
-                    onClick={() =>
-                      handleOpen({
-                        url: bustMeasure,
-                        alt:
-                          'Imagem de uma pessoa medindo circunferência de seu busto',
-                      })
-                    }
-                  />
-                </>
+              label="Circunferência total do busto (cm)"
+              infoAction={() =>
+                handleOpen({
+                  url: bustMeasure,
+                  alt:
+                    'Imagem de uma pessoa medindo circunferência de seu busto',
+                })
               }
               onChange={onChangeSizes}
               value={sizes.totalBustCircumference}
@@ -79,20 +71,13 @@ export default ({ data = {}, onChange }) => {
           <div className={classes.SizeField}>
             <NumberField
               name="totalWaistCircumference"
-              label={
-                <>
-                  Circunferência total da cintura alta (cm)
-                  <InfoIcon
-                    className={classes.InfoIcon}
-                    onClick={() =>
-                      handleOpen({
-                        url: waistMeasure,
-                        alt:
-                          'Imagem de uma pessoa medindo circunferência de sua cintura',
-                      })
-                    }
-                  />
-                </>
+              label="Circunferência total da cintura alta (cm)"
+              infoAction={() =>
+                handleOpen({
+                  url: waistMeasure,
+                  alt:
+                    'Imagem de uma pessoa medindo circunferência de sua cintura',
+                })
               }
               onChange={onChangeSizes}
               value={sizes.totalWaistCircumference}
@@ -102,20 +87,13 @@ export default ({ data = {}, onChange }) => {
           <div className={classes.SizeField}>
             <NumberField
               name="totalHipCircumference"
-              label={
-                <>
-                  Circunferência total do quadril (cm)
-                  <InfoIcon
-                    className={classes.InfoIcon}
-                    onClick={() =>
-                      handleOpen({
-                        url: hipMeasure,
-                        alt:
-                          'Imagem de uma pessoa medindo circunferência de seu quadril',
-                      })
-                    }
-                  />
-                </>
+              label="Circunferência total do quadril (cm)"
+              infoAction={() =>
+                handleOpen({
+                  url: hipMeasure,
+                  alt:
+                    'Imagem de uma pessoa medindo circunferência de seu quadril',
+                })
               }
               onChange={onChangeSizes}
               value={sizes.totalHipCircumference}

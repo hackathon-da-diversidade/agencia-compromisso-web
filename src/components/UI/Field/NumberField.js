@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'formik';
+import InfoIcon from '@material-ui/icons/Info';
 
 import classes from './Field.module.css';
 
@@ -19,6 +20,12 @@ class NumberField extends Component {
         >
           {this.props.label}
         </label>
+        {this.props.infoAction && (
+          <InfoIcon
+            className={classes.InfoIcon}
+            onClick={this.props.infoAction}
+          />
+        )}
         <Field
           type="number"
           value={this.props.value || ''}

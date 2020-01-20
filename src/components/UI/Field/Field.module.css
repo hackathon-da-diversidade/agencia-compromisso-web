@@ -6,7 +6,7 @@
 }
 
 .Field label {
-  display: block;
+  display: inline-block;
   text-align: left;
   margin: 0;
   color: #000;
@@ -33,4 +33,9 @@
 .Required::after {
   content: '*';
   margin-left: 5px;
+}
+
+.InfoIcon {
+  margin-left: 10px;
+  margin-bottom: -4px;
 }
