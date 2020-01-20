@@ -7,6 +7,7 @@ export default {
     return await axios.post(URL, model);
   },
   async getAll() {
+    console.log(process.env);
     return await axios.get(URL);
   },
   async get(id) {
