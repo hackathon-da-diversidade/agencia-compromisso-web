@@ -5,6 +5,10 @@ import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 
+import bustMeasure from '../../../assets/bustMeasure.jpg';
+import hipMeasure from '../../../assets/hipMeasure.jpg';
+import waistMeasure from '../../../assets/waistMeasure.jpg';
+
 import NumberField from '../../UI/Field/NumberField';
 
 import classes from './MeasuresForm.module.css';
@@ -12,15 +16,15 @@ import classes from './MeasuresForm.module.css';
 export default ({ data = {}, onChange }) => {
   const sizes = data.sizes || {};
   const [open, setOpen] = useState(false);
-  const [currentImageUrl, setCurrentImageUrl] = useState();
+  const [currentImage, setCurrentImage] = useState({});
 
   const onChangeSizes = measures => {
     return onChange({ sizes: { ...sizes, ...measures } });
   };
 
-  const handleOpen = url => {
+  const handleOpen = image => {
     setOpen(true);
-    setCurrentImageUrl(url);
+    setCurrentImage(image);
   };
 
   const handleClose = () => {
@@ -29,17 +33,17 @@ export default ({ data = {}, onChange }) => {
 
   const renderModal = () => (
     <Modal open={open} onClose={handleClose}>
-      <>
-        <img
-          className={classes.ModalImage}
-          src={currentImageUrl}
-          alt="Imagem explicativa de como realizar a medida"
-        />
+      <div className={classes.Modal}>
         <CloseIcon
           className={classes.CloseIcon}
           onClick={() => handleClose()}
         />
-      </>
+        <img
+          className={classes.ModalImage}
+          src={currentImage.url}
+          alt={currentImage.alt}
+        />
+      </div>
     </Modal>
   );
 
@@ -58,9 +62,11 @@ export default ({ data = {}, onChange }) => {
                   <InfoIcon
                     className={classes.InfoIcon}
                     onClick={() =>
-                      handleOpen(
-                        'https://cdn.doyouyoga.com/wp/2017/01/dog-meme-11.png'
-                      )
+                      handleOpen({
+                        url: bustMeasure,
+                        alt:
+                          'Imagem de uma pessoa medindo circunferência de seu busto',
+                      })
                     }
                   />
                 </>
@@ -79,7 +85,11 @@ export default ({ data = {}, onChange }) => {
                   <InfoIcon
                     className={classes.InfoIcon}
                     onClick={() =>
-                      handleOpen('https://i.imgur.com/RHpy3Ho.jpg')
+                      handleOpen({
+                        url: waistMeasure,
+                        alt:
+                          'Imagem de uma pessoa medindo circunferência de sua cintura',
+                      })
                     }
                   />
                 </>
@@ -98,9 +108,11 @@ export default ({ data = {}, onChange }) => {
                   <InfoIcon
                     className={classes.InfoIcon}
                     onClick={() =>
-                      handleOpen(
-                        'https://i.barkpost.com/wp-content/uploads/2015/02/featmeme.jpg?q=70&fit=crop&crop=entropy&w=808&h=500'
-                      )
+                      handleOpen({
+                        url: hipMeasure,
+                        alt:
+                          'Imagem de uma pessoa medindo circunferência de seu quadril',
+                      })
                     }
                   />
                 </>
@@ -113,19 +125,7 @@ export default ({ data = {}, onChange }) => {
           <div className={classes.SizeField}>
             <NumberField
               name="height"
-              label={
-                <>
-                  Altura (cm)
-                  <InfoIcon
-                    className={classes.InfoIcon}
-                    onClick={() =>
-                      handleOpen(
-                        'https://images.theconversation.com/files/304124/original/file-20191127-112526-ig1snl.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip'
-                      )
-                    }
-                  />
-                </>
-              }
+              label="Altura (cm)"
               onChange={onChangeSizes}
               value={sizes.height}
               required

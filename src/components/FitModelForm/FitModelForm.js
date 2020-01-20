@@ -27,7 +27,9 @@ function FitModelForm({ history }) {
       const { headers } = await fitModelAPI.create(fitModelData);
       const locationArray = headers.location.split('/');
       const id = locationArray[locationArray.length - 1];
-      history.push(`/modelo/${id}`);
+      history.push(`/modelo/${id}`, {
+        registrationSuccessful: true,
+      });
     } catch (error) {
       setHasError(true);
     }

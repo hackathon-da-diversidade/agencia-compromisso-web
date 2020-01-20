@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import fitModelAPI from '../../api/fitModelAPI';
 import Information from '../UI/Information/Information';
 
+import classes from './Modelo.module.css';
+
 class Modelo extends Component {
   state = {
     model: {},
@@ -32,10 +34,17 @@ class Modelo extends Component {
   };
 
   render() {
+    const { state = {} } = this.props.location;
     // TODO - formatar datas
     // TODO - exibir dados responsável só se tiver
     return (
       <div>
+        {state.registrationSuccessful && (
+          <span className={classes.SuccessMessage}>
+            Os dados foram salvos com sucesso!
+          </span>
+        )}
+
         <h1> {this.state.model.nome} </h1>
         <Information
           label="Data de Nascimento: "
