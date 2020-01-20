@@ -10,6 +10,7 @@
   margin-right: auto;
   text-align: left;
   width: 100%;
+  padding: 0px 20px;
 }
 
 .FitModelForm form .FormGroup {
@@ -43,4 +44,15 @@
 
 .Indicator {
   display: none !important;
+}
+
+.Actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.Error {
+  color: red
 }

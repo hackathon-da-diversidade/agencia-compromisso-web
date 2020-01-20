@@ -19,6 +19,11 @@
   color: white;
 }
 
+a,
+a:hover {
+  color: #000
+}
+
 ul {
   margin: 0;
 }
@@ -54,13 +59,13 @@ ul li {
   margin-top: 40px;
 }
 
-.menu > .icon {
+.menu>.icon {
   display: block;
   margin: auto;
   height: 62px;
 }
 
-.menu > .banner {
+.menu>.banner {
   display: block;
   margin: auto;
   width: 282px;
