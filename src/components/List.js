@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import Header from './Header';
 import fitModelAPI from '../api/fitModelAPI';
 
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import dayjs from 'dayjs';
-
 import Card from '@material-ui/core/Card';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
+import { calculateAge } from '../utils/dateUtils';
+import { GENDER } from '../utils/constants';
 import classes from './List.module.css';
-
-dayjs.extend(customParseFormat);
 
 const gender = {
   MALE: 'Homem',
@@ -48,13 +45,6 @@ class List extends Component {
     });
   }
 
-  calculateAge(model) {
-    if (!model || model.birthday == null) {
-      return 0;
-    }
-    return dayjs().diff(dayjs(model.birthday, 'DD/MM/YYYY'), 'year');
-  }
-
   render() {
     return (
       <>
@@ -70,8 +60,9 @@ class List extends Component {
             <div>
               <strong name="fitModelName">{model.name}</strong>
               <span name="fitModelInfo" className={classes.FitModelInfo}>
-                {gender[model.genderExpression]} | {this.calculateAge(model)}{' '}
-                anos | {model.phoneNumber}
+                {GENDER[model.genderExpression]}
+                {model.birthday && ` | ${calculateAge(model.birthday)} anos`}
+                {model.phoneNumber && ` | ${model.phoneNumber}`}
               </span>
             </div>
             <ArrowForwardIcon className={classes.ForwardIcon} />

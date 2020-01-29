@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.40",
     "axios": "^0.19.0",
     "date-fns": "^2.4.0",
     "dayjs": "^1.8.18",

@@ -27,10 +27,12 @@
 .HeaderBack {
   position: fixed;
   left: 16px;
-  font-size: 7vh;
-  color: black;
-  text-decoration: none;
-  top: 0;
+  top: 40px;
+}
+
+.HeaderBack > svg {
+  width: 40px;
+  height: 40px;
 }
 
 .HeaderBack:hover {

@@ -74,7 +74,7 @@ function SocialForm({ data = {}, onChange }) {
           <CheckboxField
             type="radio"
             name="occupationMode"
-            label="Modalide da ocupação"
+            label="Modalidade da ocupação"
             onChange={onChangeSocialInformation}
             value={socialInformation.occupationMode}
             options={[

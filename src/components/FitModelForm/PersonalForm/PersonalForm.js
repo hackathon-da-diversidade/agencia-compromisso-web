@@ -1,23 +1,15 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import dayjs from 'dayjs';
+import { isInvalid, isUnderage } from '../../../utils/dateUtils';
 
 import TextField from '../../UI/Field/TextField';
 import SelectField from '../../UI/Field/SelectField';
 import MaskedField from '../../UI/Field/MaskedField';
 import CheckboxField from '../../UI/Field/CheckboxField';
 
-dayjs.extend(customParseFormat);
-
 function PersonalForm({ data = {}, onChange }) {
-  const isUnderage = birthday => {
-    const parseDate = dayjs(birthday, 'DD/MM/YYYY');
-    return dayjs().diff(parseDate, 'year') < 18;
-  };
-
   const renderGuardianFields = () => {
-    if (!dayjs(data.birthday, 'DD/MM/YYYY').isValid()) return;
+    if (isInvalid(data.birthday)) return;
 
     if (isUnderage(data.birthday)) {
       return (

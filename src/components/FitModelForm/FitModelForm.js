@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
 
 import PersonalForm from './PersonalForm/PersonalForm';
 import MeasuresForm from './MeasuresForm/MeasuresForm';
@@ -62,9 +63,9 @@ function FitModelForm({ history }) {
         }}
       />
       {hasError && (
-        <span className={classes.Error}>
+        <Alert severity="error">
           Ocorreu um erro ao salvar os dados. Tente novamente.
-        </span>
+        </Alert>
       )}
       <div className={classes.Actions}>
         <Button clicked={saveFitModel}>Salvar</Button>

@@ -21,7 +21,12 @@
 
 a,
 a:hover {
-  color: #000
+  color: #000;
+}
+
+button,
+a {
+  cursor: pointer;
 }
 
 ul {
@@ -59,13 +64,13 @@ ul li {
   margin-top: 40px;
 }
 
-.menu>.icon {
+.menu > .icon {
   display: block;
   margin: auto;
   height: 62px;
 }
 
-.menu>.banner {
+.menu > .banner {
   display: block;
   margin: auto;
   width: 282px;
@@ -75,4 +80,9 @@ ul li {
 .react-datepicker-wrapper,
 .react-datepicker__input-container {
   width: 100%;
+}
+
+.MuiAlert-root {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 14px !important;
 }
