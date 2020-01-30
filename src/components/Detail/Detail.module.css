@@ -20,3 +20,14 @@ h1 {
 .SucessMessage {
   margin-bottom: 30px;
 }
+
+.ContactButton {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 600px) {
+  .ContactButton {
+    display: none;
+  }
+}
