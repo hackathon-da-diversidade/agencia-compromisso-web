@@ -45,7 +45,7 @@ workflows:
             - build
           filters:
             branches:
-              only: api-class
+              only: master
       - approve-deploy-prod:
           type: approval
           requires:
