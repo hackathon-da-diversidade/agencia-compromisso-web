@@ -1,0 +1,55 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn lint
+      - run: yarn test
+  deploy-staging:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Staging
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME_STG.git master
+  deploy-prod:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Production
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME_PRD.git master
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - approve-deploy-prod:
+          type: approval
+          requires:
+            - deploy-staging
+      - deploy-prod:
+          requires:
+            - approve-deploy-prod

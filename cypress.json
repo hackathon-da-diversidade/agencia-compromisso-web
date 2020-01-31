@@ -1,0 +1,5 @@
+{
+  "env": {
+    "baseUrl": "https://agencia-compromisso-stg.herokuapp.com"
+  }
+}

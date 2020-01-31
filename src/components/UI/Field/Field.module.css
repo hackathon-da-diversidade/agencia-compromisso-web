@@ -1,15 +1,15 @@
 .Field {
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    margin-top: 2rem;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  margin-top: 2rem;
 }
 
 .Field label {
-    display: block;
-    text-align: left;
-    margin: 0;
-    color: #949494;
+  display: inline-block;
+  text-align: left;
+  margin: 0;
+  color: #000;
 }
 
 .Field input {
@@ -28,4 +28,14 @@
 
 .Field input[type='checkbox']:hover {
   cursor: pointer;
+}
+
+.Required::after {
+  content: '*';
+  margin-left: 5px;
+}
+
+.InfoIcon {
+  margin-left: 10px;
+  margin-bottom: -4px;
 }

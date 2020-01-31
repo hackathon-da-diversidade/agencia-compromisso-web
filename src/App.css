@@ -19,9 +19,15 @@
   color: white;
 }
 
-/* .App-link {
-  color: #61dafb;
-} */
+a,
+a:hover {
+  color: #000;
+}
+
+button,
+a {
+  cursor: pointer;
+}
 
 ul {
   margin: 0;
@@ -38,29 +44,15 @@ ul li {
 .btn.btn-secondary.btn-raised {
   margin-top: 20px;
   background-color: #000;
-  width: 300px;
-  height: 70px;
+  width: 230px;
+  height: 50px;
+  padding: 12px;
 }
-
-/* .btn.btn-secondary.btn-raised:focus,
-.btn.btn-secondary.btn-raised:focus-within,
-.btn.btn-secondary.btn-raised:hover,
-.btn.btn-secondary.btn-raised:active {
-  background-color: #fff671 !important;
-  color: black !important;
-}
-
-.btn.btn-secondary.btn-raised:focus .btn.btn-secondary.btn-raised:active {
-  background-color: #fff671 !important;
-  color: black !important;
-} */
 
 .btn.btn-secondary.btn-raised p {
-  margin: 15px 0 0;
   color: white;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 22px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .btn-label {
@@ -72,7 +64,25 @@ ul li {
   margin-top: 40px;
 }
 
-.react-datepicker-wrapper, .react-datepicker__input-container {
+.menu > .icon {
+  display: block;
+  margin: auto;
+  height: 62px;
+}
+
+.menu > .banner {
+  display: block;
+  margin: auto;
+  width: 282px;
+  margin-top: 17px;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
   width: 100%;
 }
 
+.MuiAlert-root {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 14px !important;
+}

@@ -1,0 +1,33 @@
+h1 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 2em;
+}
+
+.MainInfos {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Details {
+  display: inline-block;
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
+}
+
+.SucessMessage {
+  margin-bottom: 30px;
+}
+
+.ContactButton {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 600px) {
+  .ContactButton {
+    display: none;
+  }
+}
