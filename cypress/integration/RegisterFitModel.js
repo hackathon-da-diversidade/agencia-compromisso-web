@@ -1,13 +1,13 @@
 describe('Should access registration page and register fit model', function() {
   it('Opens register page', function() {
-    cy.visit('http://localhost:3000');
+    cy.visit(Cypress.env('baseUrl'));
     cy.contains('Cadastro').click();
     cy.url().should('include', '/cadastro');
   });
   it('Fills name', function() {
     cy.get('input[name="name"]')
-      .type('Modelo de teste')
-      .should('have.value', 'Modelo de teste');
+      .type('Modelo de teste funcional')
+      .should('have.value', 'Modelo do teste funcional');
   });
   it('Fills birthday', function() {
     cy.get('input[name="birthday"]')
@@ -34,7 +34,7 @@ describe('Should access registration page and register fit model', function() {
   });
   it('Clicks on save button', function() {
     cy.contains('Salvar').click();
-    // cy.url().should('include', 'modelo');
+    cy.url().should('include', 'modelo');
     cy.url().should('match', /\bmodelo\/\b.{24}$/);
   });
 });

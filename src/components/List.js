@@ -9,13 +9,6 @@ import { calculateAge } from '../utils/dateUtils';
 import { GENDER } from '../utils/constants';
 import classes from './List.module.css';
 
-const gender = {
-  MALE: 'Homem',
-  FEMALE: 'Mulher',
-  NON_BINARY: 'Não-binária',
-  PREFER_NOT_TO_INFORM: 'Gênero não informado',
-};
-
 class List extends Component {
   state = {
     models: [],

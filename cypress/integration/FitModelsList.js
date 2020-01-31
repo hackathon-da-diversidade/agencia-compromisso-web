@@ -1,6 +1,6 @@
 describe('On menu should access list page, see registered fit-models, click and be redirected to fit-model profile', function() {
   it('Opens list page', function() {
-    cy.visit('http://localhost:3000');
+    cy.visit(Cypress.env('baseUrl'));
     cy.contains('Lista').click();
     cy.url().should('include', '/lista');
   });
