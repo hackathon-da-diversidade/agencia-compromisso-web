@@ -24,7 +24,7 @@ const Login = ({ history }) => {
 
   const onFailure = response => setHasError(true);
 
-  return isLogged ? (
+  return isLogged() ? (
     <Redirect to="/menu" />
   ) : (
     <div>
