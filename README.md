@@ -1,68 +1,81 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Agência Compromisso
 
-## Available Scripts
+Em parceria com a Lojas Renner, o CEA (Centro de Educação Ambiental da Vila Pinto) começou a desenvolver um projeto para encontrar modelos de prova para suas criações dentro do bairro Bom Jesus. Para quem não é familiar com este termo, modelo de prova é a pessoa que experimenta peças-piloto antes da produção em larga escala.
 
-In the project directory, you can run:
+Para facilitar a localização de modelos de prova dentro da própria comunidade e, no caminho, fortalecer a economia local, nasceu a Agência Compromisso. Saiba mais acessando a página do Facebook, Instagram e Youtube.
 
-### `npm start`
+## Projeto
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Para auxiliar na captação dos dados e medidas das modelos da comunidade e suas respectivas, construímos um primeiro MVP contendo um banco de dados associado ao Google Forms.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Durante o Hackathon da Diversidade, evento que aconteceu no escritório da Thoughtworks em Porto Alegre, começamos a trabalhar em nosso segundo MVP: uma interface customizada para facilitar ainda mais o processo cadastro e busca das modelos.
 
-### `npm test`
+Após o evento, algumas pessoas seguiram trabalhando na iniciativa que tem como objetivo transformar o projeto em uma prancheta digital que pode ser acessada offline, com novas funcionalidades, como filtros, edição, busca e melhor usabilidade.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tecnologias Utilizadas
 
-### `npm run build`
+**Linguagem:** React
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Hosting:** Heroku
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**CI/CD:** CircleCI
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Pré-requisitos
 
-### `npm run eject`
+Para rodar a aplicação você precisa:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Yarn ou npm
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Como rodar a aplicação
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Depois de clonar o projeto
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Instale as dependências:
 
-## Learn More
+**Yarn**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+yarn install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**npm**
 
-### Code Splitting
+```
+npm install
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Rode na sua máquina local:
 
-### Analyzing the Bundle Size
+**Yarn**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```
+yarn start
+```
 
-### Making a Progressive Web App
+**npm**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```
+npm start
+```
 
-### Advanced Configuration
+Acesse [http://localhost:3000](http://localhost:3000) em seu navegador.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## CI/CD
 
-### Deployment
+O projeto conta com uma pipeline configurada no CircleCI que você pode acessar atráves desse [link](https://app.circleci.com/github/hackathon-da-diversidade/agencia-compromisso-web/pipelines). A cada novo commit na master a pipeline roda automáticamente, buildando e rodando todos os testes da aplicação. Caso esse processo seja um sucesso é feito o deploy no ambiente de staging. O deploy para produção é um passo manual e pode ser facilmente execultado dentro do CircleCI.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Ambientes
 
-### `npm run build` fails to minify
+- [Staging](https://agencia-compromisso-stg.herokuapp.com/)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- [Produção](https://agencia-compromisso.herokuapp.com/)
+
+## Links úteis
+
+[API](https://github.com/hackathon-da-diversidade/agencia-compromisso)
+
+[trello](https://trello.com/b/YL5SbWzZ/ag%C3%AAncia-compromisso)
+
+## Contribuindo
+
+Qualquer ajuda é bem vinda e adorariamos receber sua contribuição. Acesse o nosso trello para entender o estágio atual do projeto. Lá você encontra tudo que estamos trabalhando e o que queremos iniciar. Procure também as pessoas envolvidas no projeto atualmente em caso de dúvidas.
