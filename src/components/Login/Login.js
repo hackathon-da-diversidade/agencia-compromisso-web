@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import loginApi from '../../api/login';
+import loginApi from '../../api/loginAPI';
 import setLocalStorage from '../../utils/setLocalStorage';
 import isLogged from '../../utils/isLogged';
 const clientId = process.env.REACT_APP_GOOGLE_ID;
