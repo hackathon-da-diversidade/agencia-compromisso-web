@@ -79,3 +79,7 @@ O projeto conta com uma pipeline configurada no CircleCI que você pode acessar 
 ## Contribuindo
 
 Qualquer ajuda é bem vinda e adorariamos receber sua contribuição. Acesse o nosso trello para entender o estágio atual do projeto. Lá você encontra tudo que estamos trabalhando e o que queremos iniciar. Procure também as pessoas envolvidas no projeto atualmente em caso de dúvidas.
+
+## Acessos
+
+Informações sobre acessos da agência compromisso se encontram no repositório da [API](https://github.com/hackathon-da-diversidade/agencia-compromisso).
