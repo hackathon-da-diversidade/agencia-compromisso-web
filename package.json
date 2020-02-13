@@ -21,16 +21,21 @@
     "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "cypress": "^3.8.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.0.6",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ./src/server/server.js",
+    "dev-server": "nodemon ./src/server/server.js",
+    "dev-client": "react-scripts start",
+    "dev": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test --coverage",
