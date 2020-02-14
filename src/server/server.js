@@ -1,10 +1,13 @@
+const path = require('path');
 const express = require('express');
 
 const server = express();
 const port = process.env.PORT || 5000;
 
-server.get('/test', (_, res) => {
-  res.send(JSON.stringify({ Hello: 'Oi' }));
+server.use(express.static(path.join(__dirname, '../../build')));
+
+server.get('*', (_, res) => {
+  res.sendFile(path.join(__dirname, '../../build/index.html'));
 });
 
 server.listen(port, () => {
