@@ -19,7 +19,7 @@ const App = () => (
       <div className="App">
         <Switch>
           <Route exact path="/login" component={Login} />
-          {!isLogged() && <Redirect to="/login" />}
+          {/* {!isLogged() && <Redirect to="/login" />} */}
           <Route exact path="/menu" component={Menu} />
           <Route exact path="/lista" component={List} />
           <Route exact path="/cadastro" component={FitModelForm} />
