@@ -1,4 +1,8 @@
 import React from 'react';
 
-// debugger;
-export default () => <a href="/auth"> LOGIN MAROTO </a>;
+const getGoogleAuthUri = () =>
+  fetch('/auth')
+    .then(res => res.text())
+    .then(uri => window.location.href = uri)
+
+export default () => <button onClick={getGoogleAuthUri}>LOGIN</button>

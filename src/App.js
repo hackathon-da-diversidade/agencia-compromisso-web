@@ -24,7 +24,7 @@ const App = () => (
           <Route exact path="/lista" component={List} />
           <Route exact path="/cadastro" component={FitModelForm} />
           <Route path="/modelo/:id" component={Detail} />
-          <Redirect exact from="/" to="/login" />
+          {/* <Redirect exact from="/" to="/login" /> */}
         </Switch>
       </div>
     </Router>

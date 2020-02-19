@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const server = express();
 const port = process.env.PORT || 5000;
+let access_token = ''
 
 server.use(morgan('combined'));
 
@@ -14,22 +15,35 @@ server.get('/auth', (_, res) => {
   const oauth2Client = new google.auth.OAuth2(
     '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com',
     'QgaV22quE_d6th96Qcq35MBx',
-    'http://localhost:3000/oauthcallback'
+    'http://localhost:5000/oauthcallback'
   );
-  const url = oauth2Client.generateAuthUrl({ scope: ['profile', 'email'] });
-  res.redirect(url);
+
+  const url = oauth2Client.generateAuthUrl({
+    scope: ['profile', 'email']
+  });
+
+  res.send(url);
 });
 
-server.get('/oauthcallback', (_, res) => {
-  console.log('oi');
-  return res.send('oi');
+server.get('/oauthcallback', ({ query }, res) => {
+  const oauth2Client = new google.auth.OAuth2(
+    '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com',
+    'QgaV22quE_d6th96Qcq35MBx',
+    'http://localhost:5000/oauthcallback'
+  );
 
-  // code = query.blabla;
-
-  // get_tokens(code);
-
-  // setCredentials(tokens);
+  oauth2Client
+    .getToken(query.code)
+    .then(({ tokens }) => oauth2Client.setCredentials(tokens) && tokens.access_token)
+    .then(x => {
+      console.warn(x)
+      return x
+    })
+    .then(access_tokens => access_token = access_tokens)
+    .then(() => res.redirect('http://localhost:3000/menu'))
 });
+
+server.get('/v', (_, res) => res.send(access_token))
 
 server.get('*', (_, res) => {
   console.log('get asterisco');
