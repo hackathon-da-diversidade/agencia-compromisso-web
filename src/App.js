@@ -10,7 +10,7 @@ import Menu from './components/Menu';
 import FitModelForm from './components/FitModelForm/FitModelForm';
 import Detail from './components/Detail/Detail';
 import './App.css';
-import Login from './components/Login/Login';
+import Login from './components/Login/GoogleLogin';
 import isLogged from './utils/isLogged';
 
 const App = () => (
