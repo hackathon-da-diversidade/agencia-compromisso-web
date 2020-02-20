@@ -12,8 +12,6 @@ describe('<Login />', () => {
   });
 
   it('Should click the login on the button', () => {
-    // Acho legal a gente separar os arquivos,
-    // em Login e GoogleLogin
     const mockAction = jest.fn();
     let wrapper = shallow(<Login loginAction={mockAction} />);
     wrapper.find('button').simulate('click');

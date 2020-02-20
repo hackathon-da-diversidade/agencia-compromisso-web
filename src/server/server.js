@@ -3,11 +3,13 @@ const path = require('path');
 const { google } = require('googleapis');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 const server = express();
 const port = process.env.PORT || 5000;
 
 server.use(morgan('combined'));
+server.use(cookieParser());
 
 server.use(express.static(path.join(__dirname, '../../build')));
 
@@ -36,29 +38,22 @@ server.get('/oauthcallback', ({ query }, res) => {
     .getToken(query.code)
     .then(({ tokens }) => {
       oauth2Client.setCredentials(tokens);
-      return jwt.decode(tokens.id_token);
+      return tokens.id_token;
     })
+    .then(idToken => res.cookie('user', idToken))
     .then(() => res.redirect('http://localhost:3000/menu'));
 
   /**
    * A gente vai tem algumas coisas pra resolver, mas vamos uma
    * de cada vez.
-   *
-   * - mandar um request pra API, verificando se o user tá autorizado
-   * - Temos que separar um pouco o código porque ele ta muito acoplado
-   * - Temos que criar logica pra lidar com o JWT no front
-   * - Temos que resolver como vamos fazer o redirect do usuário
-   * depois do login
-   * O ideal é ter uma variável para o servidor saber para qual endereço
-   * redirecionar
-   * - Testes
-   O que podemos testar?
-   * testar que é redirecionado
-
-  * testar a chamada apenas
-  * vamos tentar?
-   * pode ser quando clicar no login ele chamar /auth?
-   *
+   *    1) Criar o cookie http only
+   *       Temos que criar logica pra lidar com o JWT no front > Testar se o cookie funciona
+   *    2) Mandar um request pra API, verificando se o user tá autorizado
+   *    3) Temos que resolver como vamos fazer o redirect do usuário depois do login
+   *    4) Temos que separar um pouco o código porque ele ta muito acoplado - no server - fazer testes
+   *    5) Criar logout
+   *    6) Acesso às outras páginas apenas com usuário logado
+   * -
    */
 });
 
