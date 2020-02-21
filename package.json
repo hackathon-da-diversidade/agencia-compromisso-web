@@ -11,31 +11,38 @@
     "dayjs": "^1.8.18",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "express": "^4.17.1",
     "formik": "^1.5.8",
     "react": "16.9.0",
     "react-datepicker": "^2.9.6",
     "react-dom": "16.9.0",
     "react-router-dom": "5.1.0",
-    "react-scripts": "3.1.2",
+    "react-scripts": "^3.3.1",
     "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "cypress": "^3.8.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^4.0.6",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ./src/server/server.js",
+    "dev-server": "nodemon ./src/server/server.js",
+    "dev-client": "react-scripts start",
+    "dev": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
   },
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },
