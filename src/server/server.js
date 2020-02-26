@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const { google } = require('googleapis');
 const morgan = require('morgan');
-const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const { OAuth2Client } = require('google-auth-library');
 
@@ -41,9 +40,15 @@ server.get('/me', (req, res) => {
       idToken: token,
       audiance: clientId,
     })
-    .then(x => x.getPayload()) // só pra testar por enquanto
-    .then(x => console.warn(x))
-    .then(x => res.send('ok'));
+    .then(response => response.getPayload()) // só pra testar por enquanto
+    .then(payload =>
+      res.send(
+        JSON.stringify({ logged: true, errorMessage: '', data: payload })
+      )
+    )
+    .catch(error =>
+      res.send(JSON.stringify({ logged: false, errorMessage: error, data: {} }))
+    );
 });
 
 server.get('/oauthcallback', ({ query }, res) => {
@@ -65,7 +70,7 @@ server.get('/oauthcallback', ({ query }, res) => {
   /**
    * A gente vai tem algumas coisas pra resolver, mas vamos uma
    * de cada vez.
-   *    1) Criar o cookie http only- ok
+   *    #1) Criar o cookie http only- ok
    *       Temos que criar logica pra lidar com o JWT no front > Testar se o cookie funciona
    *    2) Mandar um request pra API, verificando se o user tá autorizado
    *    3) Temos que resolver como vamos fazer o redirect do usuário depois do login
