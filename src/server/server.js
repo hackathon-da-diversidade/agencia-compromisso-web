@@ -1,23 +1,30 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const { OAuth2Client } = require('google-auth-library');
 const loginAPI = require('../api/loginAPI');
+
 const server = express();
-require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 server.use(morgan('combined'));
 server.use(cookieParser());
 
 server.use(express.static(path.join(__dirname, '../../build')));
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_REDIRECT_URL,
+  SITE_URL,
+} = process.env;
 
 server.get('/auth', (_, res) => {
   const oauth2Client = new OAuth2Client(
-    '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com',
-    'QgaV22quE_d6th96Qcq35MBx',
-    'http://localhost:5000/oauthcallback'
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    GOOGLE_REDIRECT_URL
   );
 
   const url = oauth2Client.generateAuthUrl({
@@ -29,15 +36,13 @@ server.get('/auth', (_, res) => {
 });
 
 server.get('/me', (req, res) => {
-  const clientId =
-    '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com';
-  const client = new OAuth2Client(clientId);
+  const client = new OAuth2Client(GOOGLE_CLIENT_ID);
   const token = req.cookies.user;
 
   client
     .verifyIdToken({
       idToken: token,
-      audiance: clientId,
+      audiance: GOOGLE_CLIENT_ID,
     })
     .then(response => response.getPayload())
     .then(payload =>
@@ -51,13 +56,10 @@ server.get('/me', (req, res) => {
 });
 
 server.get('/oauthcallback', async ({ query }, res) => {
-  const clientId =
-    '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com';
-
   const client = new OAuth2Client(
-    clientId,
-    'QgaV22quE_d6th96Qcq35MBx',
-    'http://localhost:5000/oauthcallback'
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    GOOGLE_REDIRECT_URL
   );
 
   try {
@@ -66,7 +68,7 @@ server.get('/oauthcallback', async ({ query }, res) => {
     const tokenData = (
       await client.verifyIdToken({
         idToken: tokens.id_token,
-        audiance: clientId,
+        audiance: GOOGLE_CLIENT_ID,
       })
     ).getPayload();
 
@@ -75,23 +77,20 @@ server.get('/oauthcallback', async ({ query }, res) => {
 
     res.cookie('user', tokens.id_token, { httpOnly: true });
     res.cookie('refresh', tokens.refresh_token, { httpOnly: true });
-    res.redirect('http://localhost:3000/menu');
+    res.redirect(SITE_URL);
   } catch (err) {
     console.error(err);
     res.redirect('/login');
   }
 
   /**
-   * A gente vai tem algumas coisas pra resolver, mas vamos uma
-   * de cada vez.
-   *    #1) Criar o cookie http only- ok
-   *       Temos que criar logica pra lidar com o JWT no front > Testar se o cookie funciona
-   *    2) Mandar um request pra API, verificando se o user tá autorizado
-   *    3) Temos que resolver como vamos fazer o redirect do usuário depois do login
-   *    4) Temos que separar um pouco o código porque ele ta muito acoplado - no server - fazer testes
-   *    5) Criar logout
-   *    6) Acesso às outras páginas apenas com usuário logado
-   * -
+   *
+   * 1) REFRESH TOKEN
+   * 2) Criar logout
+   * 3) Deixar página de login bonitinha
+   * 4) Refatorar
+   * 5) testes
+   * 6) teste da build
    */
 });
 
