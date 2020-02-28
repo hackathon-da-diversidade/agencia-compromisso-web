@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const { google } = require('googleapis');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const { OAuth2Client } = require('google-auth-library');
@@ -14,7 +13,7 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, '../../build')));
 
 server.get('/auth', (_, res) => {
-  const oauth2Client = new google.auth.OAuth2(
+  const oauth2Client = new OAuth2Client(
     '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com',
     'QgaV22quE_d6th96Qcq35MBx',
     'http://localhost:5000/oauthcallback'
@@ -22,6 +21,7 @@ server.get('/auth', (_, res) => {
 
   const url = oauth2Client.generateAuthUrl({
     scope: ['profile', 'email'],
+    access_type: 'offline'
   });
 
   res.send(url);
@@ -35,6 +35,13 @@ server.get('/me', (req, res) => {
   const client = new OAuth2Client(clientId);
   const token = req.cookies.user;
 
+  // if (token) {
+  //   // res.clearCookie('user')
+  //   return res.send(JSON.stringify({ jwt: token }))
+  // }
+
+  // res.statusCode = 400
+  // res.send(JSON.stringify({ error: 'Unable to get user' }))
   client
     .verifyIdToken({
       idToken: token,
@@ -49,10 +56,12 @@ server.get('/me', (req, res) => {
     .catch(error =>
       res.send(JSON.stringify({ logged: false, errorMessage: error, data: {} }))
     );
+
+
 });
 
 server.get('/oauthcallback', ({ query }, res) => {
-  const oauth2Client = new google.auth.OAuth2(
+  const oauth2Client = new OAuth2Client(
     '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com',
     'QgaV22quE_d6th96Qcq35MBx',
     'http://localhost:5000/oauthcallback'
@@ -62,9 +71,12 @@ server.get('/oauthcallback', ({ query }, res) => {
     .getToken(query.code)
     .then(({ tokens }) => {
       oauth2Client.setCredentials(tokens);
-      return tokens.id_token;
+      return tokens;
     })
-    .then(idToken => res.cookie('user', idToken, { httpOnly: true }))
+    .then(tokens => {
+      res.cookie('user', tokens.id_token, { httpOnly: true })
+      res.cookie('refresh', tokens.refresh_token, { httpOnly: true })
+    })
     .then(() => res.redirect('http://localhost:3000/menu'));
 
   /**

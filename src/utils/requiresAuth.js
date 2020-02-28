@@ -1,33 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import isLogged from './isLogged';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-export default component => {
-  return props => {
-    const [redirectToComponent, setRedirectToComponent] = useState(false);
+export default authentication => Component => props => {
+  if (authentication.isLogged()) {
+    return <Component {...props} />;
+  }
 
-    useEffect(() => {
-      let componentIsMounted = true;
-
-      isLogged()
-        .then(logged => {
-          console.warn(logged);
-          if (componentIsMounted) {
-            setRedirectToComponent(logged);
-          }
-          console.warn(redirectToComponent);
-        })
-        .catch(err => console.error(err));
-      return () => {
-        componentIsMounted = false;
-      };
-    }, []);
-
-    console.log(redirectToComponent, component);
-    if (redirectToComponent) {
-      return <component {...props} />;
-    }
-
-    return <Redirect to="/login" />;
-  };
+  return <Redirect to="/login" />;
 };
