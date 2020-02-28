@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Header from '../Header';
-import classes from './PageNotFound.module.css';
 
 class PageNotFound extends Component {
   render() {

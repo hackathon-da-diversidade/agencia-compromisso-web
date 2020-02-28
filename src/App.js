@@ -13,35 +13,37 @@ import PageNotFound from './components/PageNotFound/PageNotFound';
 import isLogged from './utils/isLogged';
 
 class Auth {
-  authData = { logged: false }
+  authData = { logged: false };
   constructor(authData) {
-    this.authData = authData
+    this.authData = authData;
   }
 
-  isLogged = () => this.authData.logged
+  isLogged = () => this.authData.logged;
 }
 
 const App = () => {
-  const [auth, setAuth] = useState(new Auth())
-  const [loadingApp, setLoadingApp] = useState(true)
+  const [auth, setAuth] = useState(new Auth());
+  const [loadingApp, setLoadingApp] = useState(true);
 
-  const withRequiredAuth = requiresAuth(auth)
+  const withRequiredAuth = requiresAuth(auth);
 
   useEffect(() => {
     isLogged()
       .then(logged => {
-        setAuth(new Auth({ logged }))
-        setLoadingApp(false)
+        setAuth(new Auth({ logged }));
+        setLoadingApp(false);
       })
-      .catch(err => console.error(err))
-  })
+      .catch(err => console.error(err));
+  }, []);
 
-  return (loadingApp ? <div> Loading ... </div> :
+  return loadingApp ? (
+    <div> Loading ... </div>
+  ) : (
     <>
       <Router>
         <div className="App">
           <Switch>
-            <Route exact path="/" component={requiresAuth(Menu)} />
+            <Route exact path="/" component={withRequiredAuth(Menu)} />
             <Route exact path="/login" component={GoogleLogin} />
             <Route exact path="/menu" component={withRequiredAuth(Menu)} />
             <Route exact path="/lista" component={withRequiredAuth(List)} />
@@ -56,8 +58,7 @@ const App = () => {
         </div>
       </Router>
     </>
-  )
-
-}
+  );
+};
 
 export default App;

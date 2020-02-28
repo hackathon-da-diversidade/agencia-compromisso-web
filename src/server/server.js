@@ -3,8 +3,9 @@ const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const { OAuth2Client } = require('google-auth-library');
-
+const loginAPI = require('../api/loginAPI');
 const server = express();
+require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 server.use(morgan('combined'));
@@ -21,33 +22,24 @@ server.get('/auth', (_, res) => {
 
   const url = oauth2Client.generateAuthUrl({
     scope: ['profile', 'email'],
-    access_type: 'offline'
+    access_type: 'offline',
   });
 
   res.send(url);
 });
 
 server.get('/me', (req, res) => {
-  // Aqui pegamos o cookie e chamamos a api do google
-  // pra validar
   const clientId =
     '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com';
   const client = new OAuth2Client(clientId);
   const token = req.cookies.user;
 
-  // if (token) {
-  //   // res.clearCookie('user')
-  //   return res.send(JSON.stringify({ jwt: token }))
-  // }
-
-  // res.statusCode = 400
-  // res.send(JSON.stringify({ error: 'Unable to get user' }))
   client
     .verifyIdToken({
       idToken: token,
       audiance: clientId,
     })
-    .then(response => response.getPayload()) // só pra testar por enquanto
+    .then(response => response.getPayload())
     .then(payload =>
       res.send(
         JSON.stringify({ logged: true, errorMessage: '', data: payload })
@@ -56,28 +48,38 @@ server.get('/me', (req, res) => {
     .catch(error =>
       res.send(JSON.stringify({ logged: false, errorMessage: error, data: {} }))
     );
-
-
 });
 
-server.get('/oauthcallback', ({ query }, res) => {
-  const oauth2Client = new OAuth2Client(
-    '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com',
+server.get('/oauthcallback', async ({ query }, res) => {
+  const clientId =
+    '376908008178-usdvdg1nsm8afsmqlm1vc5ptl7f7tij3.apps.googleusercontent.com';
+
+  const client = new OAuth2Client(
+    clientId,
     'QgaV22quE_d6th96Qcq35MBx',
     'http://localhost:5000/oauthcallback'
   );
 
-  oauth2Client
-    .getToken(query.code)
-    .then(({ tokens }) => {
-      oauth2Client.setCredentials(tokens);
-      return tokens;
-    })
-    .then(tokens => {
-      res.cookie('user', tokens.id_token, { httpOnly: true })
-      res.cookie('refresh', tokens.refresh_token, { httpOnly: true })
-    })
-    .then(() => res.redirect('http://localhost:3000/menu'));
+  try {
+    const { tokens } = await client.getToken(query.code);
+
+    const tokenData = (
+      await client.verifyIdToken({
+        idToken: tokens.id_token,
+        audiance: clientId,
+      })
+    ).getPayload();
+
+    const authorized = await loginAPI.get(tokenData.email);
+    console.warn(authorized);
+
+    res.cookie('user', tokens.id_token, { httpOnly: true });
+    res.cookie('refresh', tokens.refresh_token, { httpOnly: true });
+    res.redirect('http://localhost:3000/menu');
+  } catch (err) {
+    console.error(err);
+    res.redirect('/login');
+  }
 
   /**
    * A gente vai tem algumas coisas pra resolver, mas vamos uma
