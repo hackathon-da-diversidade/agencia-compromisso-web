@@ -7,6 +7,9 @@ import Detail from './components/Detail/Detail';
 import './App.css';
 import GoogleLogin from './components/Login/GoogleLogin';
 import requiresAuth from './utils/requiresAuth';
+
+import PageNotFound from './components/PageNotFound/PageNotFound';
+
 import isLogged from './utils/isLogged';
 
 class Auth {
@@ -38,7 +41,7 @@ const App = () => {
       <Router>
         <div className="App">
           <Switch>
-            <Route exact path="/" component={GoogleLogin} />
+            <Route exact path="/" component={requiresAuth(Menu)} />
             <Route exact path="/login" component={GoogleLogin} />
             <Route exact path="/menu" component={withRequiredAuth(Menu)} />
             <Route exact path="/lista" component={withRequiredAuth(List)} />
@@ -48,6 +51,7 @@ const App = () => {
               component={withRequiredAuth(FitModelForm)}
             />
             <Route path="/modelo/:id" component={withRequiredAuth(Detail)} />
+            <Route path="*" component={PageNotFound} />
           </Switch>
         </div>
       </Router>
@@ -55,6 +59,5 @@ const App = () => {
   )
 
 }
-
 
 export default App;
