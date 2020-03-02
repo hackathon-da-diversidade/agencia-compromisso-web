@@ -87,14 +87,17 @@ server.get('/oauthcallback', async ({ query }, res) => {
    *
    * 1) REFRESH TOKEN
    * 2) Criar logout
-   * 3) Deixar página de login bonitinha
    * 4) Refatorar
    * 5) testes
    * 6) teste da build
    */
 });
 
-server.get('/v', (_, res) => res.send(access_token));
+server.get('/logout', (_, res) => {
+  res.clearCookie('user');
+  res.clearCookie('refresh');
+  res.redirect('/login');
+});
 
 server.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, '../../build/index.html'));
