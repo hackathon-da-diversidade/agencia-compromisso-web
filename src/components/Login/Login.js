@@ -20,18 +20,17 @@ export default ({ loginAction }) => {
 
         <ul className="agencia-btn-group">
           <li>
-            <a onClick={loginAction}>
-              <div className="btn btn-secondary btn-raised">
-                <p>
-                  <img
-                    className="google-icon"
-                    src={googleIcon}
-                    alt="ícone do Google"
-                  ></img>
-                  Login
-                </p>
-              </div>
-            </a>
+            <button
+              onClick={loginAction}
+              className="btn btn-secondary btn-raised"
+            >
+              <img
+                className="google-icon"
+                src={googleIcon}
+                alt="ícone do Google"
+              ></img>
+              Login
+            </button>
           </li>
         </ul>
       </div>

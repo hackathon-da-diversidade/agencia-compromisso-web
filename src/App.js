@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import List from './components/List';
 import Menu from './components/Menu';
 import FitModelForm from './components/FitModelForm/FitModelForm';
 import Detail from './components/Detail/Detail';
-import './App.css';
 import GoogleLogin from './components/Login/GoogleLogin';
-import requiresAuth from './utils/requiresAuth';
-
 import PageNotFound from './components/PageNotFound/PageNotFound';
-
+import requiresAuth from './utils/requiresAuth';
 import isLogged from './utils/isLogged';
+import './App.css';
 
 class Auth {
   authData = { logged: false };

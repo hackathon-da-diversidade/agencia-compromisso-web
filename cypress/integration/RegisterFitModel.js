@@ -6,7 +6,7 @@ describe('Should access registration page and register fit model', function() {
   });
   it('Fills name', function() {
     cy.get('input[name="name"]')
-      .type('Modelo de teste funcional')
+      .type('Modelo do teste funcional')
       .should('have.value', 'Modelo do teste funcional');
   });
   it('Fills birthday', function() {

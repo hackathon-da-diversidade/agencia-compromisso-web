@@ -14,7 +14,6 @@ import { GENDER_EXPRESSION } from '../../utils/constants';
 
 const Detail = ({ match, location }) => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     loadModelInfo(match.params.id);
@@ -25,7 +24,7 @@ const Detail = ({ match, location }) => {
       const { data } = await fitModelAPI.get(id);
       setModel(data);
     } catch (error) {
-      setError(true);
+      console.log(error);
     }
   };
 
