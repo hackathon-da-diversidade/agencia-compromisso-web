@@ -27,6 +27,8 @@
     "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
     "concurrently": "^5.1.0",
     "cypress": "^3.8.1",
     "enzyme": "^3.10.0",

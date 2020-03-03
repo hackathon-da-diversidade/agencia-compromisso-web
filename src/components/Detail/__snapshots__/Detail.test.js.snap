@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`match snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="Header"
+    >
+      <a
+        class="HeaderBack"
+        href="/lista"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+      </a>
+      <img
+        alt="ícone estilizado com o perfil de uma mulher com uma fita métrica no black power"
+        class="HeaderIcon"
+        src="icon.png"
+      />
+      <img
+        alt="banner da Agência Compromisso"
+        class="HeaderBanner"
+        src="banner.png"
+      />
+      <h2
+        class="HeaderTitle"
+      />
+    </div>
+    <div
+      class="Details"
+    >
+      <div
+        class="MainInfos"
+      >
+        <div
+          class="Information"
+        >
+          <strong>
+            Nome:
+          </strong>
+          <span>
+            Maria
+          </span>
+        </div>
+        <div
+          class="Information"
+        >
+          <strong>
+            Idade:
+          </strong>
+          <span>
+            9
+          </span>
+        </div>
+      </div>
+      <div
+        class="Information"
+      >
+        <strong>
+          Expressão de gênero:
+        </strong>
+        <span>
+          Feminina
+        </span>
+      </div>
+      <h1>
+        MEDIDAS:
+      </h1>
+      <div
+        class="Information"
+      >
+        Circunferência total do busto (cm):
+        <span>
+          100
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Circunferência total da cintura alta(cm):
+        <span>
+          100
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Circunferência total do quadril (cm):
+        <span>
+          100
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Altura (cm):
+        <span>
+          100
+        </span>
+      </div>
+      <h1>
+        PESSOAL:
+      </h1>
+      <div
+        class="Information"
+      >
+        Data de nascimento:
+        <span>
+          21/10/2010
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Disponibilidade:
+        <span>
+          Manhã
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Projetos:
+        <span>
+          Projeto 1
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Telefone:
+        <span>
+          (41)123123333
+        </span>
+      </div>
+      <div
+        class="Information"
+      >
+        Pertence à comunidade LGBTQIA+:
+        <span>
+          Não
+        </span>
+      </div>
+      <div
+        class="ContactButton"
+      >
+        <button
+          class="Button"
+        >
+          Contatar
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
