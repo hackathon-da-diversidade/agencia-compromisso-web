@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { googleOAuth2Client } = require('./clientFactory');
 
-const loginAPI = require('../api/loginAPI');
+const authorizeAPI = require('../api/authorizeAPI');
 
 const { GOOGLE_CLIENT_ID, SITE_URL } = process.env;
 
@@ -48,7 +48,7 @@ router.get('/oauthcallback', async ({ query }, res) => {
       })
     ).getPayload();
 
-    const authorized = await loginAPI.get(tokenData.email);
+    const authorized = await authorizeAPI.get(tokenData.email);
     console.warn(authorized);
 
     res.cookie('user', tokens.id_token, { httpOnly: true });
@@ -61,7 +61,6 @@ router.get('/oauthcallback', async ({ query }, res) => {
 
 router.get('/logout', (_, res) => {
   res.clearCookie('user');
-  res.clearCookie('refresh');
   res.redirect('/login');
 });
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import icon from '../assets/icon.png';
 import banner from '../assets/banner.png';
-import authAPI from '../api/authAPI';
+import authenticationAPI from '../api/authenticationAPI';
 
 class Menu extends Component {
   render() {
@@ -36,7 +36,7 @@ class Menu extends Component {
         </ul>
 
         <div className="logout">
-          <a onClick={authAPI.logout}> Sair </a>
+          <a onClick={authenticationAPI.logout}> Sair </a>
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
-import authAPI from '../api/authAPI';
+import authenticationAPI from '../api/authenticationAPI';
 
 export default function isLogged() {
-  return authAPI.fetchMe().then(res => res.data.logged);
+  return authenticationAPI.fetchMe().then(res => res.data.logged);
 }
