@@ -1,10 +1,21 @@
-const path = require('path');
+require('dotenv').config();
+
 const express = require('express');
+const path = require('path');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+
+const routes = require('./routes');
 
 const server = express();
 const port = process.env.PORT || 5000;
 
+server.use(morgan('combined'));
+server.use(cookieParser());
+
 server.use(express.static(path.join(__dirname, '../../build')));
+
+server.use('', routes);
 
 server.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, '../../build/index.html'));
