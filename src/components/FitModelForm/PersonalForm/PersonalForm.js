@@ -110,7 +110,6 @@ function PersonalForm({ data = {}, onChange }) {
               value={data.projects}
             />
           )}
-
           <MaskedField
             name="phoneNumber"
             label="Telefone"
@@ -139,7 +138,6 @@ function PersonalForm({ data = {}, onChange }) {
             onChange={onChange}
             value={data.address}
           />
-
           <SelectField
             name="genderExpression"
             label="Expressão de Gênero"
@@ -157,19 +155,17 @@ function PersonalForm({ data = {}, onChange }) {
             ]}
             required
           />
-
           <CheckboxField
             type="radio"
-            name="lgbtqia"
+            name="identifyAsLGBTQIA"
             label="Pertence à comunidade LGBTQIA+"
             onChange={onChange}
-            value={data.lgbtqia}
+            value={data.identifyAsLGBTQIA}
             options={[
-              { value: 'yes', label: 'Sim' },
-              { value: 'no', label: 'Não' },
+              { value: 'true', label: 'Sim' },
+              { value: 'false', label: 'Não' },
             ]}
           />
-
           <SelectField
             name="education"
             label="Escolaridade"
