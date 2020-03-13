@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Field } from 'formik';
 
 import classes from './TextArea.module.css';
 
@@ -20,11 +19,10 @@ class TextArea extends Component {
           {this.props.label}
         </label>
         <textarea
-          type="textarea"
+          name={this.props.name}
           className={classes.InputTextArea}
-          wrap="hard"
           value={this.props.value}
-          onChange={this.props.onChange}
+          onChange={this.onChange}
           required={this.props.required}
         />
       </div>
