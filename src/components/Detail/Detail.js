@@ -63,6 +63,13 @@ const Detail = ({ match, location }) => {
 
         <SocialInformation data={model.socialInformation} />
 
+        {model.notes && (
+          <>
+            <h1>OBSERVAÇÕES:</h1>
+            <span>{model.notes}</span>
+          </>
+        )}
+
         <div className={classes.ContactButton}>
           <Button disabled={hasNoPhoneNumber()} clicked={callPhoneNumber}>
             Contatar

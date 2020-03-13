@@ -1,24 +1,24 @@
 .Wrapper {
-    margin-top: 2rem;
-    margin-bottom: -1rem;
+  margin-top: 2rem;
+  margin-bottom: -1rem;
 }
 
 .Options {
-    display: flex;
+  display: flex;
 }
 
 .Option:not(:last-child) {
-    min-width: 100px;
+  min-width: 100px;
 }
 
 .Option label {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .Option input {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .Option label {
-    color: #000;
+  color: #000;
 }
