@@ -18,3 +18,7 @@
 .Option input {
   margin-right: 5px;
 }
+
+.Option label {
+  color: #000;
+}

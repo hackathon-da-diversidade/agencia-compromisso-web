@@ -1,0 +1,34 @@
+.Field {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+label {
+    display: inline-block;
+    text-align: left;
+    margin: 0;
+    color: #000;
+}
+
+.Field text {
+    width: 100%;
+}
+
+.Field input:focus {
+    outline-color: transparent;
+}
+
+.Required::after {
+    content: '*';
+    margin-left: 5px;
+}
+
+.InputTextArea {
+    width: 100%;
+    min-height: 60px;
+    height: fit-content;
+    border: 0.5px solid #bdbdbd;
+    resize: none;
+}

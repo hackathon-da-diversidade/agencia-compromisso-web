@@ -6,6 +6,7 @@ import TextField from '../../UI/Field/TextField';
 import SelectField from '../../UI/Field/SelectField';
 import MaskedField from '../../UI/Field/MaskedField';
 import CheckboxField from '../../UI/Field/CheckboxField';
+import TextArea from '../../UI/Field/TextArea';
 
 function PersonalForm({ data = {}, onChange }) {
   const renderGuardianFields = () => {
@@ -201,6 +202,13 @@ function PersonalForm({ data = {}, onChange }) {
                 label: 'Ensino superior completo',
               },
             ]}
+          />
+
+          <TextArea
+            name="notes"
+            label="Observações"
+            value={data.notes}
+            onChange={onChange}
           />
         </Form>
       )}

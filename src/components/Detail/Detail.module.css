@@ -4,6 +4,10 @@ h1 {
   margin-top: 2em;
 }
 
+span {
+  padding-left: 0;
+}
+
 .MainInfos {
   display: flex;
   justify-content: space-between;
