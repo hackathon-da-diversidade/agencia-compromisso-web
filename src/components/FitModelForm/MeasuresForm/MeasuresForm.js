@@ -116,8 +116,8 @@ export default ({ data = {}, onChange }) => {
               name="shirtSize"
               id="shirtSize"
               label="Tamanho da camiseta"
-              onChange={() => {}}
-              value={null}
+              onChange={onChangeSizes}
+              value={sizes.shirtSize}
               options={[
                 {value: 'P', label: 'P'},
                 {value: 'M', label: 'M'},
