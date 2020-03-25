@@ -50,8 +50,8 @@ function FitModelForm({ history }) {
         TabIndicatorProps={{ className: classes.Indicator }}
       >
         <Tab label="PESSOAL" />
-        <Tab label="MEDIDAS" />
-        <Tab label="SOCIAL" />
+        <Tab id="measuresTab" label="MEDIDAS" />
+        <Tab id="socialTab" label="SOCIAL" />
       </Tabs>
       <TabComponent
         data={fitModelData}
@@ -68,7 +68,7 @@ function FitModelForm({ history }) {
         </Alert>
       )}
       <div className={classes.Actions}>
-        <Button clicked={saveFitModel}>Salvar</Button>
+        <Button id="saveButton" clicked={saveFitModel}>Salvar</Button>
         <Link to="/" className={classes.HeaderBack}>
           Cancelar
         </Link>
