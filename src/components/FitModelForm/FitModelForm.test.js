@@ -30,7 +30,8 @@ describe('<FitModelForm />', () => {
         totalWaistCircumference: 'totalWaistCircumference',
         totalHipCircumference: 'totalHipCircumference',
         height: 'height',
-        shirtSize: 'M'
+        shirtSize: 'M',
+        pantsSize: 42
       },
       socialInformation: {
         ethnicity: 'ethnicity',
@@ -68,6 +69,7 @@ describe('<FitModelForm />', () => {
     wrapper.find("input[name='totalHipCircumference']").simulate('change', {target: {name: 'totalHipCircumference', value: data.sizes.totalHipCircumference}});
     wrapper.find("input[name='height']").simulate('change', {target: {name: 'height', value: data.sizes.height}});
     wrapper.find("input[name='shirtSize']").first().simulate('change', {target: {name: 'shirtSize', value: data.sizes.shirtSize}});
+    wrapper.find("input[name='pantsSize']").first().simulate('change', {target: {name: 'pantsSize', value: data.sizes.pantsSize}});
 
     wrapper.find('#socialTab').first().simulate('click');
 
