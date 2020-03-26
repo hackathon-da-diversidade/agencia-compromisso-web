@@ -12,7 +12,8 @@ describe('<MeasuresInformation />', () => {
       totalWaistCircumference: '180',
       totalHipCircumference: '180',
       height: '173',
-      shirtSize: 'M'
+      shirtSize: 'M',
+      pantsSize:'42'
     };
     const wrapper = mount(<MeasuresInformation data={data}/>);
 
@@ -21,5 +22,6 @@ describe('<MeasuresInformation />', () => {
     expect(wrapper.find("#totalHipCircumference").text()).toContain(data.totalHipCircumference);
     expect(wrapper.find("#height").text()).toContain(data.height);
     expect(wrapper.find("#shirtSize").text()).toContain(data.shirtSize);
+    expect(wrapper.find("#pantsSize").text()).toContain(data.pantsSize);
   });
 });
