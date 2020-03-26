@@ -11,6 +11,7 @@ import waistMeasure from '../../../assets/waistMeasure.jpg';
 import NumberField from '../../UI/Field/NumberField';
 
 import classes from './MeasuresForm.module.css';
+import CheckboxField from "../../UI/Field/CheckboxField";
 
 export default ({ data = {}, onChange }) => {
   const sizes = data.sizes || {};
@@ -107,6 +108,22 @@ export default ({ data = {}, onChange }) => {
               onChange={onChangeSizes}
               value={sizes.height}
               required
+            />
+          </div>
+          <div>
+            <CheckboxField
+              type="radio"
+              name="shirtSize"
+              id="shirtSize"
+              label="Tamanho da camiseta"
+              onChange={onChangeSizes}
+              value={sizes.shirtSize}
+              options={[
+                {value: 'P', label: 'P'},
+                {value: 'M', label: 'M'},
+                {value: 'G', label: 'G'},
+                {value: 'GG', label: 'GG'}
+              ]}
             />
           </div>
           {renderModal()}
