@@ -126,6 +126,16 @@ export default ({ data = {}, onChange }) => {
               ]}
             />
           </div>
+          <div className={classes.SizeField}>
+            <NumberField
+              id="pantsSize"
+              name="pantsSize"
+              label="Tamanho do Calça"
+              onChange={onChangeSizes}
+              value={sizes.pantsSize}
+              required
+            />
+          </div>
           {renderModal()}
         </Form>
       )}
