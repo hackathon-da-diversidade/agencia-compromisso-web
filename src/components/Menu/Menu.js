@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import icon from '../assets/icon.png';
-import banner from '../assets/banner.png';
-import authenticationAPI from '../api/authenticationAPI';
+import icon from '../../assets/icon.png';
+import banner from '../../assets/banner.png';
+import authenticationAPI from '../../api/authenticationAPI';
 
 class Menu extends Component {
   render() {

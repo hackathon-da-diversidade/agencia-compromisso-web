@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import fitModelAPI from '../api/fitModelAPI';
+import Header from '../Header/Header';
+import fitModelAPI from '../../api/fitModelAPI';
 
 import Card from '@material-ui/core/Card';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { calculateAge } from '../utils/dateUtils';
-import { GENDER } from '../utils/constants';
+import { calculateAge } from '../../utils/dateUtils';
+import { GENDER } from '../../utils/constants';
 import classes from './List.module.css';
 
 class List extends Component {

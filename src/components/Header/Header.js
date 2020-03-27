@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
-import icon from '../assets/icon.png';
+import icon from '../../assets/icon.png';
 import classes from './Header.module.css';
-import banner from '../assets/banner.png';
+import banner from '../../assets/banner.png';
 
 const Header = ({ title, path }) => (
   <div className={classes.Header}>
