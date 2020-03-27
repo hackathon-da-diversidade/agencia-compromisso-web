@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Header from '../Header/Header';
 import fitModelAPI from '../../api/fitModelAPI';
-
-import Card from '@material-ui/core/Card';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-
-import { calculateAge } from '../../utils/dateUtils';
-import { GENDER } from '../../utils/constants';
-import classes from './List.module.css';
+import FitModelCard from "../FitModelCard/FitModelCard";
 
 class List extends Component {
   state = {
@@ -32,35 +26,11 @@ class List extends Component {
     }
   };
 
-  showModelInfo(model) {
-    this.props.history.push({
-      pathname: `/modelo/${model.id}`,
-    });
-  }
-
   render() {
     return (
       <>
         <Header title="Lista" />
-        {this.state.models.map(model => (
-          <Card
-            key={model.id}
-            name="fitModelCard"
-            className={classes.Card}
-            variant="outlined"
-            onClick={() => this.showModelInfo(model)}
-          >
-            <div>
-              <strong name="fitModelName">{model.name}</strong>
-              <span name="fitModelInfo" className={classes.FitModelInfo}>
-                {GENDER[model.genderExpression]}
-                {model.birthday && ` | ${calculateAge(model.birthday)} anos`}
-                {model.phoneNumber && ` | ${model.phoneNumber}`}
-              </span>
-            </div>
-            <ArrowForwardIcon className={classes.ForwardIcon} />
-          </Card>
-        ))}
+        {this.state.models.map(model => (<FitModelCard {...model} />))}
       </>
     );
   }
