@@ -12,4 +12,7 @@ export default {
   async get(id) {
     return await axios.get(`${URL}/${id}`);
   },
+  async search(modelName) {
+    return await axios.get(URL, modelName);
+  }
 };

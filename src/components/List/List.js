@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from '../Header/Header';
 import fitModelAPI from '../../api/fitModelAPI';
 import FitModelCard from "../FitModelCard/FitModelCard";
+import Search from "../Search/Search";
 
 class List extends Component {
   state = {
@@ -30,7 +31,8 @@ class List extends Component {
     return (
       <>
         <Header title="Lista" />
-        {this.state.models.map(model => (<FitModelCard {...model} />))}
+        <Search />
+        {this.state.models.map(model => (<FitModelCard id={model.id} {...model} />))}
       </>
     );
   }

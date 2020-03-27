@@ -8,11 +8,6 @@ import {GENDER} from '../../utils/constants';
 import classes from './FitModelCard.module.css';
 
 class FitModelCard extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   showModelInfo(modelId) {
     window.location = `/modelo/${modelId}`;
   }
