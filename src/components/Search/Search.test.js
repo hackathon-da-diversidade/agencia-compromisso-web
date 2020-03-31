@@ -18,7 +18,12 @@ describe('<Search />', () => {
 
     const name = 'Test';
 
-    const wrapper = mount(< Search />);
+    const props = {
+      onChange: () => {},
+      onError: () => {}
+    };
+
+    const wrapper = mount(< Search {...props} />);
 
     wrapper.find('input[name="searchField"]').simulate('change', {target: {name: 'searchField', value: name}});
 
