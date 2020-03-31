@@ -13,15 +13,25 @@ describe('<Search />', () => {
     return new Promise(resolve => setTimeout(resolve, ms));
   };
 
-  it('should search for a model with the given name', async () => {
-    fitModelAPI.search.mockReturnValue({});
+  it('should return model on search of valid model name', async () => {
+    const fitModels = [
+      {
+        id: "5e825a1d6d058825e13b1dc7",
+        name: "Test",
+        birthday: "08/09/1999",
+        phoneNumber: "(99)999999999",
+        genderExpression: "MALE"
+      }
+    ];
 
     const name = 'Test';
 
     const props = {
-      onChange: () => {},
+      onChange: jest.fn(),
       onError: () => {}
     };
+
+    fitModelAPI.search.mockReturnValue({ data: fitModels});
 
     const wrapper = mount(< Search {...props} />);
 
@@ -31,5 +41,27 @@ describe('<Search />', () => {
 
     expect(fitModelAPI.search).toBeCalledTimes(1);
     expect(fitModelAPI.search).toBeCalledWith(name);
+    expect(props.onChange).toBeCalledTimes(1);
+    expect(props.onChange).toBeCalledWith(fitModels);
+  });
+
+  it('should return error on search error', async () => {
+    const name = 'Test';
+
+    const props = {
+      onChange: () => {},
+      onError: jest.fn()
+    };
+
+    fitModelAPI.search.mockReturnValue();
+
+    const wrapper = mount(< Search {...props} />);
+
+    wrapper.find('input[name="searchField"]').simulate('change', {target: {name: 'searchField', value: name}});
+
+    await fakeDebounceTime(1000);
+
+    expect(props.onError).toBeCalledTimes(1);
+    expect(props.onError).toBeCalledWith();
   })
 });

@@ -24,8 +24,8 @@ test('should get model by id', () => {
 });
 
 test('should search model by name to Agência Compromisso API ', () => {
-  const model = 'Model Name';
+  const name = 'Model Name';
 
-  fitModelAPI.search(model);
-  expect(axios.get).toHaveBeenCalledWith(URL, model);
+  fitModelAPI.search(name);
+  expect(axios.get).toHaveBeenCalledWith(`${URL}/search`, {params: {name}});
 });
