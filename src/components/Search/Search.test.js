@@ -9,7 +9,11 @@ configure({adapter: new Adapter()});
 jest.mock('../../api/fitModelAPI');
 
 describe('<Search />', () => {
-  it('should search for a model with the given name', () => {
+  const fakeDebounceTime = ms => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  };
+
+  it('should search for a model with the given name', async () => {
     fitModelAPI.search.mockReturnValue({});
 
     const name = 'Test';
@@ -17,6 +21,8 @@ describe('<Search />', () => {
     const wrapper = mount(< Search />);
 
     wrapper.find('input[name="searchField"]').simulate('change', {target: {name: 'searchField', value: name}});
+
+    await fakeDebounceTime(1000);
 
     expect(fitModelAPI.search).toBeCalledTimes(1);
     expect(fitModelAPI.search).toBeCalledWith(name);

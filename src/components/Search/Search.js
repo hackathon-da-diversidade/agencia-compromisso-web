@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import {TextField} from "@material-ui/core";
 import fitModelAPI from "../../api/fitModelAPI";
+import { BehaviorSubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 
 class Search extends Component {
+  search = new BehaviorSubject('');
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,22 +15,25 @@ class Search extends Component {
     }
   }
 
+  componentDidMount() {
+    this.search
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe(query => this.searchModel(query));
+  }
+
   searchModel = async (search) => {
     try {
       const res = await fitModelAPI.search(search);
-      this.setState({
-        models: res.data,
-      });
+      this.props.onChange(res.data);
     } catch {
-      this.setState({
-        error: true,
-      });
+      this.props.onError();
     }
   };
 
-  onChange = async event => {
-    this.searchModel(event.target.value);
-  };
+  onChange = async event => this.search.next(event.target.value);
 
   render() {
     return (

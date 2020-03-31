@@ -28,10 +28,15 @@ class List extends Component {
   };
 
   render() {
+    const props = {
+      onChange: models => this.setState({models}),
+      onError: () => this.setState({error: true})
+    };
+
     return (
       <>
         <Header title="Lista" />
-        <Search />
+        <Search {...props} />
         {this.state.models.map(model => (<FitModelCard id={model.id} {...model} />))}
       </>
     );

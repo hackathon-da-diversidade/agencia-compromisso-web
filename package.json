@@ -24,7 +24,8 @@
     "react-dom": "16.9.0",
     "react-router-dom": "5.1.0",
     "react-scripts": "^3.4.0",
-    "react-text-mask": "^5.4.3"
+    "react-text-mask": "^5.4.3",
+    "rxjs": "^6.5.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.1.1",
