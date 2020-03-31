@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {TextField} from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
 import fitModelAPI from "../../api/fitModelAPI";
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
+import InputAdornment from "@material-ui/core/InputAdornment";
+import classes from './Search.module.css';
 
 class Search extends Component {
   search = new BehaviorSubject('');
@@ -37,11 +39,22 @@ class Search extends Component {
 
   render() {
     return (
-      <TextField
-        name="searchField"
-        label="Busca de modelo por nome"
-        onChange={this.onChange}
-      />
+      <div className={classes.search}>
+        <TextField
+          name="searchField"
+          label="Busca"
+          onChange={this.onChange}
+          className={classes.searchField}
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </div>
     )
   }
 }
