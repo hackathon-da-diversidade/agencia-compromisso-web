@@ -13,6 +13,6 @@ export default {
     return await axios.get(`${URL}/${id}`);
   },
   async search(modelName) {
-    return await axios.get(`${URL}/search`, {params: {name: modelName}});
-  }
+    return await axios.get(`${URL}/search`, { params: { name: modelName } });
+  },
 };
