@@ -77,7 +77,6 @@ function PersonalForm({ data = {}, onChange }) {
             value={data.birthday}
             onChange={onChange}
             mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-            required
           />
           {renderGuardianFields()}
           <CheckboxField
@@ -154,7 +153,6 @@ function PersonalForm({ data = {}, onChange }) {
                 label: 'Prefere não informar',
               },
             ]}
-            required
           />
           <CheckboxField
             type="radio"
