@@ -11,7 +11,7 @@ import waistMeasure from '../../../assets/waistMeasure.jpg';
 import NumberField from '../../UI/Field/NumberField';
 
 import classes from './MeasuresForm.module.css';
-import CheckboxField from "../../UI/Field/CheckboxField";
+import CheckboxField from '../../UI/Field/CheckboxField';
 
 export default ({ data = {}, onChange }) => {
   const sizes = data.sizes || {};
@@ -66,7 +66,6 @@ export default ({ data = {}, onChange }) => {
               }
               onChange={onChangeSizes}
               value={sizes.totalBustCircumference}
-              required
             />
           </div>
           <div className={classes.SizeField}>
@@ -82,7 +81,6 @@ export default ({ data = {}, onChange }) => {
               }
               onChange={onChangeSizes}
               value={sizes.totalWaistCircumference}
-              required
             />
           </div>
           <div className={classes.SizeField}>
@@ -98,7 +96,6 @@ export default ({ data = {}, onChange }) => {
               }
               onChange={onChangeSizes}
               value={sizes.totalHipCircumference}
-              required
             />
           </div>
           <div className={classes.SizeField}>
@@ -107,7 +104,6 @@ export default ({ data = {}, onChange }) => {
               label="Altura (cm)"
               onChange={onChangeSizes}
               value={sizes.height}
-              required
             />
           </div>
           <div>
@@ -119,10 +115,10 @@ export default ({ data = {}, onChange }) => {
               onChange={onChangeSizes}
               value={sizes.shirtSize}
               options={[
-                {value: 'P', label: 'P'},
-                {value: 'M', label: 'M'},
-                {value: 'G', label: 'G'},
-                {value: 'GG', label: 'GG'}
+                { value: 'P', label: 'P' },
+                { value: 'M', label: 'M' },
+                { value: 'G', label: 'G' },
+                { value: 'GG', label: 'GG' },
               ]}
             />
           </div>
