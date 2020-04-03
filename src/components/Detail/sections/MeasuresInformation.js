@@ -22,6 +22,9 @@ const MeasuresInformation = ({ data }) => (
     <Information id="pantsSize" label="Tamanho de calça:">
       {data.pantsSize}
     </Information>
+    <Information id="shoeSize" label="Tamanho do Calçado:">
+        {data.shoeSize}
+    </Information>
   </>
 );
 

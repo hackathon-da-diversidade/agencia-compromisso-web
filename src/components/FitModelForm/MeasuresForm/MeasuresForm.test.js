@@ -24,5 +24,6 @@ describe('<MeasuresForm />', () => {
     expect(wrapper.find("NumberField[name='height']")).toHaveLength(1);
     expect(wrapper.find("#shirtSize")).toHaveLength(1);
     expect(wrapper.find("#pantsSize")).toHaveLength(1);
+    expect(wrapper.find("#shoeSize")).toHaveLength(1);
   });
 });

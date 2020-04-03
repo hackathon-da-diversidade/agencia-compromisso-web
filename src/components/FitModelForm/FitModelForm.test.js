@@ -17,7 +17,7 @@ describe('<FitModelForm />', () => {
       name: 'Name',
       birthday: '00/00/0000',
       availability: 'availability',
-      inProjects: 'inPrijects',
+      inProjects: 'inProjects',
       projects: null,
       phoneNumber: '0000000000000',
       address: 'address',
@@ -31,7 +31,8 @@ describe('<FitModelForm />', () => {
         totalHipCircumference: 'totalHipCircumference',
         height: 'height',
         shirtSize: 'M',
-        pantsSize: 42
+        pantsSize: 42,
+        shoeSize: '40'
       },
       socialInformation: {
         ethnicity: 'ethnicity',
@@ -70,7 +71,7 @@ describe('<FitModelForm />', () => {
     wrapper.find("input[name='height']").simulate('change', {target: {name: 'height', value: data.sizes.height}});
     wrapper.find("input[name='shirtSize']").first().simulate('change', {target: {name: 'shirtSize', value: data.sizes.shirtSize}});
     wrapper.find("input[name='pantsSize']").first().simulate('change', {target: {name: 'pantsSize', value: data.sizes.pantsSize}});
-
+    wrapper.find("input[name='shoeSize']").first().simulate('change', {target: {name: 'shoeSize', value: data.sizes.shoeSize}});
     wrapper.find('#socialTab').first().simulate('click');
 
     wrapper.find("select[name='ethnicity']").simulate('change', {target: {name: 'ethnicity', value: data.socialInformation.ethnicity}});
