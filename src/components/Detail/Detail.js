@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Alert from '@material-ui/lab/Alert';
-import Header from '../Header';
+import Header from '../Header/Header';
 import Button from '../UI/Button/Button';
 import Information from '../UI/Information/Information';
 import SocialInformation from './sections/SocialInformation';

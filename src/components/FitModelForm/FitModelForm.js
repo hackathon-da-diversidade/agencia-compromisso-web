@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import PersonalForm from './PersonalForm/PersonalForm';
 import MeasuresForm from './MeasuresForm/MeasuresForm';
 import SocialForm from './SocialForm/SocialForm';
-import Header from '../Header';
+import Header from '../Header/Header';
 import Button from '../UI/Button/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';

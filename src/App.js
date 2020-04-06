@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import List from './components/List';
-import Menu from './components/Menu';
+import List from './components/List/List';
+import Menu from './components/Menu/Menu';
 import FitModelForm from './components/FitModelForm/FitModelForm';
 import Detail from './components/Detail/Detail';
 import GoogleLogin from './components/Login/GoogleLogin';
