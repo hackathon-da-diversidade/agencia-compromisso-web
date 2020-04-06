@@ -2,28 +2,19 @@ import React, {Component} from 'react';
 import {TextField} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import fitModelAPI from "../../api/fitModelAPI";
-import { BehaviorSubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import classes from './Search.module.css';
 
 class Search extends Component {
-  search = new BehaviorSubject('');
 
   constructor(props) {
     super(props);
     this.state = {
-      models: []
+      model: [],
+      name: '',
+      typing: false,
+      typingTimeout: 0
     }
-  }
-
-  componentDidMount() {
-    this.search
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged()
-      )
-      .subscribe(query => this.searchModel(query));
   }
 
   searchModel = async (search) => {
@@ -35,7 +26,21 @@ class Search extends Component {
     }
   };
 
-  onChange = async event => this.search.next(event.target.value);
+  onChange = async event => {
+    const {typingTimeout} = this.state;
+
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    this.setState({
+      name: event.target.value,
+      typing: false,
+      typingTimeout: setTimeout(() => {
+        this.searchModel(this.state.name);
+      }, 1000)
+    });
+  };
 
   render() {
     return (
