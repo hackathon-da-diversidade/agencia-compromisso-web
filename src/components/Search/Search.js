@@ -6,7 +6,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import classes from './Search.module.css';
 
 class Search extends Component {
-
   constructor(props) {
     super(props);
     this.state = {

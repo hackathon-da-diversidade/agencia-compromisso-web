@@ -35,15 +35,11 @@ class List extends Component {
   };
 
   render() {
-    const props = {
-      onChange: models => this.setState({models}),
-      onError: () => this.setState({error: true})
-    };
-
     return (
       <>
         <Header title="Lista" />
-        <Search {...props} />
+        <Search onChange={models => this.setState({models})}
+                onError={() => this.setState({error: true})} />
         {this.state.models.map(model => (<FitModelCard id={model.id} {...model} />))}
         <div className={classes.PaginationWrapper}>
           <Pagination count={this.state.count} page={this.state.page} onChange={this.loadModels} />
