@@ -16,9 +16,9 @@ class List extends Component {
 
   loadModels = async () => {
     try {
-      const res = await fitModelAPI.getAll();
+      const res = await fitModelAPI.getAllPaginated(0, 10);
       this.setState({
-        models: res.data,
+        models: res.data.content,
       });
     } catch {
       this.setState({

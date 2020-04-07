@@ -15,4 +15,9 @@ export default {
   async search(modelName) {
     return await axios.get(`${URL}/search`, { params: { name: modelName } });
   },
+  async getAllPaginated(page, size) {
+    return await axios.get(`${URL}/paginated`, {
+      params: { page, size },
+    });
+  },
 };

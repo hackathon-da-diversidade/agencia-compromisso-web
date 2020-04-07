@@ -5,6 +5,8 @@ const URL = `${process.env.REACT_APP_API_URI}/fit-model`;
 
 jest.mock('axios');
 
+beforeEach(() => jest.clearAllMocks());
+
 test('should post new model to Agência Compromisso API ', () => {
   const model = { model: 'Model Name' };
 
@@ -21,6 +23,7 @@ test('should get model by id', () => {
   const id = '5a1154523a6bcc1d245e143d';
   fitModelAPI.get(id);
   expect(axios.get).toHaveBeenCalledWith(`${URL}/${id}`);
+
 });
 
 test('should search model by name to Agência Compromisso API ', () => {
@@ -28,4 +31,15 @@ test('should search model by name to Agência Compromisso API ', () => {
 
   fitModelAPI.search(name);
   expect(axios.get).toHaveBeenCalledWith(`${URL}/search`, { params: { name } });
+});
+
+test('should get all fit models paginated', () => {
+  let page = 1;
+  let size = 10;
+
+  fitModelAPI.getAllPaginated(page, size);
+
+  expect(axios.get).toHaveBeenCalledWith(`${URL}/paginated`, {
+    params: { page, size },
+  });
 });
