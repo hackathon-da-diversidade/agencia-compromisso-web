@@ -24,9 +24,19 @@ describe('<List />', () => {
     );
 
     let page = 0;
-    let size = 10;
+    let size = 15;
 
     expect(fitModelAPI.getAllPaginated).toHaveBeenCalledTimes(1);
     expect(fitModelAPI.getAllPaginated).toHaveBeenCalledWith(page, size);
+  });
+
+  it('should render pagination component', function() {
+    const wrapper = mount(
+      <Router>
+        <List/>
+      </Router>,
+    );
+
+    expect(wrapper.find('.MuiPagination-root')).toHaveLength(1);
   });
 });
