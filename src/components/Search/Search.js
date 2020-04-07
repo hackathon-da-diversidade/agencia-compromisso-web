@@ -19,7 +19,7 @@ class Search extends Component {
   searchModel = async (search) => {
     try {
       const res = await fitModelAPI.search(search);
-      this.props.onChange(res.data);
+      this.props.onChange(res.data.content);
     } catch {
       this.props.onError();
     }
