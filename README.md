@@ -49,16 +49,46 @@ npm install
 **Yarn**
 
 ```
-yarn start
+yarn run dev
 ```
 
 **npm**
 
 ```
-npm start
+npm run dev
 ```
 
 Acesse [http://localhost:3000](http://localhost:3000) em seu navegador.
+
+## Testes
+
+Para rodar os testes unitários:
+
+**Yarn**
+
+```
+yarn test
+```
+
+**npm**
+
+```
+npm test
+```
+
+Para rodar os testes funcionais do cypress:
+
+**Yarn**
+
+```
+yarn run cypress open
+```
+
+**npm**
+
+```
+$(npm bin)/cypress open
+```
 
 ## CI/CD
 
