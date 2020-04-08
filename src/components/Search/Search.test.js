@@ -30,7 +30,8 @@ describe('<Search />', () => {
     let onError = () => {
     };
 
-    fitModelAPI.search.mockReturnValue({ data: { content: fitModels } });
+    let data = { content: fitModels };
+    fitModelAPI.search.mockReturnValue({ data });
 
     const wrapper = mount(<Search onChange={onChange} onError={onError}/>);
 
@@ -42,7 +43,7 @@ describe('<Search />', () => {
     expect(fitModelAPI.search).toBeCalledWith(name);
 
     expect(onChange).toBeCalledTimes(1);
-    expect(onChange).toBeCalledWith(fitModels);
+    expect(onChange).toBeCalledWith(data);
   });
 
   it('should return error on search error', async () => {
