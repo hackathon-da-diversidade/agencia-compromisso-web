@@ -23,7 +23,6 @@ test('should get model by id', () => {
   const id = '5a1154523a6bcc1d245e143d';
   fitModelAPI.get(id);
   expect(axios.get).toHaveBeenCalledWith(`${URL}/${id}`);
-
 });
 
 test('should search model by name to Agência Compromisso API ', () => {
