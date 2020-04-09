@@ -13,6 +13,9 @@ router.get('/auth', (_, res) => {
     access_type: 'offline',
   });
 
+  console.log('URL gerada /auth: ' + url);
+  console.log('site_URL: ' + SITE_URL);
+
   res.send(url);
 });
 
