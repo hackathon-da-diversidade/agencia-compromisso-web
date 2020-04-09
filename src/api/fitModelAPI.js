@@ -12,8 +12,10 @@ export default {
   async get(id) {
     return await axios.get(`${URL}/${id}`);
   },
-  async search(modelName) {
-    return await axios.get(`${URL}/search`, { params: { name: modelName } });
+  async search(name, page, size) {
+    return await axios.get(`${URL}/search`, {
+      params: { name, page, size },
+    });
   },
   async getAllPaginated(page, size) {
     return await axios.get(`${URL}/paginated`, {

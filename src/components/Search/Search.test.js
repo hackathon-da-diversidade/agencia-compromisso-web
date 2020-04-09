@@ -25,6 +25,8 @@ describe('<Search />', () => {
     ];
 
     const name = 'Test';
+    const page = 1;
+    const size = 10;
 
     let onChange = jest.fn();
     let onError = () => {
@@ -40,7 +42,7 @@ describe('<Search />', () => {
     await fakeDebounceTime(1000);
 
     expect(fitModelAPI.search).toBeCalledTimes(1);
-    expect(fitModelAPI.search).toBeCalledWith(name);
+    expect(fitModelAPI.search).toBeCalledWith(name, page - 1, size);
 
     expect(onChange).toBeCalledTimes(1);
     expect(onChange).toBeCalledWith(data);

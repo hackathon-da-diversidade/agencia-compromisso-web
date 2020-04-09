@@ -24,7 +24,7 @@ describe('<List />', () => {
     );
 
     let page = 0;
-    let size = 15;
+    let size = 10;
 
     expect(fitModelAPI.getAllPaginated).toHaveBeenCalledTimes(1);
     expect(fitModelAPI.getAllPaginated).toHaveBeenCalledWith(page, size);
