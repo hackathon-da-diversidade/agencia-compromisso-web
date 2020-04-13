@@ -1,10 +1,10 @@
 import React from 'react';
-import {configure, mount} from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Search from "./Search";
-import fitModelAPI from "../../api/fitModelAPI";
+import Search from './Search';
+import fitModelAPI from '../../api/fitModelAPI';
 
-configure({adapter: new Adapter()});
+configure({ adapter: new Adapter() });
 
 jest.mock('../../api/fitModelAPI');
 
@@ -16,52 +16,54 @@ describe('<Search />', () => {
   it('should return model on search of valid model name', async () => {
     const fitModels = [
       {
-        id: "5e825a1d6d058825e13b1dc7",
-        name: "Test",
-        birthday: "08/09/1999",
-        phoneNumber: "(99)999999999",
-        genderExpression: "MALE"
-      }
+        id: '5e825a1d6d058825e13b1dc7',
+        name: 'Test',
+        birthday: '08/09/1999',
+        phoneNumber: '(99)999999999',
+        genderExpression: 'MALE',
+      },
     ];
 
     const name = 'Test';
+    const page = 1;
+    const size = 10;
 
-    const props = {
-      onChange: jest.fn(),
-      onError: () => {}
+    let onChange = jest.fn();
+    let onError = () => {
     };
 
-    fitModelAPI.search.mockReturnValue({ data: fitModels});
+    let data = { content: fitModels };
+    fitModelAPI.search.mockReturnValue({ data });
 
-    const wrapper = mount(< Search {...props} />);
+    const wrapper = mount(<Search onChange={onChange} onError={onError}/>);
 
-    wrapper.find('input[name="searchField"]').simulate('change', {target: {name: 'searchField', value: name}});
+    wrapper.find('input[name="searchField"]').simulate('change', { target: { name: 'searchField', value: name } });
 
     await fakeDebounceTime(1000);
 
     expect(fitModelAPI.search).toBeCalledTimes(1);
-    expect(fitModelAPI.search).toBeCalledWith(name);
-    expect(props.onChange).toBeCalledTimes(1);
-    expect(props.onChange).toBeCalledWith(fitModels);
+    expect(fitModelAPI.search).toBeCalledWith(name, page - 1, size);
+
+    expect(onChange).toBeCalledTimes(1);
+    expect(onChange).toBeCalledWith(data);
   });
 
   it('should return error on search error', async () => {
     const name = 'Test';
 
-    const props = {
-      onChange: () => {},
-      onError: jest.fn()
+    let onChange = () => {
     };
+    let onError = jest.fn();
 
     fitModelAPI.search.mockReturnValue();
 
-    const wrapper = mount(< Search {...props} />);
+    const wrapper = mount(<Search onChange={onChange} onError={onError}/>);
 
-    wrapper.find('input[name="searchField"]').simulate('change', {target: {name: 'searchField', value: name}});
+    wrapper.find('input[name="searchField"]').simulate('change', { target: { name: 'searchField', value: name } });
 
     await fakeDebounceTime(1000);
 
-    expect(props.onError).toBeCalledTimes(1);
-    expect(props.onError).toBeCalledWith();
+    expect(onError).toBeCalledTimes(1);
+    expect(onError).toBeCalledWith();
   })
 });

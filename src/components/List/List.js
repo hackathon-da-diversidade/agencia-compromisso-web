@@ -1,43 +1,62 @@
-import React, {Component} from 'react';
+import React, { Component, useRef } from 'react';
 import Header from '../Header/Header';
 import fitModelAPI from '../../api/fitModelAPI';
-import FitModelCard from "../FitModelCard/FitModelCard";
-import Search from "../Search/Search";
+import FitModelCard from '../FitModelCard/FitModelCard';
+import Search from '../Search/Search';
+import Pagination from '@material-ui/lab/Pagination';
+import classes from './List.module.css';
 
 class List extends Component {
+  searchRef;
+
   state = {
     models: [],
     error: false,
+    size: 10,
+    count: 0,
+    page: 0,
   };
 
   componentDidMount() {
     this.loadModels();
   }
 
-  loadModels = async () => {
+  loadModels = async (event = null, page = 1) => {
     try {
-      const res = await fitModelAPI.getAll();
-      this.setState({
-        models: res.data,
-      });
+      const name = this.searchRef.state.name;
+
+      if (name === '') {
+        const res = await fitModelAPI.getAllPaginated(page - 1, this.state.size);
+        this.updatePagination(res.data);
+      } else {
+        await this.searchRef.searchModel(name, page - 1, this.state.size);
+      }
     } catch {
-      this.setState({
-        error: true,
-      });
+      this.handleError();
     }
   };
 
-  render() {
-    const props = {
-      onChange: models => this.setState({models}),
-      onError: () => this.setState({error: true})
-    };
+  updatePagination = pagination => {
+    this.setState({
+      models: pagination.content,
+      count: pagination.totalPages,
+      page: pagination.number,
+    });
+  };
 
+  handleError = () => {
+    this.setState({ error: true });
+  };
+
+  render() {
     return (
       <>
-        <Header title="Lista" />
-        <Search {...props} />
+        <Header title="Lista"/>
+        <Search ref={ref => this.searchRef = ref} onChange={this.updatePagination} onError={this.handleError}/>
         {this.state.models.map(model => (<FitModelCard id={model.id} {...model} />))}
+        <div className={classes.PaginationWrapper}>
+          <Pagination count={this.state.count} onChange={this.loadModels}/>
+        </div>
       </>
     );
   }

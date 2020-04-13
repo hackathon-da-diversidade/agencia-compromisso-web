@@ -6,7 +6,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import classes from './Search.module.css';
 
 class Search extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,9 +16,9 @@ class Search extends Component {
     }
   }
 
-  searchModel = async (search) => {
+  searchModel = async (search, page = 1, size = 10) => {
     try {
-      const res = await fitModelAPI.search(search);
+      const res = await fitModelAPI.search(search, page - 1, size);
       this.props.onChange(res.data);
     } catch {
       this.props.onError();
