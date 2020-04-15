@@ -13,6 +13,7 @@ exports[`matches the snapshot 1`] = `
         aria-hidden="true"
         class="MuiSvgIcon-root"
         focusable="false"
+        role="presentation"
         viewBox="0 0 24 24"
       >
         <path
