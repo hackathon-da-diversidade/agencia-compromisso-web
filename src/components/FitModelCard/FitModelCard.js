@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Card from '@material-ui/core/Card';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import EditIcon from '@material-ui/icons/Edit';
 
 import {calculateAge} from '../../utils/dateUtils';
 import {GENDER} from '../../utils/constants';
@@ -12,6 +13,10 @@ class FitModelCard extends Component {
     window.location = `/modelo/${modelId}`;
   }
 
+  editModel(id) {
+    this.props.onEdit(id);
+  }
+
   render() {
     const {id, name, genderExpression, birthday, phoneNumber} = this.props;
     return (
@@ -20,7 +25,6 @@ class FitModelCard extends Component {
         name="fitModelCard"
         className={classes.Card}
         variant="outlined"
-        onClick={() => this.showModelInfo(id)}
       >
         <div>
           <strong id="fitModelName">{name}</strong>
@@ -30,7 +34,10 @@ class FitModelCard extends Component {
             {phoneNumber && ` | ${phoneNumber}`}
               </span>
         </div>
-        <ArrowForwardIcon className={classes.ForwardIcon}/>
+        <div className={classes.IconsWrapper}>
+          <EditIcon className={classes.Icon} onClick={() => this.editModel(id)}/>
+          <ArrowForwardIcon className={classes.Icon} onClick={() => this.showModelInfo(id)}/>
+        </div>
       </Card>
     );
   }

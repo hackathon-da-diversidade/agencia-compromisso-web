@@ -46,11 +46,7 @@ const App = () => {
             <Route exact path="/login" component={GoogleLogin} />
             <Route exact path="/menu" component={withRequiredAuth(Menu)} />
             <Route exact path="/lista" component={withRequiredAuth(List)} />
-            <Route
-              exact
-              path="/cadastro"
-              component={withRequiredAuth(FitModelForm)}
-            />
+            <Route exact path="/cadastro/:id?" component={withRequiredAuth(FitModelForm)}/>
             <Route path="/modelo/:id" component={withRequiredAuth(Detail)} />
             <Route path="*" component={PageNotFound} />
           </Switch>

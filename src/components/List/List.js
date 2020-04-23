@@ -48,12 +48,16 @@ class List extends Component {
     this.setState({ error: true });
   };
 
+  onEdit = id => {
+    this.props.history.push(`cadastro/${id}`);
+  };
+
   render() {
     return (
       <>
         <Header title="Lista"/>
         <Search ref={ref => this.searchRef = ref} onChange={this.updatePagination} onError={this.handleError}/>
-        {this.state.models.map(model => (<FitModelCard id={model.id} {...model} />))}
+        {this.state.models.map(model => (<FitModelCard id={model.id} {...model} onEdit={this.onEdit} />))}
         <div className={classes.PaginationWrapper}>
           <Pagination count={this.state.count} onChange={this.loadModels}/>
         </div>
