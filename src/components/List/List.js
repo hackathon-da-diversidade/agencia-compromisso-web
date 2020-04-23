@@ -57,7 +57,7 @@ class List extends Component {
       <>
         <Header title="Lista"/>
         <Search ref={ref => this.searchRef = ref} onChange={this.updatePagination} onError={this.handleError}/>
-        {this.state.models.map(model => (<FitModelCard id={model.id} {...model} onEdit={this.onEdit} />))}
+        {this.state.models.map(model => (<FitModelCard key={model.id} id={model.id} {...model} onEdit={this.onEdit} />))}
         <div className={classes.PaginationWrapper}>
           <Pagination count={this.state.count} onChange={this.loadModels}/>
         </div>
