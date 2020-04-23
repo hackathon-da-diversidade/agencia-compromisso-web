@@ -18,10 +18,17 @@ class FitModelForm extends Component {
     super(props);
 
     this.state = {
+      id: this.props.match.params.id,
       selectedTabIndex: 0,
       fitModelData: {},
       hasError: false
     };
+  }
+
+ componentDidMount() {
+    if (this.state.id) {
+      fitModelAPI.get(this.state.id).then(response => this.setState({fitModelData: response.data}));
+    }
   }
 
   saveFitModel = async () => {

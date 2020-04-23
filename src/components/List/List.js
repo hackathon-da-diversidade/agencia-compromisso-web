@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react';
+import React, { Component } from 'react';
 import Header from '../Header/Header';
 import fitModelAPI from '../../api/fitModelAPI';
 import FitModelCard from '../FitModelCard/FitModelCard';
