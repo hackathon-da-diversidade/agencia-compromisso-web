@@ -112,7 +112,7 @@ function SocialForm({ data = {}, onChange }) {
             name="hasChildren"
             label="Tem filhos?"
             onChange={handleHasChildren}
-            value={socialInformation.hasChildren}
+            value={socialInformation.hasChildren ? socialInformation.hasChildren : 'no'}
             options={[
               { value: 'yes', label: 'Sim' },
               { value: 'no', label: 'Não' },
