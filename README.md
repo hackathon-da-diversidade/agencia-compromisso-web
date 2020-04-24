@@ -94,21 +94,10 @@ $(npm bin)/cypress open
 
 O projeto conta com uma pipeline configurada no CircleCI que você pode acessar atráves desse [link](https://app.circleci.com/github/hackathon-da-diversidade/agencia-compromisso-web/pipelines). A cada novo commit na master a pipeline roda automáticamente, buildando e rodando todos os testes da aplicação. Caso esse processo seja um sucesso é feito o deploy no ambiente de staging. O deploy para produção é um passo manual e pode ser facilmente execultado dentro do CircleCI.
 
-## Ambientes
-
-- [Staging](https://agencia-compromisso-stg.herokuapp.com/)
-
-- [Produção](https://agencia-compromisso.herokuapp.com/)
-
-## Links úteis
-
-[API](https://github.com/hackathon-da-diversidade/agencia-compromisso)
-
-[trello](https://trello.com/b/YL5SbWzZ/ag%C3%AAncia-compromisso)
-
 ## Contribuindo
 
-Qualquer ajuda é bem vinda e adorariamos receber sua contribuição. Acesse o nosso trello para entender o estágio atual do projeto. Lá você encontra tudo que estamos trabalhando e o que queremos iniciar. Procure também as pessoas envolvidas no projeto atualmente em caso de dúvidas.
+Qualquer ajuda é bem vinda e adorariamos receber sua contribuição.
+Para isso, acesse o CONTRIBUTING.md para checar nossas guidelines de desenvolvimento.
 
 ## Acessos
 
