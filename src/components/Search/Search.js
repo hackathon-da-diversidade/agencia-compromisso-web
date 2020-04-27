@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {TextField} from "@material-ui/core";
+import React, { Component } from 'react';
+import { TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import fitModelAPI from "../../api/fitModelAPI";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import fitModelAPI from '../../api/fitModelAPI';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import classes from './Search.module.css';
 
 class Search extends Component {
@@ -12,8 +12,8 @@ class Search extends Component {
       model: [],
       name: '',
       typing: false,
-      typingTimeout: 0
-    }
+      typingTimeout: 0,
+    };
   }
 
   searchModel = async (search, page = 1, size = 10) => {
@@ -26,7 +26,7 @@ class Search extends Component {
   };
 
   onChange = async event => {
-    const {typingTimeout} = this.state;
+    const { typingTimeout } = this.state;
 
     if (typingTimeout) {
       clearTimeout(typingTimeout);
@@ -37,7 +37,7 @@ class Search extends Component {
       typing: false,
       typingTimeout: setTimeout(() => {
         this.searchModel(this.state.name);
-      }, 1000)
+      }, 1000),
     });
   };
 
@@ -59,7 +59,7 @@ class Search extends Component {
           }}
         />
       </div>
-    )
+    );
   }
 }
 
