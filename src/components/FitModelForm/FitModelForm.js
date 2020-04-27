@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import PersonalForm from './PersonalForm/PersonalForm';
 import MeasuresForm from './MeasuresForm/MeasuresForm';
@@ -21,46 +21,65 @@ class FitModelForm extends Component {
       id: this.props.match.params.id,
       selectedTabIndex: 0,
       fitModelData: {},
-      hasError: false
+      hasError: false,
     };
   }
 
- componentDidMount() {
+  componentDidMount() {
     if (this.state.id) {
-      fitModelAPI.get(this.state.id).then(response => this.setState({fitModelData: response.data}));
+      this.getModel();
     }
   }
 
+  getModel = async () => {
+    const response = await fitModelAPI.get(this.state.id);
+    this.setState({ fitModelData: response.data });
+  };
+
   saveFitModel = async () => {
     try {
-      const {headers} = await fitModelAPI.create(this.state.fitModelData);
-      const locationArray = headers.location.split('/');
-      const id = locationArray[locationArray.length - 1];
+      const id = await (this.state.id ? this.update() : this.create());
+
       this.props.history.push(`/modelo/${id}`, {
         registrationSuccessful: true,
       });
     } catch (error) {
-      this.setState({hasError: true});
+      this.setState({ hasError: true });
     }
   };
+
+  async create() {
+    const { headers } = await fitModelAPI.create(this.state.fitModelData);
+    const locationArray = headers.location.split('/');
+
+    return locationArray[locationArray.length - 1];
+  }
+
+  async update() {
+    const { data } = await fitModelAPI.update(this.state.fitModelData);
+
+    return data.id;
+  }
 
   render() {
     const TabComponent = TABS[this.state.selectedTabIndex];
 
     return (
       <div className={classes.FitModelForm}>
-        <Header/>
+        <Header />
         <Tabs
           value={this.state.selectedTabIndex}
-          onChange={(event, index) => this.setState({selectedTabIndex: index})}
+          onChange={(event, index) =>
+            this.setState({ selectedTabIndex: index })
+          }
           variant="scrollable"
           scrollButtons="auto"
           className={classes.Tabs}
-          TabIndicatorProps={{className: classes.Indicator}}
+          TabIndicatorProps={{ className: classes.Indicator }}
         >
-          <Tab label="PESSOAL"/>
-          <Tab id="measuresTab" label="MEDIDAS"/>
-          <Tab id="socialTab" label="SOCIAL"/>
+          <Tab label="PESSOAL" />
+          <Tab id="measuresTab" label="MEDIDAS" />
+          <Tab id="socialTab" label="SOCIAL" />
         </Tabs>
         <TabComponent
           data={this.state.fitModelData}
@@ -69,7 +88,7 @@ class FitModelForm extends Component {
               fitModelData: {
                 ...this.state.fitModelData,
                 ...updatedFields,
-              }
+              },
             });
           }}
         />
@@ -79,7 +98,9 @@ class FitModelForm extends Component {
           </Alert>
         )}
         <div className={classes.Actions}>
-          <Button id="saveButton" clicked={this.saveFitModel}>Salvar</Button>
+          <Button id="saveButton" clicked={this.saveFitModel}>
+            Salvar
+          </Button>
           <Link to="/">Cancelar</Link>
         </div>
       </div>

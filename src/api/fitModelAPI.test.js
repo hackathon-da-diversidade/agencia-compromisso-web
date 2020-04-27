@@ -43,15 +43,15 @@ test('should get all fit models paginated', () => {
   fitModelAPI.getAllPaginated(page, size);
 
   expect(axios.get).toHaveBeenCalledWith(`${URL}/paginated`, {
-    params: {page, size},
+    params: { page, size },
   });
 });
 
-  test('should update fit model profile info', () => {
-    const id = '5a1154523a6bcc1d245e143d';
-    const model = { id };
+test('should update fit model profile info', () => {
+  const id = '5a1154523a6bcc1d245e143d';
+  const model = { id };
 
-    fitModelAPI.update(model);
+  fitModelAPI.update(model);
 
-    expect(axios.put).toHaveBeenCalledWith(`${URL}/${id}`, model);
+  expect(axios.put).toHaveBeenCalledWith(`${URL}/${id}`, model);
 });

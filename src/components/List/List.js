@@ -26,7 +26,10 @@ class List extends Component {
       const name = this.searchRef.state.name;
 
       if (name === '') {
-        const res = await fitModelAPI.getAllPaginated(page - 1, this.state.size);
+        const res = await fitModelAPI.getAllPaginated(
+          page - 1,
+          this.state.size
+        );
         this.updatePagination(res.data);
       } else {
         await this.searchRef.searchModel(name, page - 1, this.state.size);
@@ -55,11 +58,22 @@ class List extends Component {
   render() {
     return (
       <>
-        <Header title="Lista"/>
-        <Search ref={ref => this.searchRef = ref} onChange={this.updatePagination} onError={this.handleError}/>
-        {this.state.models.map(model => (<FitModelCard key={model.id} id={model.id} {...model} onEdit={this.onEdit} />))}
+        <Header title="Lista" />
+        <Search
+          ref={ref => (this.searchRef = ref)}
+          onChange={this.updatePagination}
+          onError={this.handleError}
+        />
+        {this.state.models.map(model => (
+          <FitModelCard
+            key={model.id}
+            id={model.id}
+            {...model}
+            onEdit={this.onEdit}
+          />
+        ))}
         <div className={classes.PaginationWrapper}>
-          <Pagination count={this.state.count} onChange={this.loadModels}/>
+          <Pagination count={this.state.count} onChange={this.loadModels} />
         </div>
       </>
     );

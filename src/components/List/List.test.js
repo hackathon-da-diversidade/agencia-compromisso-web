@@ -13,14 +13,14 @@ describe('<List />', () => {
   it('should load fit models when entering the component', () => {
     fitModelAPI.getAllPaginated.mockReturnValue({
       data: {
-        content: []
-      }
+        content: [],
+      },
     });
 
     mount(
       <Router>
-        <List/>
-      </Router>,
+        <List />
+      </Router>
     );
 
     let page = 0;
@@ -33,8 +33,8 @@ describe('<List />', () => {
   it('should render pagination component', function() {
     const wrapper = mount(
       <Router>
-        <List/>
-      </Router>,
+        <List />
+      </Router>
     );
 
     expect(wrapper.find('.MuiPagination-root')).toHaveLength(1);
