@@ -49,19 +49,23 @@ const Detail = ({ match, location }) => {
           <Information label="Nome:" strong>
             {model.name}
           </Information>
-          <Information label="Idade:" strong>
-            {calculateAge(model.birthday)}
-          </Information>
+          {model.birthday && (
+            <Information label="Idade:" strong>
+              {calculateAge(model.birthday)}
+            </Information>
+          )}
         </div>
         <Information label="Expressão de gênero:" strong>
           {GENDER_EXPRESSION[model.genderExpression]}
         </Information>
 
-        <MeasuresInformation data={model.sizes} />
-
         <PersonalInformation data={model} />
 
-        <SocialInformation data={model.socialInformation} />
+        {model.sizes && <MeasuresInformation data={model.sizes} />}
+
+        {model.socialInformation && (
+          <SocialInformation data={model.socialInformation} />
+        )}
 
         {model.notes && (
           <>
