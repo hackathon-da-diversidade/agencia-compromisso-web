@@ -12,21 +12,10 @@ import classes from './Detail.module.css';
 import { calculateAge } from '../../utils/dateUtils';
 import { GENDER_EXPRESSION } from '../../utils/constants';
 
+
 const Detail = ({ match, location }) => {
-  const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
 
-  useEffect(() => {
-    loadModelInfo(match.params.id);
-  }, [match.params.id]);
-
-  const loadModelInfo = async id => {
-    try {
-      const { data } = await fitModelAPI.get(id);
-      setModel(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const model = useFitModel(match.params.id);
 
   const hasNoPhoneNumber = () => {
     return !(model.guardianPhoneNumber || model.phoneNumber);
@@ -46,7 +35,7 @@ const Detail = ({ match, location }) => {
           </Alert>
         )}
         <div className={classes.MainInfos}>
-          <Information label="Nome:" strong>
+          <Information testId="name" label="Nome:" strong>
             {model.name}
           </Information>
           {model.birthday && (
@@ -77,7 +66,7 @@ const Detail = ({ match, location }) => {
         <div className={classes.ContactButton}>
           <Button disabled={hasNoPhoneNumber()} clicked={callPhoneNumber}>
             Contatar
-          </Button>
+            </Button>
         </div>
       </div>
     </div>
@@ -85,3 +74,27 @@ const Detail = ({ match, location }) => {
 };
 
 export default Detail;
+
+
+const useFitModel = ((id) => {
+  const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
+
+  useEffect(async () => {
+    const loadModelInfo = async id => {
+      try {
+        const { data } = await fitModelAPI.get(id);
+        setModel(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    loadModelInfo(id);
+  }, [id]);
+
+  return model
+})
+
+
+// contorle de estado
+// extrair subcomponents
+// use props pra definir argumentos
