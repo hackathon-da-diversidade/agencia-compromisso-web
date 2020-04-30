@@ -96,7 +96,7 @@ function PersonalForm({ data = {}, onChange }) {
             name="inProjects"
             label="Participação em outros projetos?"
             onChange={handleInProjects}
-            value={data.inProjects}
+            value={data.inProjects ? data.inProjects : 'no'}
             options={[
               { value: 'yes', label: 'Sim' },
               { value: 'no', label: 'Não' },
@@ -159,7 +159,7 @@ function PersonalForm({ data = {}, onChange }) {
             name="identifyAsLGBTQIA"
             label="Pertence à comunidade LGBTQIA+"
             onChange={onChange}
-            value={data.identifyAsLGBTQIA}
+            value={data.identifyAsLGBTQIA ? data.identifyAsLGBTQIA : 'false'}
             options={[
               { value: 'true', label: 'Sim' },
               { value: 'false', label: 'Não' },
@@ -205,7 +205,7 @@ function PersonalForm({ data = {}, onChange }) {
           <TextArea
             name="notes"
             label="Observações"
-            value={data.notes}
+            value={data.notes ? data.notes : ''}
             onChange={onChange}
           />
         </Form>

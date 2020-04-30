@@ -48,7 +48,7 @@ const App = () => {
             <Route exact path="/lista" component={withRequiredAuth(List)} />
             <Route
               exact
-              path="/cadastro"
+              path="/cadastro/:id?"
               component={withRequiredAuth(FitModelForm)}
             />
             <Route path="/modelo/:id" component={withRequiredAuth(Detail)} />
