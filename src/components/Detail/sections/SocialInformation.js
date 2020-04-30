@@ -9,7 +9,7 @@ import {
 } from '../../../utils/constants';
 
 const SocialInformation = ({ data }) =>
-  data && (
+  data ? (
     <>
       <h1>SOCIAL:</h1>
 
@@ -27,6 +27,6 @@ const SocialInformation = ({ data }) =>
       </Information>
       <Information label="Filhos:">{data.numberOfChildren}</Information>
     </>
-  );
+  ) : null;
 
 export default SocialInformation;

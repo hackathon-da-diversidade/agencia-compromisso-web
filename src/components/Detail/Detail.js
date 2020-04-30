@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Header from '../Header/Header';
 import Button from '../UI/Button/Button';
@@ -21,35 +21,16 @@ const Detail = ({ match, location }) => {
     <div>
       <Header path="/lista" />
       <div className={classes.Details}>
-
         <SuccessMessage location={location} />
-
         <MainInfo name={model.name}>
           {model.birthday}
+          {model.genderExpression}
         </MainInfo>
-
-        <Information label="Expressão de gênero:" strong>
-          {GENDER_EXPRESSION[model.genderExpression]}
-        </Information>
-
-
         <PersonalInformation data={model} />
-
-        {model.sizes && <MeasuresInformation data={model.sizes} />}
-
-        {model.socialInformation && (
-          <SocialInformation data={model.socialInformation} />
-        )}
-
-        {model.notes && (
-          <>
-            <h1>OBSERVAÇÕES:</h1>
-            <span>{model.notes}</span>
-          </>
-        )}
-
-        < ContactButton phoneNumber={model.phoneNumber} guardianPhoneNumber={model.guardianPhoneNumber} />
-
+        <MeasuresInformation data={model.sizes} />
+        <SocialInformation data={model.socialInformation} />
+        <Notes notes={model.notes} />
+        <ContactButton phoneNumber={model.phoneNumber} guardianPhoneNumber={model.guardianPhoneNumber} />
       </div>
     </div>
   );
@@ -97,8 +78,8 @@ const ContactButton = (({ phoneNumber }, { guardianPhoneNumber }) => {
 })
 
 const MainInfo = (({ name, children }) => {
-
-  const birthday = children;
+  const birthday = children[0];
+  const genderExpression = children[1];
 
   return (
     <>
@@ -112,7 +93,9 @@ const MainInfo = (({ name, children }) => {
           </Information>
         )}
       </div>
-
+      <Information label="Expressão de gênero:" strong>
+        {GENDER_EXPRESSION[genderExpression]}
+      </Information>
     </>
   )
 })
@@ -129,7 +112,17 @@ const SuccessMessage = (({ location }) => {
 })
 
 
+const Notes = (({ notes }) => {
+  return (
+    notes ? (
+      <>
+        <h1>OBSERVAÇÕES:</h1>
+        <span>{notes}</span>
+      </>
+    ) : null
+  )
+})
+
 // contorle de estado
-// extrair subcomponents
 // use props pra definir argumentos
 // custom hook axios
