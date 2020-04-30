@@ -17,7 +17,9 @@ const PersonalInformation = ({ data }) =>
         {AVAILABILITY[data.availability]}
       </Information>
       <Information label="Projetos:">{data.projects}</Information>
-      <Information label="Telefone:">{data.phoneNumber}</Information>
+      <Information testId="phoneNumber" label="Telefone:">
+        {data.phoneNumber}
+      </Information>
       <Information label="Endereço:">{data.address}</Information>
       {data.identifyAsLGBTQIA == true && (
         <Information label="Pertence à comunidade LGBTQIA+:"> Sim</Information>
