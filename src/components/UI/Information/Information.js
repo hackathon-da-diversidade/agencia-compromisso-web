@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import classes from './Information.module.css';
 
-const information = props =>
+const Information = props =>
   props.children ? (
     <div className={classes.Information}>
       {props.strong ? <strong>{props.label}</strong> : props.label}
@@ -9,4 +11,10 @@ const information = props =>
     </div>
   ) : null;
 
-export default information;
+Information.propTypes = {
+  label: PropTypes.string.isRequired,
+  strong: PropTypes.bool,
+  children: PropTypes.string
+}
+
+export default Information;

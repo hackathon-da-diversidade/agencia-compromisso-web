@@ -15,25 +15,29 @@ import { GENDER_EXPRESSION } from '../../utils/constants';
 
 const Detail = ({ match, location }) => {
 
-  const model = useFitModel(match.params.id);
-
-  return (
-    <div>
-      <Header path="/lista" />
-      <div className={classes.Details}>
-        <SuccessMessage location={location} />
-        <MainInfo name={model.name}>
-          {model.birthday}
-          {model.genderExpression}
-        </MainInfo>
-        <PersonalInformation data={model} />
-        <MeasuresInformation data={model.sizes} />
-        <SocialInformation data={model.socialInformation} />
-        <Notes notes={model.notes} />
-        <ContactButton phoneNumber={model.phoneNumber} guardianPhoneNumber={model.guardianPhoneNumber} />
+  try {
+    const model = useFitModel(match.params.id);
+    return (
+      <div>
+        <Header path="/lista" />
+        <div className={classes.Details}>
+          <SuccessMessage location={location} />
+          <MainInfo model={model} />
+          <PersonalInformation data={model} />
+          <MeasuresInformation data={model.sizes} />
+          <SocialInformation data={model.socialInformation} />
+          <Notes notes={model.notes} />
+          <ContactButton phoneNumber={model.phoneNumber} guardianPhoneNumber={model.guardianPhoneNumber} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  } catch {
+    return (
+      <Alert severity="warning"> Não foi possível carregar o perfil.
+      </Alert>
+    );
+
+  }
 };
 
 export default Detail;
@@ -42,7 +46,7 @@ export default Detail;
 const useFitModel = ((id) => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
 
-  useEffect(async () => {
+  useEffect(() => {
     const loadModelInfo = async id => {
       try {
         const { data } = await fitModelAPI.get(id);
@@ -77,9 +81,10 @@ const ContactButton = (({ phoneNumber }, { guardianPhoneNumber }) => {
   )
 })
 
-const MainInfo = (({ name, children }) => {
-  const birthday = children[0];
-  const genderExpression = children[1];
+const MainInfo = (({ model }) => {
+  const birthday = model.birthday;
+  const genderExpression = model.genderExpression;
+  const name = model.name;
 
   return (
     <>
@@ -122,7 +127,3 @@ const Notes = (({ notes }) => {
     ) : null
   )
 })
-
-// contorle de estado
-// use props pra definir argumentos
-// custom hook axios

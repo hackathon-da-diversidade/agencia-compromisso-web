@@ -19,6 +19,7 @@
     "googleapis": "^47.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
+    "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-datepicker": "^2.9.6",
     "react-dom": "16.9.0",
