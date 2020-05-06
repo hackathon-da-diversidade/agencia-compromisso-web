@@ -23,7 +23,7 @@ server.get('*', (request, res) => {
     process.env.NODE_ENV &&
     process.env.NODE_ENV === 'production'
   ) {
-    res.redirect('https://' + request.headers.host + request.url);
+    return res.redirect('https://' + request.headers.host + request.url);
   }
   res.sendFile(path.join(__dirname, '../../build/index.html'));
 });
