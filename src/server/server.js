@@ -12,7 +12,6 @@ const port = process.env.PORT || 5000;
 
 server.use(morgan('combined'));
 server.use(cookieParser());
-
 server.use(express.static(path.join(__dirname, '../../build')));
 
 server.use('', routes);
