@@ -9,20 +9,17 @@ const routes = require('./routes');
 const server = express();
 const port = process.env.PORT || 5000;
 
+const sslRedirect = require('heroku-ssl-redirect');
+
+server.use(sslRedirect());
+
 server.use(morgan('combined'));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, '../../build')));
 
 server.use('', routes);
 
-server.get('*', (request, res) => {
-  if (
-    !request.secure &&
-    process.env.NODE_ENV &&
-    process.env.NODE_ENV === 'production'
-  ) {
-    return res.redirect('https://' + request.headers.host + request.url);
-  }
+server.get('*', (_, res) => {
   res.sendFile(path.join(__dirname, '../../build/index.html'));
 });
 

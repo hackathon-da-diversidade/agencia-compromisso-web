@@ -17,6 +17,7 @@
     "formik": "^1.5.8",
     "google-auth-library": "^5.9.2",
     "googleapis": "^47.0.0",
+    "heroku-ssl-redirect": "^0.0.4",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "react": "16.9.0",
