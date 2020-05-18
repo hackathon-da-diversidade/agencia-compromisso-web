@@ -11,6 +11,12 @@ configure({ adapter: new Adapter() });
 
 beforeEach(() => jest.clearAllMocks());
 
+const fillInputs = (wrapper, value, id) => {
+  wrapper.find(`input[name=\'${id}\']`)
+    .first()
+    .simulate('change', { target: { name: id, value: value } } );
+};
+
 describe('<FitModelForm />', () => {
   it('should show default fields', () => {
     fitModelAPI.create.mockReturnValue({});
@@ -62,56 +68,27 @@ describe('<FitModelForm />', () => {
       </Router>
     );
 
-    wrapper
-      .find("input[name='name']")
-      .simulate('change', { target: { name: 'name', value: data.name } });
-    wrapper.find("input[name='birthday']").simulate('change', {
-      target: { name: 'birthday', value: data.birthday },
-    });
-    wrapper
-      .find("input[name='availability']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'availability',
-          value: data.availability,
-        },
-      });
-    wrapper
-      .find("input[name='inProjects']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'inProjects',
-          value: data.inProjects,
-        },
-      });
-    wrapper.find("input[name='phoneNumber']").simulate('change', {
-      target: {
-        name: 'phoneNumber',
-        value: data.phoneNumber,
-      },
-    });
-    wrapper
-      .find("input[name='address']")
-      .simulate('change', { target: { name: 'address', value: data.address } });
+    fillInputs(wrapper, data.name, 'name');
+    fillInputs(wrapper, data.birthday, 'birthday');
+    fillInputs(wrapper, data.availability, 'availability');
+    fillInputs(wrapper, data.inProjects, 'inProjects');
+    fillInputs(wrapper, data.phoneNumber, 'phoneNumber');
+    fillInputs(wrapper, data.address, 'address');
+
     wrapper.find("select[name='genderExpression']").simulate('change', {
       target: {
         name: 'genderExpression',
         value: data.genderExpression,
       },
     });
-    wrapper
-      .find("input[name='identifyAsLGBTQIA']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'identifyAsLGBTQIA',
-          value: data.identifyAsLGBTQIA,
-        },
-      });
+
+    fillInputs(wrapper, data.identifyAsLGBTQIA, 'identifyAsLGBTQIA');
+
     wrapper.find("select[name='education']").simulate('change', {
-      target: { name: 'education', value: data.education },
+      target: {
+        name: 'education',
+        value: data.education,
+      },
     });
     wrapper
       .find("textarea[name='notes']")
@@ -122,54 +99,14 @@ describe('<FitModelForm />', () => {
       .first()
       .simulate('click');
 
-    wrapper.find("input[name='totalBustCircumference']").simulate('change', {
-      target: {
-        name: 'totalBustCircumference',
-        value: data.sizes.totalBustCircumference,
-      },
-    });
-    wrapper.find("input[name='totalWaistCircumference']").simulate('change', {
-      target: {
-        name: 'totalWaistCircumference',
-        value: data.sizes.totalWaistCircumference,
-      },
-    });
-    wrapper.find("input[name='totalHipCircumference']").simulate('change', {
-      target: {
-        name: 'totalHipCircumference',
-        value: data.sizes.totalHipCircumference,
-      },
-    });
-    wrapper.find("input[name='height']").simulate('change', {
-      target: { name: 'height', value: data.sizes.height },
-    });
-    wrapper
-      .find("input[name='shirtSize']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'shirtSize',
-          value: data.sizes.shirtSize,
-        },
-      });
-    wrapper
-      .find("input[name='pantsSize']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'pantsSize',
-          value: data.sizes.pantsSize,
-        },
-      });
-    wrapper
-      .find("input[name='shoeSize']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'shoeSize',
-          value: data.sizes.shoeSize,
-        },
-      });
+    fillInputs(wrapper, data.sizes.totalBustCircumference, 'totalBustCircumference');
+    fillInputs(wrapper, data.sizes.totalWaistCircumference, 'totalWaistCircumference');
+    fillInputs(wrapper, data.sizes.totalHipCircumference, 'totalHipCircumference');
+    fillInputs(wrapper, data.sizes.height, 'height');
+    fillInputs(wrapper, data.sizes.shirtSize, 'shirtSize');
+    fillInputs(wrapper, data.sizes.pantsSize, 'pantsSize');
+    fillInputs(wrapper, data.sizes.shoeSize, 'shoeSize');
+
     wrapper
       .find('#socialTab')
       .first()
@@ -181,51 +118,20 @@ describe('<FitModelForm />', () => {
         value: data.socialInformation.ethnicity,
       },
     });
-    wrapper
-      .find("input[name='housing']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'housing',
-          value: data.socialInformation.housing,
-        },
-      });
-    wrapper.find("input[name='numberOfResidents']").simulate('change', {
-      target: {
-        name: 'numberOfResidents',
-        value: data.socialInformation.numberOfResidents,
-      },
-    });
-    wrapper.find("input[name='occupation']").simulate('change', {
-      target: {
-        name: 'occupation',
-        value: data.socialInformation.occupation,
-      },
-    });
-    wrapper
-      .find("input[name='occupationMode']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'occupationMode',
-          value: data.socialInformation.occupationMode,
-        },
-      });
+
+    fillInputs(wrapper, data.socialInformation.housing, 'housing');
+    fillInputs(wrapper, data.socialInformation.numberOfResidents, 'numberOfResidents');
+    fillInputs(wrapper, data.socialInformation.occupation, 'occupation');
+    fillInputs(wrapper, data.socialInformation.occupationMode, 'occupationMode');
+
     wrapper.find("select[name='familyIncome']").simulate('change', {
       target: {
         name: 'familyIncome',
         value: data.socialInformation.familyIncome,
       },
     });
-    wrapper
-      .find("input[name='hasChildren']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'hasChildren',
-          value: data.socialInformation.hasChildren,
-        },
-      });
+
+    fillInputs(wrapper, data.socialInformation.hasChildren, 'hasChildren');
 
     wrapper.find('#saveButton').simulate('click');
 
