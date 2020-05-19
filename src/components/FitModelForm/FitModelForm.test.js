@@ -11,11 +11,15 @@ configure({ adapter: new Adapter() });
 
 beforeEach(() => jest.clearAllMocks());
 
-const fillInputs = (wrapper, value, id) => {
-  wrapper.find(`input[name=\'${id}\']`)
+const fill = (wrapper, value, id, type) => {
+  wrapper.find(`${type}[name=\'${id}\']`)
     .first()
     .simulate('change', { target: { name: id, value: value } } );
 };
+
+const fillInput = (wrapper, value, id) => fill(wrapper, value, id, 'input');
+const fillSelect = (wrapper, value, id) => fill(wrapper, value, id, 'select');
+const fillTextarea = (wrapper, value, id) => fill(wrapper, value, id, 'textarea');
 
 describe('<FitModelForm />', () => {
   it('should show default fields', () => {
@@ -68,70 +72,42 @@ describe('<FitModelForm />', () => {
       </Router>
     );
 
-    fillInputs(wrapper, data.name, 'name');
-    fillInputs(wrapper, data.birthday, 'birthday');
-    fillInputs(wrapper, data.availability, 'availability');
-    fillInputs(wrapper, data.inProjects, 'inProjects');
-    fillInputs(wrapper, data.phoneNumber, 'phoneNumber');
-    fillInputs(wrapper, data.address, 'address');
-
-    wrapper.find("select[name='genderExpression']").simulate('change', {
-      target: {
-        name: 'genderExpression',
-        value: data.genderExpression,
-      },
-    });
-
-    fillInputs(wrapper, data.identifyAsLGBTQIA, 'identifyAsLGBTQIA');
-
-    wrapper.find("select[name='education']").simulate('change', {
-      target: {
-        name: 'education',
-        value: data.education,
-      },
-    });
-    wrapper
-      .find("textarea[name='notes']")
-      .simulate('change', { target: { name: 'notes', value: data.notes } });
+    fillInput(wrapper, data.name, 'name');
+    fillInput(wrapper, data.birthday, 'birthday');
+    fillInput(wrapper, data.availability, 'availability');
+    fillInput(wrapper, data.inProjects, 'inProjects');
+    fillInput(wrapper, data.phoneNumber, 'phoneNumber');
+    fillInput(wrapper, data.address, 'address');
+    fillSelect(wrapper, data.genderExpression, 'genderExpression');
+    fillInput(wrapper, data.identifyAsLGBTQIA, 'identifyAsLGBTQIA');
+    fillSelect(wrapper, data.education, 'education');
+    fillTextarea(wrapper, data.notes, 'notes');
 
     wrapper
       .find('#measuresTab')
       .first()
       .simulate('click');
 
-    fillInputs(wrapper, data.sizes.totalBustCircumference, 'totalBustCircumference');
-    fillInputs(wrapper, data.sizes.totalWaistCircumference, 'totalWaistCircumference');
-    fillInputs(wrapper, data.sizes.totalHipCircumference, 'totalHipCircumference');
-    fillInputs(wrapper, data.sizes.height, 'height');
-    fillInputs(wrapper, data.sizes.shirtSize, 'shirtSize');
-    fillInputs(wrapper, data.sizes.pantsSize, 'pantsSize');
-    fillInputs(wrapper, data.sizes.shoeSize, 'shoeSize');
+    fillInput(wrapper, data.sizes.totalBustCircumference, 'totalBustCircumference');
+    fillInput(wrapper, data.sizes.totalWaistCircumference, 'totalWaistCircumference');
+    fillInput(wrapper, data.sizes.totalHipCircumference, 'totalHipCircumference');
+    fillInput(wrapper, data.sizes.height, 'height');
+    fillInput(wrapper, data.sizes.shirtSize, 'shirtSize');
+    fillInput(wrapper, data.sizes.pantsSize, 'pantsSize');
+    fillInput(wrapper, data.sizes.shoeSize, 'shoeSize');
 
     wrapper
       .find('#socialTab')
       .first()
       .simulate('click');
 
-    wrapper.find("select[name='ethnicity']").simulate('change', {
-      target: {
-        name: 'ethnicity',
-        value: data.socialInformation.ethnicity,
-      },
-    });
-
-    fillInputs(wrapper, data.socialInformation.housing, 'housing');
-    fillInputs(wrapper, data.socialInformation.numberOfResidents, 'numberOfResidents');
-    fillInputs(wrapper, data.socialInformation.occupation, 'occupation');
-    fillInputs(wrapper, data.socialInformation.occupationMode, 'occupationMode');
-
-    wrapper.find("select[name='familyIncome']").simulate('change', {
-      target: {
-        name: 'familyIncome',
-        value: data.socialInformation.familyIncome,
-      },
-    });
-
-    fillInputs(wrapper, data.socialInformation.hasChildren, 'hasChildren');
+    fillSelect(wrapper, data.socialInformation.ethnicity, 'ethnicity');
+    fillInput(wrapper, data.socialInformation.housing, 'housing');
+    fillInput(wrapper, data.socialInformation.numberOfResidents, 'numberOfResidents');
+    fillInput(wrapper, data.socialInformation.occupation, 'occupation');
+    fillInput(wrapper, data.socialInformation.occupationMode, 'occupationMode');
+    fillSelect(wrapper, data.socialInformation.familyIncome, 'familyIncome');
+    fillInput(wrapper, data.socialInformation.hasChildren, 'hasChildren');
 
     wrapper.find('#saveButton').simulate('click');
 
