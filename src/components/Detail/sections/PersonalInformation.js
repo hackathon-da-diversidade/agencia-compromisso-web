@@ -8,8 +8,8 @@ const PersonalInformation = ({ data }) =>
     data.projects ||
     data.phoneNumber ||
     data.address ||
-    data.identifyAsLGBTQIA == true ||
-    data.identifyAsLGBTQIA == false) && (
+    data.identifyAsLGBTQIA === true ||
+    data.identifyAsLGBTQIA === false) && (
     <>
       <h1>PESSOAL:</h1>
       <Information label="Data de nascimento:">{data.birthday}</Information>
@@ -17,12 +17,14 @@ const PersonalInformation = ({ data }) =>
         {AVAILABILITY[data.availability]}
       </Information>
       <Information label="Projetos:">{data.projects}</Information>
-      <Information label="Telefone:">{data.phoneNumber}</Information>
+      <Information testId="phoneNumber" label="Telefone:">
+        {data.phoneNumber}
+      </Information>
       <Information label="Endereço:">{data.address}</Information>
-      {data.identifyAsLGBTQIA == true && (
+      {data.identifyAsLGBTQIA === true && (
         <Information label="Pertence à comunidade LGBTQIA+:"> Sim</Information>
       )}
-      {data.identifyAsLGBTQIA == false && (
+      {data.identifyAsLGBTQIA === false && (
         <Information label="Pertence à comunidade LGBTQIA+:">Não</Information>
       )}
     </>
