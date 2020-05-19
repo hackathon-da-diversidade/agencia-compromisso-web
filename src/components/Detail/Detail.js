@@ -14,7 +14,6 @@ import { GENDER_EXPRESSION } from '../../utils/constants';
 
 
 const Detail = ({ match, location }) => {
-
   try {
     const model = useFitModel(match.params.id);
     return (
@@ -33,15 +32,13 @@ const Detail = ({ match, location }) => {
     );
   } catch {
     return (
-      <Alert severity="warning"> Não foi possível carregar o perfil.
-      </Alert>
+      <Alert severity="warning">Não foi possível carregar o perfil.</Alert>
     );
 
   }
 };
 
 export default Detail;
-
 
 const useFitModel = ((id) => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
@@ -59,8 +56,7 @@ const useFitModel = ((id) => {
   }, [id]);
 
   return model
-})
-
+});
 
 const ContactButton = (({ phoneNumber }, { guardianPhoneNumber }) => {
 
@@ -79,7 +75,7 @@ const ContactButton = (({ phoneNumber }, { guardianPhoneNumber }) => {
       </Button>
     </div>
   )
-})
+});
 
 const MainInfo = (({ model }) => {
   const birthday = model.birthday;
@@ -103,8 +99,7 @@ const MainInfo = (({ model }) => {
       </Information>
     </>
   )
-})
-
+});
 
 const SuccessMessage = (({ location }) => {
   return (
@@ -114,8 +109,7 @@ const SuccessMessage = (({ location }) => {
       </Alert>
     ) : null
   )
-})
-
+});
 
 const Notes = (({ notes }) => {
   return (
@@ -126,4 +120,4 @@ const Notes = (({ notes }) => {
       </>
     ) : null
   )
-})
+});
