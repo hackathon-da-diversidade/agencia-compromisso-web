@@ -17,6 +17,9 @@ export default {
       params: { name, page, size },
     });
   },
+  async update(model) {
+    return await axios.put(`${URL}/${model.id}`, model);
+  },
   async getAllPaginated(page, size) {
     return await axios.get(`${URL}/paginated`, {
       params: { page, size },

@@ -29,15 +29,16 @@ describe('<Search />', () => {
     const size = 10;
 
     let onChange = jest.fn();
-    let onError = () => {
-    };
+    let onError = () => {};
 
     let data = { content: fitModels };
     fitModelAPI.search.mockReturnValue({ data });
 
-    const wrapper = mount(<Search onChange={onChange} onError={onError}/>);
+    const wrapper = mount(<Search onChange={onChange} onError={onError} />);
 
-    wrapper.find('input[name="searchField"]').simulate('change', { target: { name: 'searchField', value: name } });
+    wrapper
+      .find('input[name="searchField"]')
+      .simulate('change', { target: { name: 'searchField', value: name } });
 
     await fakeDebounceTime(1000);
 
@@ -51,19 +52,20 @@ describe('<Search />', () => {
   it('should return error on search error', async () => {
     const name = 'Test';
 
-    let onChange = () => {
-    };
+    let onChange = () => {};
     let onError = jest.fn();
 
     fitModelAPI.search.mockReturnValue();
 
-    const wrapper = mount(<Search onChange={onChange} onError={onError}/>);
+    const wrapper = mount(<Search onChange={onChange} onError={onError} />);
 
-    wrapper.find('input[name="searchField"]').simulate('change', { target: { name: 'searchField', value: name } });
+    wrapper
+      .find('input[name="searchField"]')
+      .simulate('change', { target: { name: 'searchField', value: name } });
 
     await fakeDebounceTime(1000);
 
     expect(onError).toBeCalledTimes(1);
     expect(onError).toBeCalledWith();
-  })
+  });
 });
