@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Required } from './Field.module.css';
 import { Wrapper, Options, Option } from './CheckboxField.module.css';
@@ -41,6 +42,14 @@ class CheckboxField extends Component {
       </div>
     );
   }
+}
+
+CheckboxField.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  options: PropTypes.array.isRequired,
 }
 
 export default CheckboxField;
