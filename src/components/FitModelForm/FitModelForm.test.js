@@ -4,22 +4,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import fitModelAPI from '../../api/fitModelAPI';
 import FitModelForm from './FitModelForm';
+import {fillInput, fillSelect, fillTextarea} from "../../utils/formHelpers";
 
 jest.mock('../../api/fitModelAPI');
 
 configure({ adapter: new Adapter() });
 
 beforeEach(() => jest.clearAllMocks());
-
-const fill = (wrapper, value, id, type) => {
-  wrapper.find(`${type}[name=\'${id}\']`)
-    .first()
-    .simulate('change', { target: { name: id, value: value } } );
-};
-
-const fillInput = (wrapper, value, id) => fill(wrapper, value, id, 'input');
-const fillSelect = (wrapper, value, id) => fill(wrapper, value, id, 'select');
-const fillTextarea = (wrapper, value, id) => fill(wrapper, value, id, 'textarea');
 
 describe('<FitModelForm />', () => {
   it('should show default fields', () => {
