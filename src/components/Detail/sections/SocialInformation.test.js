@@ -1,36 +1,30 @@
 import React from 'react';
 import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import PersonalInformation from "./PersonalInformation";
+import SocialInformation from "./SocialInformation";
+import {ETHNICITY, FAMILY_INCOME, HOUSING, OCCUPATION_MODE} from "../../../utils/constants";
 
 configure({ adapter: new Adapter() });
 
-describe('<PersonalInformation />', () => {
-  it('should show detailed user personal information', () => {
+describe('<SocialInformation />', () => {
+  it('should show detailed user social information', () => {
     const data = {
-      birthday: '08/08/1999',
-      availability: 'AFTERNOON',
-      projects: 'project',
-      phoneNumber: '999999999',
-      address: 'Rua dos Limoeiros',
-      identifyAsLGBTQIA: true,
+      ethnicity: 'WHITE',
+      housing: 'OWN',
+      numberOfResidents: '4',
+      occupation: 'Test',
+      occupationMode: 'FIXED',
+      familyIncome: 'LESS_THAN_ONE_MINIMUM_WAGE',
+      numberOfChildren: '2',
     };
-    const wrapper = mount(<PersonalInformation data={data} />);
+    const wrapper = mount(<SocialInformation data={data} />);
 
-    expect(wrapper.find('#birthday').text()).toContain(data.birthday);
-    expect(wrapper.find('#availability').text()).toContain('Disponibilidade:Tarde');
-    expect(wrapper.find('#projects').text()).toContain(data.projects);
-    expect(wrapper.find('#phoneNumber').text()).toContain(data.phoneNumber);
-    expect(wrapper.find('#address').text()).toContain(data.address);
-    expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain('Pertence à comunidade LGBTQIA+:Sim');
-  });
-
-  it('should show identify as LGBTQIA as "Não"', () => {
-    const data = {
-      identifyAsLGBTQIA: false
-    };
-    const wrapper = mount(<PersonalInformation data={data} />);
-
-    expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain('Pertence à comunidade LGBTQIA+:Não');
+    expect(wrapper.find('#ethnicity').text()).toContain(ETHNICITY[data.ethnicity]);
+    expect(wrapper.find('#housing').text()).toContain(HOUSING[data.housing]);
+    expect(wrapper.find('#numberOfResidents').text()).toContain(data.numberOfResidents);
+    expect(wrapper.find('#occupation').text()).toContain(data.occupation);
+    expect(wrapper.find('#occupationMode').text()).toContain(OCCUPATION_MODE[data.occupationMode]);
+    expect(wrapper.find('#familyIncome').text()).toContain(FAMILY_INCOME[data.familyIncome]);
+    expect(wrapper.find('#numberOfChildren').text()).toContain(data.numberOfChildren);
   });
 });
