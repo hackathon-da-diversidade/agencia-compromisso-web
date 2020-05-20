@@ -12,12 +12,25 @@ const PersonalInformation = ({ data }) =>
     data.identifyAsLGBTQIA === false) && (
     <>
       <h1>PESSOAL:</h1>
-      <Information id="birthday" label="Data de nascimento:">{data.birthday}</Information>
-      <Information id="availability" label="Disponibilidade:">{AVAILABILITY[data.availability]}</Information>
-      <Information id="projects" label="Projetos:">{data.projects}</Information>
-      <Information id="phoneNumber" label="Telefone:">{data.phoneNumber}</Information>
-      <Information id="address" label="Endereço:">{data.address}</Information>
-      <Information id="identifyAsLGBTQIA" label="Pertence à comunidade LGBTQIA+:">
+      <Information id="birthday" label="Data de nascimento:">
+        {data.birthday}
+      </Information>
+      <Information id="availability" label="Disponibilidade:">
+        {AVAILABILITY[data.availability]}
+      </Information>
+      <Information id="projects" label="Projetos:">
+        {data.projects}
+      </Information>
+      <Information id="phoneNumber" label="Telefone:">
+        {data.phoneNumber}
+      </Information>
+      <Information id="address" label="Endereço:">
+        {data.address}
+      </Information>
+      <Information
+        id="identifyAsLGBTQIA"
+        label="Pertence à comunidade LGBTQIA+:"
+      >
         {data.identifyAsLGBTQIA === true ? 'Sim' : 'Não'}
       </Information>
     </>

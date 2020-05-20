@@ -12,7 +12,6 @@ import classes from './Detail.module.css';
 import { calculateAge } from '../../utils/dateUtils';
 import { GENDER_EXPRESSION } from '../../utils/constants';
 
-
 const Detail = ({ match, location }) => {
   try {
     const model = useFitModel(match.params.id);
@@ -26,7 +25,10 @@ const Detail = ({ match, location }) => {
           <MeasuresInformation data={model.sizes} />
           <SocialInformation data={model.socialInformation} />
           <Notes notes={model.notes} />
-          <ContactButton phoneNumber={model.phoneNumber} guardianPhoneNumber={model.guardianPhoneNumber} />
+          <ContactButton
+            phoneNumber={model.phoneNumber}
+            guardianPhoneNumber={model.guardianPhoneNumber}
+          />
         </div>
       </div>
     );
@@ -34,13 +36,12 @@ const Detail = ({ match, location }) => {
     return (
       <Alert severity="warning">Não foi possível carregar o perfil.</Alert>
     );
-
   }
 };
 
 export default Detail;
 
-const useFitModel = ((id) => {
+const useFitModel = id => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
 
   useEffect(() => {
@@ -55,11 +56,10 @@ const useFitModel = ((id) => {
     loadModelInfo(id);
   }, [id]);
 
-  return model
-});
+  return model;
+};
 
-const ContactButton = (({ phoneNumber }, { guardianPhoneNumber }) => {
-
+const ContactButton = ({ phoneNumber }, { guardianPhoneNumber }) => {
   const hasNoPhoneNumber = () => {
     return !(guardianPhoneNumber || phoneNumber);
   };
@@ -70,14 +70,18 @@ const ContactButton = (({ phoneNumber }, { guardianPhoneNumber }) => {
 
   return (
     <div className={classes.ContactButton}>
-      <Button disabled={hasNoPhoneNumber()} className={classes.Button} clicked={callPhoneNumber}>
+      <Button
+        disabled={hasNoPhoneNumber()}
+        className={classes.Button}
+        clicked={callPhoneNumber}
+      >
         Contatar
       </Button>
     </div>
-  )
-});
+  );
+};
 
-const MainInfo = (({ model }) => {
+const MainInfo = ({ model }) => {
   const birthday = model.birthday;
   const genderExpression = model.genderExpression;
   const name = model.name;
@@ -98,26 +102,22 @@ const MainInfo = (({ model }) => {
         {GENDER_EXPRESSION[genderExpression]}
       </Information>
     </>
-  )
-});
+  );
+};
 
-const SuccessMessage = (({ location }) => {
-  return (
-    location.state && location.state.registrationSuccessful ? (
-      <Alert severity="success" className={classes.SucessMessage}>
-        Os dados foram salvos com sucesso!
-      </Alert>
-    ) : null
-  )
-});
+const SuccessMessage = ({ location }) => {
+  return location.state && location.state.registrationSuccessful ? (
+    <Alert severity="success" className={classes.SucessMessage}>
+      Os dados foram salvos com sucesso!
+    </Alert>
+  ) : null;
+};
 
-const Notes = (({ notes }) => {
-  return (
-    notes ? (
-      <>
-        <h1>OBSERVAÇÕES:</h1>
-        <span>{notes}</span>
-      </>
-    ) : null
-  )
-});
+const Notes = ({ notes }) => {
+  return notes ? (
+    <>
+      <h1>OBSERVAÇÕES:</h1>
+      <span>{notes}</span>
+    </>
+  ) : null;
+};

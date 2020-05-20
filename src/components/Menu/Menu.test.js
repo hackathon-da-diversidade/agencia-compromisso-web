@@ -1,8 +1,8 @@
 import React from 'react';
-import {configure, mount} from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Menu from "./Menu";
-import AuthenticationAPI from "../../api/authenticationAPI";
+import Menu from './Menu';
+import AuthenticationAPI from '../../api/authenticationAPI';
 
 jest.mock('../../api/authenticationAPI');
 

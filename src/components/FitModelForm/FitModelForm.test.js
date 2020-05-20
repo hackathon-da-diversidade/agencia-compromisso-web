@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import fitModelAPI from '../../api/fitModelAPI';
 import FitModelForm from './FitModelForm';
-import {fillInput, fillSelect, fillTextarea} from "../../utils/formHelpers";
+import { fillInput, fillSelect, fillTextarea } from '../../utils/formHelpers';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -79,9 +79,21 @@ describe('<FitModelForm />', () => {
       .first()
       .simulate('click');
 
-    fillInput(wrapper, data.sizes.totalBustCircumference, 'totalBustCircumference');
-    fillInput(wrapper, data.sizes.totalWaistCircumference, 'totalWaistCircumference');
-    fillInput(wrapper, data.sizes.totalHipCircumference, 'totalHipCircumference');
+    fillInput(
+      wrapper,
+      data.sizes.totalBustCircumference,
+      'totalBustCircumference'
+    );
+    fillInput(
+      wrapper,
+      data.sizes.totalWaistCircumference,
+      'totalWaistCircumference'
+    );
+    fillInput(
+      wrapper,
+      data.sizes.totalHipCircumference,
+      'totalHipCircumference'
+    );
     fillInput(wrapper, data.sizes.height, 'height');
     fillInput(wrapper, data.sizes.shirtSize, 'shirtSize');
     fillInput(wrapper, data.sizes.pantsSize, 'pantsSize');
@@ -94,7 +106,11 @@ describe('<FitModelForm />', () => {
 
     fillSelect(wrapper, data.socialInformation.ethnicity, 'ethnicity');
     fillInput(wrapper, data.socialInformation.housing, 'housing');
-    fillInput(wrapper, data.socialInformation.numberOfResidents, 'numberOfResidents');
+    fillInput(
+      wrapper,
+      data.socialInformation.numberOfResidents,
+      'numberOfResidents'
+    );
     fillInput(wrapper, data.socialInformation.occupation, 'occupation');
     fillInput(wrapper, data.socialInformation.occupationMode, 'occupationMode');
     fillSelect(wrapper, data.socialInformation.familyIncome, 'familyIncome');

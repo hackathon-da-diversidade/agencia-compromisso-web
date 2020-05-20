@@ -1,7 +1,7 @@
 import React from 'react';
-import {configure, mount} from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import PersonalInformation from "./PersonalInformation";
+import PersonalInformation from './PersonalInformation';
 
 configure({ adapter: new Adapter() });
 
@@ -18,19 +18,25 @@ describe('<PersonalInformation />', () => {
     const wrapper = mount(<PersonalInformation data={data} />);
 
     expect(wrapper.find('#birthday').text()).toContain(data.birthday);
-    expect(wrapper.find('#availability').text()).toContain('Disponibilidade:Tarde');
+    expect(wrapper.find('#availability').text()).toContain(
+      'Disponibilidade:Tarde'
+    );
     expect(wrapper.find('#projects').text()).toContain(data.projects);
     expect(wrapper.find('#phoneNumber').text()).toContain(data.phoneNumber);
     expect(wrapper.find('#address').text()).toContain(data.address);
-    expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain('Pertence à comunidade LGBTQIA+:Sim');
+    expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain(
+      'Pertence à comunidade LGBTQIA+:Sim'
+    );
   });
 
   it('should show identify as LGBTQIA as "Não"', () => {
     const data = {
-      identifyAsLGBTQIA: false
+      identifyAsLGBTQIA: false,
     };
     const wrapper = mount(<PersonalInformation data={data} />);
 
-    expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain('Pertence à comunidade LGBTQIA+:Não');
+    expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain(
+      'Pertence à comunidade LGBTQIA+:Não'
+    );
   });
 });

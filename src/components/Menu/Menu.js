@@ -36,7 +36,10 @@ class Menu extends Component {
         </ul>
 
         <div className="logout">
-          <a id="logout" onClick={authenticationAPI.logout}> Sair </a>
+          <a id="logout" onClick={authenticationAPI.logout}>
+            {' '}
+            Sair{' '}
+          </a>
         </div>
       </div>
     );
