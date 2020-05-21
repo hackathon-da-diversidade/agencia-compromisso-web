@@ -9,7 +9,6 @@ import CheckboxField from '../../UI/Field/CheckboxField';
 import TextArea from '../../UI/Field/TextArea';
 
 function PersonalForm({ data = {}, onChange }) {
-
   const handleInProjects = ({ inProjects }) => {
     onChange({
       projects: inProjects === 'yes' ? data.projects : null,
@@ -180,7 +179,6 @@ const PHONE_NUMBER_MASK = [
 ];
 
 const renderGuardianFields = (data, onChange) => {
-
   if (isInvalid(data.birthday)) return;
 
   if (isUnderage(data.birthday)) {

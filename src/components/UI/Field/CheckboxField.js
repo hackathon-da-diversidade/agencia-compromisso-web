@@ -50,6 +50,6 @@ CheckboxField.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   options: PropTypes.array.isRequired,
-}
+};
 
 export default CheckboxField;

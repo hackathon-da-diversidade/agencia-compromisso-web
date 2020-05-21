@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '../../../UI/Button/Button';
 import './ContactButton.css';
 
-const ContactButton = (({ phoneNumber, guardianPhoneNumber }) => {
-
+const ContactButton = ({ phoneNumber, guardianPhoneNumber }) => {
   const hasNoPhoneNumber = () => {
     return !(guardianPhoneNumber || phoneNumber);
   };
@@ -20,7 +19,7 @@ const ContactButton = (({ phoneNumber, guardianPhoneNumber }) => {
       </Button>
     </div>
   );
-});
+};
 
 ContactButton.propTypes = {
   phoneNumber: PropTypes.string,
