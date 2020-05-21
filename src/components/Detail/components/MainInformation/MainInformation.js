@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Information from 'components/UI/Information/Information';
-import { calculateAge } from 'utils/dateUtils';
-import { GENDER_EXPRESSION } from 'utils/constants';
+import Information from '../../../UI/Information/Information';
+import { calculateAge } from '../../../../utils/dateUtils';
+import { GENDER_EXPRESSION } from '../../../../utils/constants';
 import './MainInformation.css';
 
 const MainInformation = ({ model }) => {
