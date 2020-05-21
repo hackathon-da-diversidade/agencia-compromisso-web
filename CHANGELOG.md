@@ -7,6 +7,8 @@ e este projeto segue o padrão de [Versionamento Semântico](https://semver.org/
 
 ## Unreleased
 
+- Transformar em PWA (Progressive Web App)
+
 ## [1.0.0] - 2020-05-21
 
 ### Added
