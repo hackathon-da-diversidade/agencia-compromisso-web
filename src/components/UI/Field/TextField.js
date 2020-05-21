@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Field } from 'formik';
+import PropTypes from 'prop-types';
+
 
 import classes from './Field.module.css';
 
@@ -30,6 +32,12 @@ class TextField extends Component {
       </div>
     );
   }
+}
+
+TextField.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  required: PropTypes.bool
 }
 
 export default TextField;
