@@ -1,8 +1,7 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'components/UI/Button/Button';
+import Button from '../../../UI/Button/Button';
 import './ContactButton.css';
 
 const ContactButton = (({ phoneNumber, guardianPhoneNumber }) => {
@@ -20,12 +19,12 @@ const ContactButton = (({ phoneNumber, guardianPhoneNumber }) => {
         Contatar
       </Button>
     </div>
-  )
-})
+  );
+});
 
 ContactButton.propTypes = {
   phoneNumber: PropTypes.string,
   guardianPhoneNumber: PropTypes.string,
-}
+};
 
 export default ContactButton;
