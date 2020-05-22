@@ -1,81 +1,82 @@
 {
-  "name": "agencia-compromisso-web",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.9.3",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.43",
-    "axios": "^0.19.0",
-    "cookie-parser": "^1.4.4",
-    "date-fns": "^2.4.0",
-    "dayjs": "^1.8.18",
-    "dotenv": "^8.2.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "express": "^4.17.1",
-    "formik": "^1.5.8",
-    "google-auth-library": "^5.9.2",
-    "googleapis": "^47.0.0",
-    "heroku-ssl-redirect": "^0.0.4",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.9.1",
-    "prop-types": "^15.7.2",
-    "react": "16.9.0",
-    "react-datepicker": "^2.9.6",
-    "react-dom": "16.9.0",
-    "react-router-dom": "5.1.0",
-    "react-scripts": "^3.4.0",
-    "react-text-mask": "^5.4.3"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.1.1",
-    "@testing-library/react": "^9.4.1",
-    "concurrently": "^5.1.0",
-    "cypress": "^3.8.1",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "eslint-config-prettier": "^6.9.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.3",
-    "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
-  },
-  "scripts": {
-    "start": "node ./src/server/server.js",
-    "dev-server": "nodemon ./src/server/server.js",
-    "dev-client": "react-scripts start",
-    "dev": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
-    "build": "react-scripts build",
-    "test": "react-scripts test --coverage --watchAll=false",
-    "test:watch": "react-scripts test --coverage",
-    "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js"
-  },
-  "proxy": "http://localhost:5000/",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hackathon-da-diversidade/agencia-compromisso-web.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hackathon-da-diversidade/agencia-compromisso-web/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test"
+    "name": "agencia-compromisso-web",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@material-ui/core": "^4.9.3",
+        "@material-ui/icons": "^4.5.1",
+        "@material-ui/lab": "^4.0.0-alpha.43",
+        "axios": "^0.19.0",
+        "cookie-parser": "^1.4.4",
+        "date-fns": "^2.4.0",
+        "dayjs": "^1.8.18",
+        "dotenv": "^8.2.0",
+        "enzyme": "^3.10.0",
+        "enzyme-adapter-react-16": "^1.14.0",
+        "express": "^4.17.1",
+        "formik": "^1.5.8",
+        "google-auth-library": "^5.9.2",
+        "googleapis": "^47.0.0",
+        "heroku-ssl-redirect": "^0.0.4",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.9.1",
+        "prop-types": "^15.7.2",
+        "react": "16.9.0",
+        "react-datepicker": "^2.9.6",
+        "react-dom": "16.9.0",
+        "react-router-dom": "5.1.0",
+        "react-scripts": "^3.4.0",
+        "react-text-mask": "^5.4.3"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^5.1.1",
+        "@testing-library/react": "^9.4.1",
+        "codecov": "^3.7.0",
+        "concurrently": "^5.1.0",
+        "cypress": "^3.8.1",
+        "enzyme": "^3.10.0",
+        "enzyme-adapter-react-16": "^1.14.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-plugin-prettier": "^3.1.2",
+        "husky": "^4.2.3",
+        "nodemon": "^2.0.2",
+        "prettier": "^1.19.1"
+    },
+    "scripts": {
+        "start": "node ./src/server/server.js",
+        "dev-server": "nodemon ./src/server/server.js",
+        "dev-client": "react-scripts start",
+        "dev": "concurrently \"npm:dev-server\" \"npm:dev-client\"",
+        "build": "react-scripts build",
+        "test": "react-scripts test --coverage --watchAll=false",
+        "test:watch": "react-scripts test --coverage",
+        "eject": "react-scripts eject",
+        "lint": "eslint src/**/*.js"
+    },
+    "proxy": "http://localhost:5000/",
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ],
+    "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hackathon-da-diversidade/agencia-compromisso-web.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/hackathon-da-diversidade/agencia-compromisso-web/issues"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn test"
+        }
     }
-  }
 }
