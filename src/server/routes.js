@@ -58,13 +58,13 @@ router.get('/oauthcallback', async ({ query }, res) => {
     res.redirect(SITE_URL);
   } catch (err) {
     console.error(err);
-    res.redirect('/login');
+    res.redirect('/');
   }
 });
 
 router.get('/logout', (_, res) => {
   res.clearCookie('user');
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 module.exports = router;
