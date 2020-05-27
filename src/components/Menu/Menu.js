@@ -36,7 +36,7 @@ class Menu extends Component {
         </ul>
 
         <div className="logout">
-          <a onClick={authenticationAPI.logout} href="/">Sair</a>
+          <a id="logout" onClick={authenticationAPI.logout} href="/">Sair</a>
         </div>
       </div>
     );

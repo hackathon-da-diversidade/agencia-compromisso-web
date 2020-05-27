@@ -54,7 +54,7 @@ const Detail = ({ match, location }) => {
     );
   } catch {
     return (
-      <Alert severity="warning"> Não foi possível carregar o perfil.</Alert>
+      <Alert severity="warning">Não foi possível carregar o perfil.</Alert>
     );
   }
 };

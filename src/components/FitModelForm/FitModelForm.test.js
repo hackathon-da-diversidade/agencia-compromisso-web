@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import fitModelAPI from '../../api/fitModelAPI';
 import FitModelForm from './FitModelForm';
+import { fillInput, fillSelect, fillTextarea } from '../../utils/formHelpers';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -62,170 +63,58 @@ describe('<FitModelForm />', () => {
       </Router>
     );
 
-    wrapper
-      .find("input[name='name']")
-      .simulate('change', { target: { name: 'name', value: data.name } });
-    wrapper.find("input[name='birthday']").simulate('change', {
-      target: { name: 'birthday', value: data.birthday },
-    });
-    wrapper
-      .find("input[name='availability']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'availability',
-          value: data.availability,
-        },
-      });
-    wrapper
-      .find("input[name='inProjects']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'inProjects',
-          value: data.inProjects,
-        },
-      });
-    wrapper.find("input[name='phoneNumber']").simulate('change', {
-      target: {
-        name: 'phoneNumber',
-        value: data.phoneNumber,
-      },
-    });
-    wrapper
-      .find("input[name='address']")
-      .simulate('change', { target: { name: 'address', value: data.address } });
-    wrapper.find("select[name='genderExpression']").simulate('change', {
-      target: {
-        name: 'genderExpression',
-        value: data.genderExpression,
-      },
-    });
-    wrapper
-      .find("input[name='identifyAsLGBTQIA']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'identifyAsLGBTQIA',
-          value: data.identifyAsLGBTQIA,
-        },
-      });
-    wrapper.find("select[name='education']").simulate('change', {
-      target: { name: 'education', value: data.education },
-    });
-    wrapper
-      .find("textarea[name='notes']")
-      .simulate('change', { target: { name: 'notes', value: data.notes } });
+    fillInput(wrapper, data.name, 'name');
+    fillInput(wrapper, data.birthday, 'birthday');
+    fillInput(wrapper, data.availability, 'availability');
+    fillInput(wrapper, data.inProjects, 'inProjects');
+    fillInput(wrapper, data.phoneNumber, 'phoneNumber');
+    fillInput(wrapper, data.address, 'address');
+    fillSelect(wrapper, data.genderExpression, 'genderExpression');
+    fillInput(wrapper, data.identifyAsLGBTQIA, 'identifyAsLGBTQIA');
+    fillSelect(wrapper, data.education, 'education');
+    fillTextarea(wrapper, data.notes, 'notes');
 
     wrapper
       .find('#measuresTab')
       .first()
       .simulate('click');
 
-    wrapper.find("input[name='totalBustCircumference']").simulate('change', {
-      target: {
-        name: 'totalBustCircumference',
-        value: data.sizes.totalBustCircumference,
-      },
-    });
-    wrapper.find("input[name='totalWaistCircumference']").simulate('change', {
-      target: {
-        name: 'totalWaistCircumference',
-        value: data.sizes.totalWaistCircumference,
-      },
-    });
-    wrapper.find("input[name='totalHipCircumference']").simulate('change', {
-      target: {
-        name: 'totalHipCircumference',
-        value: data.sizes.totalHipCircumference,
-      },
-    });
-    wrapper.find("input[name='height']").simulate('change', {
-      target: { name: 'height', value: data.sizes.height },
-    });
-    wrapper
-      .find("input[name='shirtSize']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'shirtSize',
-          value: data.sizes.shirtSize,
-        },
-      });
-    wrapper
-      .find("input[name='pantsSize']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'pantsSize',
-          value: data.sizes.pantsSize,
-        },
-      });
-    wrapper
-      .find("input[name='shoeSize']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'shoeSize',
-          value: data.sizes.shoeSize,
-        },
-      });
+    fillInput(
+      wrapper,
+      data.sizes.totalBustCircumference,
+      'totalBustCircumference'
+    );
+    fillInput(
+      wrapper,
+      data.sizes.totalWaistCircumference,
+      'totalWaistCircumference'
+    );
+    fillInput(
+      wrapper,
+      data.sizes.totalHipCircumference,
+      'totalHipCircumference'
+    );
+    fillInput(wrapper, data.sizes.height, 'height');
+    fillInput(wrapper, data.sizes.shirtSize, 'shirtSize');
+    fillInput(wrapper, data.sizes.pantsSize, 'pantsSize');
+    fillInput(wrapper, data.sizes.shoeSize, 'shoeSize');
+
     wrapper
       .find('#socialTab')
       .first()
       .simulate('click');
 
-    wrapper.find("select[name='ethnicity']").simulate('change', {
-      target: {
-        name: 'ethnicity',
-        value: data.socialInformation.ethnicity,
-      },
-    });
-    wrapper
-      .find("input[name='housing']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'housing',
-          value: data.socialInformation.housing,
-        },
-      });
-    wrapper.find("input[name='numberOfResidents']").simulate('change', {
-      target: {
-        name: 'numberOfResidents',
-        value: data.socialInformation.numberOfResidents,
-      },
-    });
-    wrapper.find("input[name='occupation']").simulate('change', {
-      target: {
-        name: 'occupation',
-        value: data.socialInformation.occupation,
-      },
-    });
-    wrapper
-      .find("input[name='occupationMode']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'occupationMode',
-          value: data.socialInformation.occupationMode,
-        },
-      });
-    wrapper.find("select[name='familyIncome']").simulate('change', {
-      target: {
-        name: 'familyIncome',
-        value: data.socialInformation.familyIncome,
-      },
-    });
-    wrapper
-      .find("input[name='hasChildren']")
-      .first()
-      .simulate('change', {
-        target: {
-          name: 'hasChildren',
-          value: data.socialInformation.hasChildren,
-        },
-      });
+    fillSelect(wrapper, data.socialInformation.ethnicity, 'ethnicity');
+    fillInput(wrapper, data.socialInformation.housing, 'housing');
+    fillInput(
+      wrapper,
+      data.socialInformation.numberOfResidents,
+      'numberOfResidents'
+    );
+    fillInput(wrapper, data.socialInformation.occupation, 'occupation');
+    fillInput(wrapper, data.socialInformation.occupationMode, 'occupationMode');
+    fillSelect(wrapper, data.socialInformation.familyIncome, 'familyIncome');
+    fillInput(wrapper, data.socialInformation.hasChildren, 'hasChildren');
 
     wrapper.find('#saveButton').simulate('click');
 
