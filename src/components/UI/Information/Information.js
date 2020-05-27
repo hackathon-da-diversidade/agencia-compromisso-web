@@ -14,7 +14,7 @@ const Information = props =>
 Information.propTypes = {
   label: PropTypes.string.isRequired,
   strong: PropTypes.bool,
-  children: PropTypes.string
-}
+  children: PropTypes.string,
+};
 
 export default Information;
