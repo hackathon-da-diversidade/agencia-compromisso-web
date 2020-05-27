@@ -55,10 +55,14 @@ class List extends Component {
     this.props.history.push(`cadastro/${id}`);
   };
 
+  onDelete = id => {
+
+  };
+
   render() {
     return (
       <>
-        <Header title="Lista" />
+        <Header role="testlala" title="Lista" />
         <Search
           ref={ref => (this.searchRef = ref)}
           onChange={this.updatePagination}
@@ -70,9 +74,10 @@ class List extends Component {
             id={model.id}
             {...model}
             onEdit={this.onEdit}
+            onDelete={this.onDelete}
           />
         ))}
-        <div className={classes.PaginationWrapper}>
+        <div id="teste" className={classes.PaginationWrapper}>
           <Pagination count={this.state.count} onChange={this.loadModels} />
         </div>
       </>

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Card from '@material-ui/core/Card';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
-import { calculateAge } from '../../utils/dateUtils';
-import { GENDER } from '../../utils/constants';
+import {calculateAge} from '../../utils/dateUtils';
+import {GENDER} from '../../utils/constants';
 import classes from './FitModelCard.module.css';
 
 class FitModelCard extends Component {
@@ -17,8 +18,12 @@ class FitModelCard extends Component {
     this.props.onEdit(id);
   }
 
+  deleteCandidate(id) {
+    this.props.onDelete(id);
+  }
+
   render() {
-    const { id, name, genderExpression, birthday, phoneNumber } = this.props;
+    const {id, name, genderExpression, birthday, phoneNumber} = this.props;
     return (
       <Card
         key={id}
@@ -26,7 +31,7 @@ class FitModelCard extends Component {
         className={classes.Card}
         variant="outlined"
       >
-        <div>
+        <div id={id}>
           <strong id="fitModelName">{name}</strong>
           <span id="fitModelInfo" className={classes.FitModelInfo}>
             {GENDER[genderExpression]}
@@ -35,6 +40,10 @@ class FitModelCard extends Component {
           </span>
         </div>
         <div className={classes.IconsWrapper}>
+          <DeleteIcon
+            className={classes.Icon}
+            onClick={() => this.deleteCandidate(id)}
+          />
           <EditIcon
             className={classes.Icon}
             onClick={() => this.editModel(id)}
