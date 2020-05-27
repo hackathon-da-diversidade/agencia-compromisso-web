@@ -1,11 +1,12 @@
-import {configure, mount} from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import List from './List';
 import fitModelAPI from '../../api/fitModelAPI';
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
+import React from 'react';
+import '@testing-library/jest-dom/extend-expect';
+import { resolvePromises } from '../../utils/formHelpers';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -45,6 +46,15 @@ describe('<List />', () => {
   });
 
   it('should call API to delete candidate', async () => {
+    fitModelAPI.delete.mockResolvedValue();
+    fitModelAPI.getAllPaginated.mockResolvedValue({
+      data: {
+        content: [
+          {id: 'candidate1'},
+          {id: 'candidate2'},
+        ],
+      },
+    });
 
     const wrapper = mount(
       <Router>
@@ -52,35 +62,46 @@ describe('<List />', () => {
       </Router>
     );
 
+    await resolvePromises(wrapper);
+
     wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
 
     expect(fitModelAPI.delete).toBeCalledTimes(1);
-    expect(fitModelAPI.delete).toBeCalledWith('1');
-  });
-});
-
-function flushPromises() {
-  return new Promise(resolve => setImmediate(resolve));
-}
-
-test('loads and displays greeting', async () => {
-  fitModelAPI.delete.mockResolvedValue();
-  fitModelAPI.getAllPaginated.mockResolvedValue({
-    data: {
-      content: [
-        {id: 'candidate1'},
-        {id: 'candidate2'},
-      ],
-    },
+    expect(fitModelAPI.delete).toBeCalledWith('candidate1');
   });
 
-  const test = mount(
-    <Router>
-      <List/>
-    </Router>
-  );
+  it('should reload list after delete', async () => {
+    fitModelAPI.delete.mockResolvedValue();
+    fitModelAPI.getAllPaginated.mockResolvedValue({
+      data: {
+        content: [
+          {id: 'candidate1'},
+          {id: 'candidate2'},
+        ],
+      },
+    });
 
-  await flushPromises();
+    const wrapper = mount(
+      <Router>
+        <List/>
+      </Router>
+    );
 
-  test.find('#candidate1');
+    await resolvePromises(wrapper);
+
+    fitModelAPI.getAllPaginated.mockResolvedValue({
+      data: {
+        content: [
+          {id: 'candidate2'},
+        ],
+      },
+    });
+
+    wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
+
+    await resolvePromises(wrapper);
+
+    expect(fitModelAPI.getAllPaginated).toHaveBeenCalledTimes(2);
+    expect(wrapper.find('#candidate1')).toHaveLength(0);
+  });
 });

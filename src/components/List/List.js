@@ -55,14 +55,19 @@ class List extends Component {
     this.props.history.push(`cadastro/${id}`);
   };
 
-  onDelete = id => {
-
+  onDelete = async id => {
+    try {
+      await fitModelAPI.delete(id);
+      await this.loadModels(null, this.state.page);
+    } catch {
+      this.handleError();
+    }
   };
 
   render() {
     return (
       <>
-        <Header role="testlala" title="Lista" />
+        <Header title="Lista" />
         <Search
           ref={ref => (this.searchRef = ref)}
           onChange={this.updatePagination}
@@ -77,7 +82,7 @@ class List extends Component {
             onDelete={this.onDelete}
           />
         ))}
-        <div id="teste" className={classes.PaginationWrapper}>
+        <div className={classes.PaginationWrapper}>
           <Pagination count={this.state.count} onChange={this.loadModels} />
         </div>
       </>
