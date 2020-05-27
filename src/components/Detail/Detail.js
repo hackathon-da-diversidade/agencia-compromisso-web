@@ -1,45 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Header from '../Header/Header';
-import Button from '../UI/Button/Button';
-import Information from '../UI/Information/Information';
-import SocialInformation from './sections/SocialInformation';
-import PersonalInformation from './sections/PersonalInformation';
-import MeasuresInformation from './sections/MeasuresInformation';
+import MainInformation from './components/MainInformation/MainInformation';
+import SuccessMessage from './components/SuccessMessage/SuccessMessage';
+import PersonalInformation from './components/PersonalInformation/PersonalInformation';
+import MeasuresInformation from './components/MeasuresInformation/MeasuresInformation';
+import SocialInformation from './components/SocialInformation/SocialInformation';
+import Notes from './components/Notes/Notes';
+import ContactButton from './components/ContactButton/ContactButton';
 
 import fitModelAPI from '../../api/fitModelAPI';
-import classes from './Detail.module.css';
-import { calculateAge } from '../../utils/dateUtils';
-import { GENDER_EXPRESSION } from '../../utils/constants';
-
-const Detail = ({ match, location }) => {
-  try {
-    const model = useFitModel(match.params.id);
-    return (
-      <div>
-        <Header path="/lista" />
-        <div className={classes.Details}>
-          <SuccessMessage location={location} />
-          <MainInfo model={model} />
-          <PersonalInformation data={model} />
-          <MeasuresInformation data={model.sizes} />
-          <SocialInformation data={model.socialInformation} />
-          <Notes notes={model.notes} />
-          <ContactButton
-            phoneNumber={model.phoneNumber}
-            guardianPhoneNumber={model.guardianPhoneNumber}
-          />
-        </div>
-      </div>
-    );
-  } catch {
-    return (
-      <Alert severity="warning">Não foi possível carregar o perfil.</Alert>
-    );
-  }
-};
-
-export default Detail;
+import './Detail.css';
 
 const useFitModel = id => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
@@ -59,65 +30,33 @@ const useFitModel = id => {
   return model;
 };
 
-const ContactButton = ({ phoneNumber }, { guardianPhoneNumber }) => {
-  const hasNoPhoneNumber = () => {
-    return !(guardianPhoneNumber || phoneNumber);
-  };
-
-  const callPhoneNumber = () => {
-    window.location = `tel:${guardianPhoneNumber || phoneNumber}`;
-  };
-
-  return (
-    <div className={classes.ContactButton}>
-      <Button
-        disabled={hasNoPhoneNumber()}
-        className={classes.Button}
-        clicked={callPhoneNumber}
-      >
-        Contatar
-      </Button>
-    </div>
-  );
-};
-
-const MainInfo = ({ model }) => {
-  const birthday = model.birthday;
-  const genderExpression = model.genderExpression;
-  const name = model.name;
-
-  return (
-    <>
-      <div className={classes.MainInfos}>
-        <Information testId="name" label="Nome:" strong>
-          {name}
-        </Information>
-        {birthday && (
-          <Information label="Idade:" strong>
-            {calculateAge(birthday)}
-          </Information>
-        )}
+const Detail = ({ match, location }) => {
+  try {
+    const model = useFitModel(match.params.id);
+    return (
+      <div>
+        <Header path="/lista" />
+        {model.name ? (
+          <div className="Details">
+            <SuccessMessage location={location} />
+            <MainInformation model={model} />
+            <PersonalInformation data={model} />
+            <MeasuresInformation data={model.sizes} />
+            <SocialInformation data={model.socialInformation} />
+            <Notes>{model.notes}</Notes>
+            <ContactButton
+              phoneNumber={model.phoneNumber}
+              guardianPhoneNumber={model.guardianPhoneNumber}
+            />
+          </div>
+        ) : null}
       </div>
-      <Information label="Expressão de gênero:" strong>
-        {GENDER_EXPRESSION[genderExpression]}
-      </Information>
-    </>
-  );
+    );
+  } catch {
+    return (
+      <Alert severity="warning">Não foi possível carregar o perfil.</Alert>
+    );
+  }
 };
 
-const SuccessMessage = ({ location }) => {
-  return location.state && location.state.registrationSuccessful ? (
-    <Alert severity="success" className={classes.SucessMessage}>
-      Os dados foram salvos com sucesso!
-    </Alert>
-  ) : null;
-};
-
-const Notes = ({ notes }) => {
-  return notes ? (
-    <>
-      <h1>OBSERVAÇÕES:</h1>
-      <span>{notes}</span>
-    </>
-  ) : null;
-};
+export default Detail;

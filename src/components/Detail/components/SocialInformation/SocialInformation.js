@@ -1,12 +1,12 @@
 import React from 'react';
-import Information from '../../UI/Information/Information';
+import Information from '../../../UI/Information/Information';
 
 import {
   ETHNICITY,
   HOUSING,
   OCCUPATION_MODE,
   FAMILY_INCOME,
-} from '../../../utils/constants';
+} from '../../../../utils/constants';
 
 const SocialInformation = ({ data }) =>
   data ? (

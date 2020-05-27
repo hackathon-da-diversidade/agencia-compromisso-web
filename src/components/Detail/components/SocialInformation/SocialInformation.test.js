@@ -7,7 +7,7 @@ import {
   FAMILY_INCOME,
   HOUSING,
   OCCUPATION_MODE,
-} from '../../../utils/constants';
+} from '../../../../utils/constants';
 
 configure({ adapter: new Adapter() });
 

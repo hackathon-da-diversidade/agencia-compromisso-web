@@ -9,48 +9,6 @@ import CheckboxField from '../../UI/Field/CheckboxField';
 import TextArea from '../../UI/Field/TextArea';
 
 function PersonalForm({ data = {}, onChange }) {
-  const renderGuardianFields = () => {
-    if (isInvalid(data.birthday)) return;
-
-    if (isUnderage(data.birthday)) {
-      return (
-        <>
-          <TextField
-            name="guardianName"
-            label="Nome da pessoa responsável"
-            onChange={onChange}
-            value={data.guardianName}
-          />
-          <MaskedField
-            name="guardianPhoneNumber"
-            label="Telefone da pessoa responsável"
-            type="tel"
-            onChange={onChange}
-            value={data.guardianPhoneNumber}
-            mask={[
-              '(',
-              /\d/,
-              /\d/,
-              ')',
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-            ]}
-          />
-        </>
-      );
-    } else if (data.guardianName || data.guardianPhoneNumber) {
-      onChange({ guardianName: null, guardianPhoneNumber: null });
-      return;
-    }
-  };
-
   const handleInProjects = ({ inProjects }) => {
     onChange({
       projects: inProjects === 'yes' ? data.projects : null,
@@ -76,9 +34,9 @@ function PersonalForm({ data = {}, onChange }) {
             label="Data de nascimento"
             value={data.birthday}
             onChange={onChange}
-            mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+            mask={DATE_MASK}
           />
-          {renderGuardianFields()}
+          {renderGuardianFields(data, onChange)}
           <CheckboxField
             type="radio"
             name="availability"
@@ -116,21 +74,7 @@ function PersonalForm({ data = {}, onChange }) {
             type="tel"
             onChange={onChange}
             value={data.phoneNumber}
-            mask={[
-              '(',
-              /\d/,
-              /\d/,
-              ')',
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-            ]}
+            mask={PHONE_NUMBER_MASK}
           />
           <TextField
             name="address"
@@ -215,3 +159,49 @@ function PersonalForm({ data = {}, onChange }) {
 }
 
 export default PersonalForm;
+
+const DATE_MASK = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+
+const PHONE_NUMBER_MASK = [
+  '(',
+  /\d/,
+  /\d/,
+  ')',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
+
+const renderGuardianFields = (data, onChange) => {
+  if (isInvalid(data.birthday)) return;
+
+  if (isUnderage(data.birthday)) {
+    return (
+      <>
+        <TextField
+          name="guardianName"
+          label="Nome da pessoa responsável"
+          onChange={onChange}
+          value={data.guardianName}
+        />
+        <MaskedField
+          name="guardianPhoneNumber"
+          label="Telefone da pessoa responsável"
+          type="tel"
+          onChange={onChange}
+          value={data.guardianPhoneNumber}
+          mask={PHONE_NUMBER_MASK}
+        />
+      </>
+    );
+  } else if (data.guardianName || data.guardianPhoneNumber) {
+    onChange({ guardianName: null, guardianPhoneNumber: null });
+    return;
+  }
+};

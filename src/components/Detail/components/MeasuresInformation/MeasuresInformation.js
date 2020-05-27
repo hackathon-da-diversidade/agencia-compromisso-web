@@ -1,5 +1,5 @@
 import React from 'react';
-import Information from '../../UI/Information/Information';
+import Information from '../../../UI/Information/Information';
 
 const MeasuresInformation = ({ data }) =>
   data ? (

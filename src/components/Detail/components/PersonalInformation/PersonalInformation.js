@@ -1,6 +1,6 @@
 import React from 'react';
-import { AVAILABILITY } from '../../../utils/constants';
-import Information from '../../UI/Information/Information';
+import { AVAILABILITY } from '../../../../utils/constants';
+import Information from '../../../UI/Information/Information';
 
 const PersonalInformation = ({ data }) =>
   (data.birthday ||

@@ -15,17 +15,17 @@ describe('<PersonalInformation />', () => {
       address: 'Rua dos Limoeiros',
       identifyAsLGBTQIA: true,
     };
-    const wrapper = mount(<PersonalInformation data={data} />);
+    const wrapper = mount(<PersonalInformation data={data}/>);
 
     expect(wrapper.find('#birthday').text()).toContain(data.birthday);
     expect(wrapper.find('#availability').text()).toContain(
-      'Disponibilidade:Tarde'
+      'Disponibilidade:Tarde',
     );
     expect(wrapper.find('#projects').text()).toContain(data.projects);
     expect(wrapper.find('#phoneNumber').text()).toContain(data.phoneNumber);
     expect(wrapper.find('#address').text()).toContain(data.address);
     expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain(
-      'Pertence à comunidade LGBTQIA+:Sim'
+      'Pertence à comunidade LGBTQIA+:Sim',
     );
   });
 
@@ -33,10 +33,10 @@ describe('<PersonalInformation />', () => {
     const data = {
       identifyAsLGBTQIA: false,
     };
-    const wrapper = mount(<PersonalInformation data={data} />);
+    const wrapper = mount(<PersonalInformation data={data}/>);
 
     expect(wrapper.find('#identifyAsLGBTQIA').text()).toContain(
-      'Pertence à comunidade LGBTQIA+:Não'
+      'Pertence à comunidade LGBTQIA+:Não',
     );
   });
 });

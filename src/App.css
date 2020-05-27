@@ -3,6 +3,14 @@
   padding: 0;
 }
 
+html {
+  min-height: 100vh;
+}
+
+html, body {
+  background-color: white;
+}
+
 .App {
   text-align: center;
   background-color: #ffffff;
