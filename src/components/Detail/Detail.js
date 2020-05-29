@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Header from '../Header/Header';
 import MainInformation from './components/MainInformation/MainInformation';
@@ -11,6 +11,7 @@ import ContactButton from './components/ContactButton/ContactButton';
 
 import fitModelAPI from '../../api/fitModelAPI';
 import './Detail.css';
+import { withRouter } from 'react-router-dom';
 
 const useFitModel = id => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
@@ -24,6 +25,7 @@ const useFitModel = id => {
         console.log(error);
       }
     };
+
     loadModelInfo(id);
   }, [id]);
 
@@ -59,4 +61,4 @@ const Detail = ({ match, location }) => {
   }
 };
 
-export default Detail;
+export default withRouter(Detail);

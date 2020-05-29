@@ -1,10 +1,10 @@
 import React from 'react';
 import { configure, mount } from 'enzyme';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, MemoryRouter, Route } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import fitModelAPI from '../../api/fitModelAPI';
 import FitModelForm from './FitModelForm';
-import { fillInput, fillSelect, fillTextarea } from '../../utils/formHelpers';
+import { fillInput, fillSelect, fillTextarea, resolvePromises } from '../../utils/formHelpers';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -60,7 +60,7 @@ describe('<FitModelForm />', () => {
     const wrapper = mount(
       <Router>
         <FitModelForm {...props} />
-      </Router>
+      </Router>,
     );
 
     fillInput(wrapper, data.name, 'name');
@@ -82,17 +82,17 @@ describe('<FitModelForm />', () => {
     fillInput(
       wrapper,
       data.sizes.totalBustCircumference,
-      'totalBustCircumference'
+      'totalBustCircumference',
     );
     fillInput(
       wrapper,
       data.sizes.totalWaistCircumference,
-      'totalWaistCircumference'
+      'totalWaistCircumference',
     );
     fillInput(
       wrapper,
       data.sizes.totalHipCircumference,
-      'totalHipCircumference'
+      'totalHipCircumference',
     );
     fillInput(wrapper, data.sizes.height, 'height');
     fillInput(wrapper, data.sizes.shirtSize, 'shirtSize');
@@ -109,7 +109,7 @@ describe('<FitModelForm />', () => {
     fillInput(
       wrapper,
       data.socialInformation.numberOfResidents,
-      'numberOfResidents'
+      'numberOfResidents',
     );
     fillInput(wrapper, data.socialInformation.occupation, 'occupation');
     fillInput(wrapper, data.socialInformation.occupationMode, 'occupationMode');
@@ -122,7 +122,7 @@ describe('<FitModelForm />', () => {
     expect(fitModelAPI.create).toBeCalledWith(data);
   });
 
-  it('should load fit model data to edit', () => {
+  it('should load fit model data to edit', async () => {
     fitModelAPI.get.mockReturnValue({});
 
     const props = {
@@ -133,11 +133,15 @@ describe('<FitModelForm />', () => {
       },
     };
 
-    mount(
-      <Router>
-        <FitModelForm {...props} />
-      </Router>
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/cadastro/id']}>
+        <Route exact path="/cadastro/:id">
+          <FitModelForm {...props} />
+        </Route>
+      </MemoryRouter>,
     );
+
+    await resolvePromises(wrapper);
 
     expect(fitModelAPI.get).toBeCalledTimes(1);
     expect(fitModelAPI.get).toBeCalledWith(props.match.params.id);
@@ -191,7 +195,7 @@ describe('<FitModelForm />', () => {
     const wrapper = mount(
       <Router>
         <FitModelForm {...props} />
-      </Router>
+      </Router>,
     );
 
     Promise.resolve(wrapper).then(() => {

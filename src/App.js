@@ -1,63 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component, Suspense } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
 import List from './components/List/List';
 import Menu from './components/Menu/Menu';
 import FitModelForm from './components/FitModelForm/FitModelForm';
 import Detail from './components/Detail/Detail';
-import GoogleLogin from './components/Login/GoogleLogin';
 import PageNotFound from './components/PageNotFound/PageNotFound';
-import requiresAuth from './utils/requiresAuth';
-import isLogged from './utils/isLogged';
 import './App.css';
+import firebaseConfig from './utils/firebase';
+import { AuthCheck, FirebaseAppProvider } from 'reactfire';
+import Login from './components/Login/Login';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-class Auth {
-  authData = { logged: false };
-  constructor(authData) {
-    this.authData = authData;
+class App extends Component {
+  render() {
+    return (
+      <>
+        <Suspense fallback={<CircularProgress/>}>
+          <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+            <Router>
+              <div className="App">
+                <Switch>
+                  <Route exact path="/">
+                    <AuthCheck fallback={<Redirect to="/login"/>}>
+                      <Menu/>
+                    </AuthCheck>
+                  </Route>
+                  <Route exact path="/login">
+                    <Login/>
+                  </Route>
+                  <Route exact path="/menu">
+                    <AuthCheck fallback={<Redirect to="/login"/>}>
+                      <Menu/>
+                    </AuthCheck>
+                  </Route>
+                  <Route exact path="/lista">
+                    <AuthCheck fallback={<Redirect to="/login"/>}>
+                      <List/>
+                    </AuthCheck>
+                  </Route>
+                  <Route exact path="/cadastro/:id?">
+                    <AuthCheck fallback={<Redirect to="/login"/>}>
+                      <FitModelForm/>
+                    </AuthCheck>
+                  </Route>
+                  <Route exact path="/modelo/:id">
+                    <AuthCheck fallback={<Redirect to="/login"/>}>
+                      <Detail/>
+                    </AuthCheck>
+                  </Route>
+                  <Route exact path="*">
+                    <PageNotFound/>
+                  </Route>
+                </Switch>
+              </div>
+            </Router>
+          </FirebaseAppProvider>
+        </Suspense>
+      </>
+    );
   }
-
-  isLogged = () => this.authData.logged;
 }
-
-const App = () => {
-  const [auth, setAuth] = useState(new Auth());
-  const [loadingApp, setLoadingApp] = useState(true);
-
-  const withRequiredAuth = requiresAuth(auth);
-
-  useEffect(() => {
-    isLogged()
-      .then(logged => {
-        setAuth(new Auth({ logged }));
-        setLoadingApp(false);
-      })
-      .catch(err => console.error(err));
-  }, []);
-
-  return loadingApp ? (
-    <div> Loading ... </div>
-  ) : (
-    <>
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route exact path="/" component={withRequiredAuth(Menu)} />
-            <Route exact path="/login" component={GoogleLogin} />
-            <Route exact path="/menu" component={withRequiredAuth(Menu)} />
-            <Route exact path="/lista" component={withRequiredAuth(List)} />
-            <Route
-              exact
-              path="/cadastro/:id?"
-              component={withRequiredAuth(FitModelForm)}
-            />
-            <Route path="/modelo/:id" component={withRequiredAuth(Detail)} />
-            <Route path="*" component={PageNotFound} />
-          </Switch>
-        </div>
-      </Router>
-    </>
-  );
-};
 
 export default App;
