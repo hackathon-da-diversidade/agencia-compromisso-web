@@ -13,25 +13,32 @@ class Menu extends Component {
       <>
         <div className="menu">
           <img
-            className="icon" src={icon}
+            className="icon"
+            src={icon}
             alt="ícone estilizado com o perfil de uma mulher com uma fita métrica no black power"
           />
           <img
-            className="banner" src={banner} alt="banner da Agência Compromisso"
+            className="banner"
+            src={banner}
+            alt="banner da Agência Compromisso"
           />
           <ul className="agencia-btn-group">
             <li>
               <Link to="/cadastro">
-                <Button variant="contained" className={classes.Button}>Cadastro</Button>
+                <Button variant="contained" className={classes.Button}>
+                  Cadastro
+                </Button>
               </Link>
             </li>
             <li>
               <Link to="/lista">
-                <Button variant="contained" className={classes.Button}>Lista</Button>
+                <Button variant="contained" className={classes.Button}>
+                  Lista
+                </Button>
               </Link>
             </li>
             <li>
-              <Exit/>
+              <Exit />
             </li>
           </ul>
         </div>

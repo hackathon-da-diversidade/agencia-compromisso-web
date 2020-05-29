@@ -11,7 +11,9 @@ const Exit = () => {
   };
 
   return (
-    <Button onClick={signOut} className={classes.ButtonSignOut}>Sair</Button>
+    <Button onClick={signOut} className={classes.ButtonSignOut}>
+      Sair
+    </Button>
   );
 };
 

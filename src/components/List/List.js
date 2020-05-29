@@ -63,7 +63,7 @@ class List extends Component {
   render() {
     return (
       <>
-        <Header title="Lista"/>
+        <Header title="Lista" />
         <Search
           ref={ref => (this.searchRef = ref)}
           onChange={this.updatePagination}

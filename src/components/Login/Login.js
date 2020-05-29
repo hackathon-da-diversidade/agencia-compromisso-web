@@ -11,7 +11,9 @@ function Button({ history }) {
   const auth = useAuth();
 
   const signIn = async () => {
-    const userCredential = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    const userCredential = await auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
 
     const status = await AuthorizeAPI.get(userCredential.user.email);
 
@@ -24,7 +26,7 @@ function Button({ history }) {
 
   return (
     <button onClick={signIn} className="btn btn-secondary btn-raised">
-      <img className="google-icon" src={googleIcon} alt="ícone do Google"/>
+      <img className="google-icon" src={googleIcon} alt="ícone do Google" />
       Login
     </button>
   );
@@ -36,13 +38,18 @@ class Login extends Component {
       <>
         <div className="menu">
           <img
-            className="icon" src={icon}
+            className="icon"
+            src={icon}
             alt="ícone estilizado com o perfil de uma mulher com uma fita métrica no black power"
           />
-          <img className="banner" src={banner} alt="banner da Agência Compromisso"/>
+          <img
+            className="banner"
+            src={banner}
+            alt="banner da Agência Compromisso"
+          />
           <ul className="agencia-btn-group">
             <li>
-              <Button history={this.props.history}/>
+              <Button history={this.props.history} />
             </li>
           </ul>
         </div>

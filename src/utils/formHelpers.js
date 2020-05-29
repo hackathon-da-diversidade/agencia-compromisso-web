@@ -18,9 +18,4 @@ const resolvePromises = async wrapper => {
   }
 };
 
-export {
-  fillInput,
-  fillSelect,
-  fillTextarea,
-  resolvePromises,
-};
+export { fillInput, fillSelect, fillTextarea, resolvePromises };

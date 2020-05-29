@@ -10,10 +10,10 @@ test('should show menu items', async () => {
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
         <BrowserRouter>
-          <Menu/>
+          <Menu />
         </BrowserRouter>
       </FirebaseAppProvider>
-    </Suspense>,
+    </Suspense>
   );
 
   const register = await waitForElement(() => getByText('Cadastro'));

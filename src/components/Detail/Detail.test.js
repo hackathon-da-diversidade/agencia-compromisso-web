@@ -29,9 +29,9 @@ describe('<Detail />', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/modelo/1']}>
         <Route exact path="/modelo/:id">
-          <Detail location={location}/>
+          <Detail location={location} />
         </Route>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     await resolvePromises(wrapper);

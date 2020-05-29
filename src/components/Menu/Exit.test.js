@@ -8,9 +8,9 @@ test('should have exit button', async () => {
   const { getByText } = render(
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
-        <Exit/>
+        <Exit />
       </FirebaseAppProvider>
-    </Suspense>,
+    </Suspense>
   );
 
   const exit = await waitForElement(() => getByText('Sair'));
