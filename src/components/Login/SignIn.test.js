@@ -1,22 +1,19 @@
 import React, { Suspense } from 'react';
-import Login from './Login';
-import { BrowserRouter } from 'react-router-dom';
 import { render, waitForElement } from '@testing-library/react';
 import { FirebaseAppProvider } from 'reactfire';
 import '@testing-library/jest-dom/extend-expect';
+import SignIn from './SignIn';
 
-test('should render the login button', async () => {
+test('should have sign in button', async () => {
   const { getByText } = render(
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
-        <BrowserRouter>
-          <Login/>
-        </BrowserRouter>
+        <SignIn/>
       </FirebaseAppProvider>
     </Suspense>,
   );
 
-  const login = await waitForElement(() => getByText('Login'));
+  const signIn = await waitForElement(() => getByText('Login'));
 
-  expect(login).toBeInTheDocument();
+  expect(signIn).toBeInTheDocument();
 });
