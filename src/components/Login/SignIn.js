@@ -1,6 +1,7 @@
 import { useAuth } from 'reactfire';
 import React from 'react';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import AuthorizeAPI from '../../api/authorizeAPI';
 import googleIcon from '../../assets/googleIconSmall.png';
 
