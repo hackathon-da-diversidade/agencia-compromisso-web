@@ -1,3 +1,7 @@
+[![hackathon-da-diversidade](https://codecov.io/gh/hackathon-da-diversidade/agencia-compromisso-web/branch/master/graph/badge.svg)](https://codecov.io/gh/hackathon-da-diversidade/agencia-compromisso-web)
+
+[![hackathon-da-diversidade](https://circleci.com/gh/hackathon-da-diversidade/agencia-compromisso-web.svg?style=shield)](https://circleci.com/gh/hackathon-da-diversidade/agencia-compromisso-web)
+
 # Agência Compromisso
 
 Em parceria com a Lojas Renner, o CEA (Centro de Educação Ambiental da Vila Pinto) começou a desenvolver um projeto para encontrar modelos de prova para suas criações dentro do bairro Bom Jesus. Para quem não é familiar com este termo, modelo de prova é a pessoa que experimenta peças-piloto antes da produção em larga escala.

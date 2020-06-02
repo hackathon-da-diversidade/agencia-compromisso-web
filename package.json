@@ -24,6 +24,7 @@
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.1",
     "@testing-library/react-hooks": "^3.2.1",
+    "codecov": "^3.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-config-prettier": "^6.9.0",
