@@ -17,6 +17,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
+      - run: ./node_modules/.bin/codecov
   deploy-staging:
     docker:
       - image: buildpack-deps:trusty
