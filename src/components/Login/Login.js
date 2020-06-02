@@ -22,7 +22,7 @@ class Login extends Component {
           />
           <ul className="agencia-btn-group">
             <li>
-              <SignIn history={this.props.history}/>
+              <SignIn history={this.props.history} />
             </li>
           </ul>
         </div>

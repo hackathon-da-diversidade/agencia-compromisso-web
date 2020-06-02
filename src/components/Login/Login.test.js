@@ -10,10 +10,10 @@ test('should render the login button', async () => {
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
         <BrowserRouter>
-          <Login/>
+          <Login />
         </BrowserRouter>
       </FirebaseAppProvider>
-    </Suspense>,
+    </Suspense>
   );
 
   const login = await waitForElement(() => getByText('Login'));

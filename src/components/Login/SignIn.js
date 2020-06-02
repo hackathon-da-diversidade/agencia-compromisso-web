@@ -10,7 +10,7 @@ const SignIn = ({ history }) => {
 
   const signIn = async () => {
     const userCredential = await auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider(),
+      new firebase.auth.GoogleAuthProvider()
     );
 
     const status = await AuthorizeAPI.get(userCredential.user.email);
@@ -24,7 +24,7 @@ const SignIn = ({ history }) => {
 
   return (
     <button onClick={signIn} className="btn btn-secondary btn-raised">
-      <img className="google-icon" src={googleIcon} alt="ícone do Google"/>
+      <img className="google-icon" src={googleIcon} alt="ícone do Google" />
       Login
     </button>
   );

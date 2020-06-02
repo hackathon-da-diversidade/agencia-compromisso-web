@@ -13,9 +13,9 @@ test('should have sign in button', async () => {
   const { getByText } = render(
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
-        <SignIn/>
+        <SignIn />
       </FirebaseAppProvider>
-    </Suspense>,
+    </Suspense>
   );
 
   const signIn = await waitForElement(() => getByText('Login'));
@@ -40,9 +40,9 @@ test('should sign in', async () => {
   const { getByText } = render(
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
-        <SignIn history={history}/>
+        <SignIn history={history} />
       </FirebaseAppProvider>
-    </Suspense>,
+    </Suspense>
   );
 
   const signIn = await waitForElement(() => getByText('Login'));
@@ -69,9 +69,9 @@ test('should not sign in when unauthorized', async () => {
   const { getByText } = render(
     <Suspense fallback="...">
       <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
-        <SignIn/>
+        <SignIn />
       </FirebaseAppProvider>
-    </Suspense>,
+    </Suspense>
   );
 
   const signIn = await waitForElement(() => getByText('Login'));
