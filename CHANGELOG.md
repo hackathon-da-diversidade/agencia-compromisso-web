@@ -8,6 +8,7 @@ e este projeto segue o padrão de [Versionamento Semântico](https://semver.org/
 ## Unreleased
 
 - Transformar em PWA (Progressive Web App)
+- Implementar Autenticação Através do Firebase
 
 ## [1.0.0] - 2020-05-21
 
