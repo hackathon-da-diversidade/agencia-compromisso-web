@@ -23,7 +23,6 @@ test('should have sign in button', async () => {
   expect(signIn).toBeInTheDocument();
 });
 
-
 test('should sign in', async () => {
   AuthorizeAPI.get.mockReturnValue(200);
 
