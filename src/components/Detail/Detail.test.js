@@ -3,16 +3,15 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Detail from './Detail';
 import fitModelAPI from '../../api/fitModelAPI';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Alert } from '@material-ui/lab';
-import Header from '../Header/Header';
+import { MemoryRouter, Route } from 'react-router-dom';
+import { resolvePromises } from '../../utils/formHelpers';
 
 jest.mock('../../api/fitModelAPI');
 
 configure({ adapter: new Adapter() });
 
 describe('<Detail />', () => {
-  it('should call API', () => {
+  it('should call API', async () => {
     fitModelAPI.get.mockReturnValue({});
 
     const match = {
@@ -27,11 +26,15 @@ describe('<Detail />', () => {
       },
     };
 
-    mount(
-      <Router>
-        <Detail match={match} location={location} />
-      </Router>
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/modelo/1']}>
+        <Route exact path="/modelo/:id">
+          <Detail location={location} />
+        </Route>
+      </MemoryRouter>
     );
+
+    await resolvePromises(wrapper);
 
     expect(fitModelAPI.get).toBeCalledTimes(1);
     expect(fitModelAPI.get).toBeCalledWith(match.params.id);

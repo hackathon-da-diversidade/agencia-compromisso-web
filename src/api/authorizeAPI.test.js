@@ -14,5 +14,5 @@ test('should check authorization with email', async () => {
   const response = await authorizeAPI.get(email);
   expect(axios.get).toHaveBeenCalledWith(`${URL}/${email}`);
 
-  expect(response).toEqual({ status });
+  expect(response).toEqual(status);
 });

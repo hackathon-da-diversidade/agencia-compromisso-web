@@ -9,8 +9,8 @@ import { GENDER } from '../../utils/constants';
 import classes from './FitModelCard.module.css';
 
 class FitModelCard extends Component {
-  showModelInfo(modelId) {
-    window.location = `/modelo/${modelId}`;
+  detailModel(id) {
+    this.props.onDetail(id);
   }
 
   editModel(id) {
@@ -41,7 +41,7 @@ class FitModelCard extends Component {
           />
           <ArrowForwardIcon
             className={classes.Icon}
-            onClick={() => this.showModelInfo(id)}
+            onClick={() => this.detailModel(id)}
           />
         </div>
       </Card>

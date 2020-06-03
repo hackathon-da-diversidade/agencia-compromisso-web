@@ -1,25 +1,22 @@
-import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import React, { Suspense } from 'react';
+import Login from './Login';
+import { BrowserRouter } from 'react-router-dom';
+import { render, waitForElement } from '@testing-library/react';
+import { FirebaseAppProvider } from 'reactfire';
 import '@testing-library/jest-dom/extend-expect';
 
-import Login from './Login';
+test('should render the login button', async () => {
+  const { getByText } = render(
+    <Suspense fallback="...">
+      <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>
+      </FirebaseAppProvider>
+    </Suspense>
+  );
 
-afterEach(cleanup);
+  const login = await waitForElement(() => getByText('Login'));
 
-it('should render the login button', () => {
-  const { getByRole } = render(<Login loginAction={() => {}} />);
-  expect(getByRole('button')).toHaveTextContent('Login');
-});
-
-it('Should click the login on the button', () => {
-  const mockAction = jest.fn();
-  const { getByText } = render(<Login loginAction={mockAction} />);
-  fireEvent.click(getByText('Login'));
-
-  expect(mockAction.mock.calls.length).toEqual(1);
-});
-
-it('matches the snapshot', () => {
-  const { asFragment } = render(<Login loginAction={() => {}} />);
-  expect(asFragment()).toMatchSnapshot();
+  expect(login).toBeInTheDocument();
 });

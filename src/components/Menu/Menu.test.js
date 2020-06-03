@@ -1,29 +1,26 @@
-import React from 'react';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import React, { Suspense } from 'react';
 import Menu from './Menu';
-import AuthenticationAPI from '../../api/authenticationAPI';
+import { FirebaseAppProvider } from 'reactfire';
+import { render, waitForElement } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { BrowserRouter } from 'react-router-dom';
 
-jest.mock('../../api/authenticationAPI');
+test('should show menu items', async () => {
+  const { getByText } = render(
+    <Suspense fallback="...">
+      <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
+        <BrowserRouter>
+          <Menu />
+        </BrowserRouter>
+      </FirebaseAppProvider>
+    </Suspense>
+  );
 
-configure({ adapter: new Adapter() });
+  const register = await waitForElement(() => getByText('Cadastro'));
+  const list = await waitForElement(() => getByText('Lista'));
+  const exit = await waitForElement(() => getByText('Sair'));
 
-describe('<Menu />', () => {
-  it('should show menu items', () => {
-    const wrapper = mount(<Menu />);
-
-    expect(wrapper.text()).toContain('Cadastro');
-    expect(wrapper.text()).toContain('Lista');
-    expect(wrapper.text()).toContain('Sair');
-  });
-
-  it('should call API when click "Sair"', () => {
-    AuthenticationAPI.logout.mockReturnValue({});
-
-    const wrapper = mount(<Menu />);
-
-    wrapper.find('#logout').simulate('click');
-
-    expect(AuthenticationAPI.logout).toBeCalledTimes(1);
-  });
+  expect(register).toBeInTheDocument();
+  expect(list).toBeInTheDocument();
+  expect(exit).toBeInTheDocument();
 });

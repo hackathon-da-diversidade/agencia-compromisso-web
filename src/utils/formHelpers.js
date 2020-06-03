@@ -10,4 +10,12 @@ const fillSelect = (wrapper, value, id) => fill(wrapper, value, id, 'select');
 const fillTextarea = (wrapper, value, id) =>
   fill(wrapper, value, id, 'textarea');
 
-export { fillInput, fillSelect, fillTextarea };
+const resolvePromises = async wrapper => {
+  await new Promise(resolve => setImmediate(resolve));
+
+  if (wrapper) {
+    wrapper.update();
+  }
+};
+
+export { fillInput, fillSelect, fillTextarea, resolvePromises };
