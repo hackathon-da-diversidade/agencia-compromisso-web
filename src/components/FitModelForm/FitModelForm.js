@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import PersonalForm from './PersonalForm/PersonalForm';
 import MeasuresForm from './MeasuresForm/MeasuresForm';
@@ -108,4 +108,4 @@ class FitModelForm extends Component {
   }
 }
 
-export default FitModelForm;
+export default withRouter(FitModelForm);

@@ -5,6 +5,7 @@ import FitModelCard from '../FitModelCard/FitModelCard';
 import Search from '../Search/Search';
 import Pagination from '@material-ui/lab/Pagination';
 import classes from './List.module.css';
+import { withRouter } from 'react-router-dom';
 
 class List extends Component {
   searchRef;
@@ -64,6 +65,10 @@ class List extends Component {
     }
   };
 
+  onDetail = id => {
+    this.props.history.push(`modelo/${id}`);
+  };
+
   render() {
     return (
       <>
@@ -80,6 +85,7 @@ class List extends Component {
             {...model}
             onEdit={this.onEdit}
             onDelete={this.onDelete}
+            onDetail={this.onDetail}
           />
         ))}
         <div className={classes.PaginationWrapper}>
@@ -90,4 +96,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export default withRouter(List);

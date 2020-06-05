@@ -1,3 +1,7 @@
+[![hackathon-da-diversidade](https://codecov.io/gh/hackathon-da-diversidade/agencia-compromisso-web/branch/master/graph/badge.svg)](https://codecov.io/gh/hackathon-da-diversidade/agencia-compromisso-web)
+
+[![hackathon-da-diversidade](https://circleci.com/gh/hackathon-da-diversidade/agencia-compromisso-web.svg?style=shield)](https://circleci.com/gh/hackathon-da-diversidade/agencia-compromisso-web)
+
 # Agência Compromisso
 
 Em parceria com a Lojas Renner, o CEA (Centro de Educação Ambiental da Vila Pinto) começou a desenvolver um projeto para encontrar modelos de prova para suas criações dentro do bairro Bom Jesus. Para quem não é familiar com este termo, modelo de prova é a pessoa que experimenta peças-piloto antes da produção em larga escala.
@@ -24,7 +28,7 @@ Após o evento, algumas pessoas seguiram trabalhando na iniciativa que tem como 
 
 Para rodar a aplicação você precisa:
 
-- Yarn ou npm
+- Yarn
 
 ## Como rodar a aplicação
 
@@ -38,24 +42,12 @@ Depois de clonar o projeto
 yarn install
 ```
 
-**npm**
-
-```
-npm install
-```
-
 ### Rode na sua máquina local:
 
 **Yarn**
 
 ```
-yarn run dev
-```
-
-**npm**
-
-```
-npm run dev
+yarn start
 ```
 
 Acesse [http://localhost:3000](http://localhost:3000) em seu navegador.
@@ -70,24 +62,12 @@ Para rodar os testes unitários:
 yarn test
 ```
 
-**npm**
-
-```
-npm test
-```
-
 Para rodar os testes funcionais do cypress:
 
 **Yarn**
 
 ```
 yarn run cypress open
-```
-
-**npm**
-
-```
-$(npm bin)/cypress open
 ```
 
 ## CI/CD
@@ -102,3 +82,8 @@ Para isso, acesse o CONTRIBUTING.md para checar nossas guidelines de desenvolvim
 ## Acessos
 
 Informações sobre acessos da agência compromisso se encontram no repositório da [API](https://github.com/hackathon-da-diversidade/agencia-compromisso).
+
+## Autenticação
+
+A aplicação gerencia seus usuários através do [Firebase](https://firebase.google.com).
+Para acessar o [Console](https://console.firebase.google.com/project/agencia-compromisso-8bafc), utilize as credenciais citadas acima.

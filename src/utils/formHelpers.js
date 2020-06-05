@@ -13,12 +13,9 @@ const fillTextarea = (wrapper, value, id) =>
 const resolvePromises = async wrapper => {
   await new Promise(resolve => setImmediate(resolve));
 
-  wrapper.update();
-}
-
-export {
-  fillInput,
-  fillSelect,
-  fillTextarea,
-  resolvePromises,
+  if (wrapper) {
+    wrapper.update();
+  }
 };
+
+export { fillInput, fillSelect, fillTextarea, resolvePromises };
