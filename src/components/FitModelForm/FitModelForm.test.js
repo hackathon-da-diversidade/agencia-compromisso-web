@@ -10,6 +10,8 @@ import {
   fillTextarea,
   resolvePromises,
 } from '../../utils/formHelpers';
+import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
+import { render, waitFor } from '@testing-library/react';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -18,7 +20,7 @@ configure({ adapter: new Adapter() });
 beforeEach(() => jest.clearAllMocks());
 
 describe('<FitModelForm />', () => {
-  it('should show default fields', () => {
+  it('should show default fields', async () => {
     fitModelAPI.create.mockReturnValue({});
 
     const props = {
@@ -68,6 +70,8 @@ describe('<FitModelForm />', () => {
       </Router>
     );
 
+    await resolvePromises(wrapper);
+
     fillInput(wrapper, data.name, 'name');
     fillInput(wrapper, data.birthday, 'birthday');
     fillInput(wrapper, data.availability, 'availability');
@@ -79,10 +83,7 @@ describe('<FitModelForm />', () => {
     fillSelect(wrapper, data.education, 'education');
     fillTextarea(wrapper, data.notes, 'notes');
 
-    wrapper
-      .find('#measuresTab')
-      .first()
-      .simulate('click');
+    wrapper.find('#measuresTab').first().simulate('click');
 
     fillInput(
       wrapper,
@@ -104,10 +105,7 @@ describe('<FitModelForm />', () => {
     fillInput(wrapper, data.sizes.pantsSize, 'pantsSize');
     fillInput(wrapper, data.sizes.shoeSize, 'shoeSize');
 
-    wrapper
-      .find('#socialTab')
-      .first()
-      .simulate('click');
+    wrapper.find('#socialTab').first().simulate('click');
 
     fillSelect(wrapper, data.socialInformation.ethnicity, 'ethnicity');
     fillInput(wrapper, data.socialInformation.housing, 'housing');
@@ -122,6 +120,8 @@ describe('<FitModelForm />', () => {
     fillInput(wrapper, data.socialInformation.hasChildren, 'hasChildren');
 
     wrapper.find('#saveButton').simulate('click');
+
+    await resolvePromises(wrapper);
 
     expect(fitModelAPI.create).toBeCalledTimes(1);
     expect(fitModelAPI.create).toBeCalledWith(data);
@@ -151,63 +151,66 @@ describe('<FitModelForm />', () => {
     expect(fitModelAPI.get).toBeCalledTimes(1);
     expect(fitModelAPI.get).toBeCalledWith(props.match.params.id);
   });
+});
 
-  it('should call update when editing', async () => {
-    const data = {
-      name: 'Name',
-      birthday: '00/00/0000',
-      availability: 'availability',
-      inProjects: 'inProjects',
-      projects: null,
-      phoneNumber: '0000000000000',
-      address: 'address',
-      genderExpression: 'genderExpression',
-      identifyAsLGBTQIA: 'identifyAsLGBTQIA',
-      education: 'education',
-      notes: 'notes',
-      sizes: {
-        totalBustCircumference: 'totalBustCircumference',
-        totalWaistCircumference: 'totalWaistCircumference',
-        totalHipCircumference: 'totalHipCircumference',
-        height: 'height',
-        shirtSize: 'M',
-        pantsSize: 42,
-        shoeSize: '40',
+test('should call update when editing', async () => {
+  const data = {
+    name: 'Name',
+    birthday: '00/00/0000',
+    availability: 'availability',
+    inProjects: 'inProjects',
+    projects: null,
+    phoneNumber: '0000000000000',
+    address: 'address',
+    genderExpression: 'genderExpression',
+    identifyAsLGBTQIA: 'identifyAsLGBTQIA',
+    education: 'education',
+    notes: 'notes',
+    sizes: {
+      totalBustCircumference: 'totalBustCircumference',
+      totalWaistCircumference: 'totalWaistCircumference',
+      totalHipCircumference: 'totalHipCircumference',
+      height: 'height',
+      shirtSize: 'M',
+      pantsSize: 42,
+      shoeSize: '40',
+    },
+    socialInformation: {
+      ethnicity: 'ethnicity',
+      housing: 'housing',
+      numberOfResidents: 'numberOfResidents',
+      occupation: 'occupation',
+      occupationMode: 'occupationMode',
+      familyIncome: 'familyIncome',
+      hasChildren: 'no',
+      numberOfChildren: null,
+    },
+  };
+
+  fitModelAPI.get.mockReturnValue({ data });
+  fitModelAPI.update.mockReturnValue({});
+
+  const props = {
+    match: {
+      params: {
+        id: 'id',
       },
-      socialInformation: {
-        ethnicity: 'ethnicity',
-        housing: 'housing',
-        numberOfResidents: 'numberOfResidents',
-        occupation: 'occupation',
-        occupationMode: 'occupationMode',
-        familyIncome: 'familyIncome',
-        hasChildren: 'no',
-        numberOfChildren: null,
-      },
-    };
+    },
+  };
 
-    fitModelAPI.get.mockReturnValue({ data });
-    fitModelAPI.update.mockReturnValue({});
-
-    const props = {
-      match: {
-        params: {
-          id: 'id',
-        },
-      },
-    };
-
-    const wrapper = mount(
-      <Router>
+  const { getByText } = render(
+    <MemoryRouter initialEntries={['/cadastro/id']}>
+      <Route exact path="/cadastro/:id">
         <FitModelForm {...props} />
-      </Router>
-    );
+      </Route>
+    </MemoryRouter>
+  );
 
-    Promise.resolve(wrapper).then(() => {
-      wrapper.find('#saveButton').simulate('click');
+  const save = await waitFor(() => getByText('Salvar'));
+  save.click();
 
-      expect(fitModelAPI.update).toBeCalledTimes(1);
-      expect(fitModelAPI.update).toBeCalledWith(data);
-    });
-  });
+  await flushMicroTasks();
+
+  expect(fitModelAPI.update).toBeCalledTimes(1);
+  expect(fitModelAPI.update).toBeCalledWith(data);
 });

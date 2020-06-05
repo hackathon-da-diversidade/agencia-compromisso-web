@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 
 import CheckboxField from '../../UI/Field/CheckboxField';
 import NumberField from '../../UI/Field/NumberField';
@@ -16,17 +16,15 @@ function SocialForm({ data = {}, onChange }) {
     });
   };
 
-  const onChangeSocialInformation = newSocialInformation => {
+  const onChangeSocialInformation = (newSocialInformation) => {
     return onChange({
       socialInformation: { ...socialInformation, ...newSocialInformation },
     });
   };
 
   return (
-    <Formik
-      initialValues={{ ...socialInformation }}
-      enableReinitialize="true"
-      render={() => (
+    <Formik initialValues={{ ...socialInformation }} enableReinitialize="true">
+      {() => (
         <Form>
           <SelectField
             name="ethnicity"
@@ -133,7 +131,7 @@ function SocialForm({ data = {}, onChange }) {
           )}
         </Form>
       )}
-    />
+    </Formik>
   );
 }
 

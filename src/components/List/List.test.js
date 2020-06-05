@@ -5,14 +5,13 @@ import fitModelAPI from '../../api/fitModelAPI';
 import { BrowserRouter as Router } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
 import { resolvePromises } from '../../utils/formHelpers';
 
 jest.mock('../../api/fitModelAPI');
 
 beforeEach(() => jest.clearAllMocks());
 
-configure({adapter: new Adapter()});
+configure({ adapter: new Adapter() });
 
 describe('<List />', () => {
   it('should load fit models when entering the component', () => {
@@ -24,7 +23,7 @@ describe('<List />', () => {
 
     mount(
       <Router>
-        <List/>
+        <List />
       </Router>
     );
 
@@ -38,7 +37,7 @@ describe('<List />', () => {
   it('should render pagination component', function () {
     const wrapper = mount(
       <Router>
-        <List/>
+        <List />
       </Router>
     );
 
@@ -49,16 +48,13 @@ describe('<List />', () => {
     fitModelAPI.delete.mockResolvedValue();
     fitModelAPI.getAllPaginated.mockResolvedValue({
       data: {
-        content: [
-          {id: 'candidate1'},
-          {id: 'candidate2'},
-        ],
+        content: [{ id: 'candidate1' }, { id: 'candidate2' }],
       },
     });
 
     const wrapper = mount(
       <Router>
-        <List/>
+        <List />
       </Router>
     );
 
@@ -74,16 +70,13 @@ describe('<List />', () => {
     fitModelAPI.delete.mockResolvedValue();
     fitModelAPI.getAllPaginated.mockResolvedValue({
       data: {
-        content: [
-          {id: 'candidate1'},
-          {id: 'candidate2'},
-        ],
+        content: [{ id: 'candidate1' }, { id: 'candidate2' }],
       },
     });
 
     const wrapper = mount(
       <Router>
-        <List/>
+        <List />
       </Router>
     );
 
@@ -91,9 +84,7 @@ describe('<List />', () => {
 
     fitModelAPI.getAllPaginated.mockResolvedValue({
       data: {
-        content: [
-          {id: 'candidate2'},
-        ],
+        content: [{ id: 'candidate2' }],
       },
     });
 

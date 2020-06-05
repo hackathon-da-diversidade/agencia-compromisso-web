@@ -9,8 +9,8 @@ configure({ adapter: new Adapter() });
 jest.mock('../../api/fitModelAPI');
 
 describe('<Search />', () => {
-  const fakeDebounceTime = ms => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  const fakeDebounceTime = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
   it('should return model on search of valid model name', async () => {

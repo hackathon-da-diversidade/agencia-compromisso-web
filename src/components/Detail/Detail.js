@@ -13,11 +13,11 @@ import fitModelAPI from '../../api/fitModelAPI';
 import './Detail.css';
 import { withRouter } from 'react-router-dom';
 
-const useFitModel = id => {
+const useFitModel = (id) => {
   const [model, setModel] = useState({ sizes: {}, socialInformation: {} });
 
   useEffect(() => {
-    const loadModelInfo = async id => {
+    const loadModelInfo = async (id) => {
       try {
         const { data } = await fitModelAPI.get(id);
         setModel(data);

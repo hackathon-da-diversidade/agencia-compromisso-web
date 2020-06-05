@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import Card from '@material-ui/core/Card';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import {calculateAge} from '../../utils/dateUtils';
-import {GENDER} from '../../utils/constants';
+import { calculateAge } from '../../utils/dateUtils';
+import { GENDER } from '../../utils/constants';
 import classes from './FitModelCard.module.css';
 
 class FitModelCard extends Component {
@@ -23,7 +23,7 @@ class FitModelCard extends Component {
   }
 
   render() {
-    const {id, name, genderExpression, birthday, phoneNumber} = this.props;
+    const { id, name, genderExpression, birthday, phoneNumber } = this.props;
     return (
       <Card
         key={id}

@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
-import { render, waitForElement } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, waitFor } from '@testing-library/react';
 import SignIn from './SignIn';
 import * as ReactFire from 'reactfire';
 import { FirebaseAppProvider } from 'reactfire';
@@ -18,7 +17,7 @@ test('should have sign in button', async () => {
     </Suspense>
   );
 
-  const signIn = await waitForElement(() => getByText('Login'));
+  const signIn = await waitFor(() => getByText('Login'));
 
   expect(signIn).toBeInTheDocument();
 });
@@ -45,7 +44,7 @@ test('should sign in', async () => {
     </Suspense>
   );
 
-  const signIn = await waitForElement(() => getByText('Login'));
+  const signIn = await waitFor(() => getByText('Login'));
   signIn.click();
 
   await flushMicroTasks();
@@ -74,7 +73,7 @@ test('should not sign in when unauthorized', async () => {
     </Suspense>
   );
 
-  const signIn = await waitForElement(() => getByText('Login'));
+  const signIn = await waitFor(() => getByText('Login'));
   signIn.click();
 
   await flushMicroTasks();

@@ -5,7 +5,7 @@ import { Required } from './Field.module.css';
 import { Wrapper, Options, Option } from './CheckboxField.module.css';
 
 class CheckboxField extends Component {
-  onChange = event => {
+  onChange = (event) => {
     this.props.onChange({
       [event.target.name]: event.target.value,
     });
@@ -20,7 +20,7 @@ class CheckboxField extends Component {
           {label}
         </label>
         <div className={Options}>
-          {options.map(option => {
+          {options.map((option) => {
             const id = `${option.value.toString()}-${name}`;
             return (
               <span key={id} className={Option}>

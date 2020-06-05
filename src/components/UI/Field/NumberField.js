@@ -5,7 +5,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import classes from './Field.module.css';
 
 class NumberField extends Component {
-  onChange = event => {
+  onChange = (event) => {
     this.props.onChange({
       [event.target.name]: event.target.value,
     });

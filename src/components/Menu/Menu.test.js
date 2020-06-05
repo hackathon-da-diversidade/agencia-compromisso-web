@@ -1,8 +1,7 @@
 import React, { Suspense } from 'react';
 import Menu from './Menu';
 import { FirebaseAppProvider } from 'reactfire';
-import { render, waitForElement } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 test('should show menu items', async () => {
@@ -16,9 +15,9 @@ test('should show menu items', async () => {
     </Suspense>
   );
 
-  const register = await waitForElement(() => getByText('Cadastro'));
-  const list = await waitForElement(() => getByText('Lista'));
-  const exit = await waitForElement(() => getByText('Sair'));
+  const register = await waitFor(() => getByText('Cadastro'));
+  const list = await waitFor(() => getByText('Lista'));
+  const exit = await waitFor(() => getByText('Sair'));
 
   expect(register).toBeInTheDocument();
   expect(list).toBeInTheDocument();

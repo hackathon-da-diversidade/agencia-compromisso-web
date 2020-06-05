@@ -25,7 +25,7 @@ class Search extends Component {
     }
   };
 
-  onChange = async event => {
+  onChange = async (event) => {
     const { typingTimeout } = this.state;
 
     if (typingTimeout) {

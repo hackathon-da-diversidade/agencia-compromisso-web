@@ -83,7 +83,7 @@ class FitModelForm extends Component {
         </Tabs>
         <TabComponent
           data={this.state.fitModelData}
-          onChange={updatedFields => {
+          onChange={(updatedFields) => {
             this.setState({
               fitModelData: {
                 ...this.state.fitModelData,

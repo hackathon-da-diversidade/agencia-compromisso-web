@@ -12,7 +12,7 @@ test('should check authorization with email', async () => {
   axios.get.mockResolvedValue({ status });
 
   const response = await authorizeAPI.get(email);
-  expect(axios.get).toHaveBeenCalledWith(`${URL}/${email}`);
 
+  expect(axios.get).toHaveBeenCalledWith(`${URL}/${email}`);
   expect(response).toEqual(status);
 });

@@ -6,7 +6,7 @@ import MaskedInput from 'react-text-mask';
 import classes from './Field.module.css';
 
 class MaskedField extends Component {
-  onChange = event => {
+  onChange = (event) => {
     this.props.onChange({
       [event.target.name]: event.target.value,
     });
@@ -21,8 +21,8 @@ class MaskedField extends Component {
         >
           {this.props.label}
         </label>
-        <Field
-          render={({ field }) => (
+        <Field>
+          {({ field }) => (
             <MaskedInput
               mask={this.props.mask}
               type={this.props.type}
@@ -35,7 +35,7 @@ class MaskedField extends Component {
               required={this.props.required}
             />
           )}
-        />
+        </Field>
       </div>
     );
   }
