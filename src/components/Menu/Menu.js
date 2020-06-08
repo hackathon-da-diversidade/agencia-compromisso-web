@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import styles from './Menu.module.css';
+import Button from '@material-ui/core/Button';
+import classes from './Menu.module.css';
 
 const Menu = ({ menuOptions }) => {
   const history = useHistory();
@@ -13,16 +13,17 @@ const Menu = ({ menuOptions }) => {
   };
 
   return (
-    <div className={styles.Menu}>
+    <div className={classes.Menu}>
       {menuOptions.map(({ text, icon = '', path, onClick }, index) => (
-        <button
+        <Button
+          variant="contained"
+          className={classes.MenuOption}
           key={index}
-          className={styles.MenuOption}
           onClick={() => handleClick(path, onClick)}
         >
           {icon}
           {text}
-        </button>
+        </Button>
       ))}
     </div>
   );

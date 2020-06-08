@@ -8,6 +8,8 @@ import Menu from 'components/Menu/Menu';
 import AuthorizeAPI from '../../api/authorizeAPI';
 import googleIcon from 'assets/googleIconSmall.png';
 
+import classes from './Login.module.css';
+
 const Login = ({ history }) => {
   const auth = useAuth();
 
@@ -20,7 +22,7 @@ const Login = ({ history }) => {
 
     if (status === 200) {
       console.log(history);
-      return history.push('/menu');
+      return history.push('/');
     }
 
     await auth.signOut();
@@ -36,7 +38,7 @@ const Login = ({ history }) => {
             onClick: signIn,
             icon: (
               <img
-                className="GoogleIcon"
+                className={classes.GoogleIcon}
                 src={googleIcon}
                 alt="ícone do Google"
               ></img>
