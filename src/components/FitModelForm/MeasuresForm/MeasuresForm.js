@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
@@ -18,11 +18,11 @@ export default ({ data = {}, onChange }) => {
   const [open, setOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState({});
 
-  const onChangeSizes = measures => {
+  const onChangeSizes = (measures) => {
     return onChange({ sizes: { ...sizes, ...measures } });
   };
 
-  const handleOpen = image => {
+  const handleOpen = (image) => {
     setOpen(true);
     setCurrentImage(image);
   };
@@ -48,10 +48,8 @@ export default ({ data = {}, onChange }) => {
   );
 
   return (
-    <Formik
-      initialValues={{ ...sizes }}
-      enableReinitialize="true"
-      render={() => (
+    <Formik initialValues={{ ...sizes }} enableReinitialize="true">
+      {() => (
         <Form>
           <div className={classes.SizeField}>
             <NumberField
@@ -141,6 +139,6 @@ export default ({ data = {}, onChange }) => {
           {renderModal()}
         </Form>
       )}
-    />
+    </Formik>
   );
 };

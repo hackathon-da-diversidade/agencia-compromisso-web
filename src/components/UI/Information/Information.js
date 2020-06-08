@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './Information.module.css';
 
-const Information = props =>
+const Information = (props) =>
   props.children ? (
     <div className={classes.Information}>
       {props.strong ? <strong>{props.label}</strong> : props.label}

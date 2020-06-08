@@ -6,7 +6,7 @@ import PersonalInformation from './PersonalInformation';
 configure({ adapter: new Adapter() });
 
 describe('<PersonalInformation />', () => {
-  it('should show detailed user personal information', () => {
+  it('should show detailed user personal information', async () => {
     const data = {
       birthday: '08/08/1999',
       availability: 'AFTERNOON',
@@ -29,7 +29,7 @@ describe('<PersonalInformation />', () => {
     );
   });
 
-  it('should show identify as LGBTQIA as "Não"', () => {
+  it('should show identify as LGBTQIA as "Não"', async () => {
     const data = {
       identifyAsLGBTQIA: false,
     };

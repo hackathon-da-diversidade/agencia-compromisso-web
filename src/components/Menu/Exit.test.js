@@ -1,9 +1,8 @@
 import React, { Suspense } from 'react';
 import Exit from './Exit';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import * as ReactFire from 'reactfire';
 import { FirebaseAppProvider } from 'reactfire';
-import '@testing-library/jest-dom/extend-expect';
 import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
 
 test('should have exit button', async () => {
@@ -15,7 +14,7 @@ test('should have exit button', async () => {
     </Suspense>
   );
 
-  const exit = await waitForElement(() => getByText('Sair'));
+  const exit = await waitFor(() => getByText('Sair'));
 
   expect(exit).toBeInTheDocument();
 });
@@ -34,7 +33,7 @@ test('should sign out', async () => {
     </Suspense>
   );
 
-  const exit = await waitForElement(() => getByText('Sair'));
+  const exit = await waitFor(() => getByText('Sair'));
   exit.click();
 
   await flushMicroTasks();

@@ -40,7 +40,7 @@ class List extends Component {
     }
   };
 
-  updatePagination = pagination => {
+  updatePagination = (pagination) => {
     this.setState({
       models: pagination.content,
       count: pagination.totalPages,
@@ -52,11 +52,20 @@ class List extends Component {
     this.setState({ error: true });
   };
 
-  onEdit = id => {
+  onEdit = (id) => {
     this.props.history.push(`cadastro/${id}`);
   };
 
-  onDetail = id => {
+  onDelete = async (id) => {
+    try {
+      await fitModelAPI.delete(id);
+      await this.loadModels(null, this.state.page);
+    } catch {
+      this.handleError();
+    }
+  };
+
+  onDetail = (id) => {
     this.props.history.push(`modelo/${id}`);
   };
 
@@ -65,16 +74,17 @@ class List extends Component {
       <>
         <Header title="Lista" />
         <Search
-          ref={ref => (this.searchRef = ref)}
+          ref={(ref) => (this.searchRef = ref)}
           onChange={this.updatePagination}
           onError={this.handleError}
         />
-        {this.state.models.map(model => (
+        {this.state.models.map((model) => (
           <FitModelCard
             key={model.id}
             id={model.id}
             {...model}
             onEdit={this.onEdit}
+            onDelete={this.onDelete}
             onDetail={this.onDetail}
           />
         ))}

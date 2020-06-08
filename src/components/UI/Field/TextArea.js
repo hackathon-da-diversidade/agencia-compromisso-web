@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import classes from './TextArea.module.css';
 
 class TextArea extends Component {
-  onChange = event => {
+  onChange = (event) => {
     this.props.onChange({
       [event.target.name]: event.target.value,
     });

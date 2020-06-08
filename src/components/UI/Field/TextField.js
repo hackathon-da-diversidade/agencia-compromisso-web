@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classes from './Field.module.css';
 
 class TextField extends Component {
-  onChange = event => {
+  onChange = (event) => {
     this.props.onChange({
       [event.target.name]: event.target.value,
     });

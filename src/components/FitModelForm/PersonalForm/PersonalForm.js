@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import { isInvalid, isUnderage } from '../../../utils/dateUtils';
 
 import TextField from '../../UI/Field/TextField';
@@ -17,10 +17,8 @@ function PersonalForm({ data = {}, onChange }) {
   };
 
   return (
-    <Formik
-      initialValues={{ ...data }}
-      enableReinitialize="true"
-      render={() => (
+    <Formik initialValues={{ ...data }} enableReinitialize="true">
+      {() => (
         <Form>
           <TextField
             name="name"
@@ -154,7 +152,7 @@ function PersonalForm({ data = {}, onChange }) {
           />
         </Form>
       )}
-    />
+    </Formik>
   );
 }
 
