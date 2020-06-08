@@ -6,6 +6,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
 import { resolvePromises } from '../../utils/formHelpers';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -61,6 +64,13 @@ describe('<List />', () => {
     await resolvePromises(wrapper);
 
     wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
+    wrapper
+      .find(Dialog)
+      .find(DialogActions)
+      .find(Button)
+      .findWhere((node) => node.text() === 'Excluir')
+      .first()
+      .simulate('click');
 
     expect(fitModelAPI.delete).toBeCalledTimes(1);
     expect(fitModelAPI.delete).toBeCalledWith('candidate1');
@@ -89,6 +99,13 @@ describe('<List />', () => {
     });
 
     wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
+    wrapper
+      .find(Dialog)
+      .find(DialogActions)
+      .find(Button)
+      .findWhere((node) => node.text() === 'Excluir')
+      .first()
+      .simulate('click');
 
     await resolvePromises(wrapper);
 

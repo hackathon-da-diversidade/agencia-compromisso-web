@@ -63,9 +63,9 @@ function confirmInstallation() {
 
 function applyUpdate(registration) {
   registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-  registration.waiting.addEventListener('statechange', event => {
-    if (event.target.state && event.target.state === 'activated') {
-      window.location.reload(true);
+  registration.waiting.addEventListener('statechange', (event) => {
+    if ('state' in event.target && event.target.state === 'activated') {
+      window.location.reload();
     }
   });
 }

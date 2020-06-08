@@ -4,6 +4,9 @@ import Adapter from 'enzyme-adapter-react-16';
 import FitModelCard from './FitModelCard';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
 
 configure({ adapter: new Adapter() });
 
@@ -49,6 +52,13 @@ describe('<FitModelCard />', () => {
     const wrapper = mount(<FitModelCard {...data} onDelete={onDelete} />);
 
     wrapper.find(DeleteIcon).simulate('click');
+    wrapper
+      .find(Dialog)
+      .find(DialogActions)
+      .find(Button)
+      .findWhere((node) => node.text() === 'Excluir')
+      .first()
+      .simulate('click');
 
     expect(onDelete).toBeCalledTimes(1);
     expect(onDelete).toBeCalledWith(data.id);
