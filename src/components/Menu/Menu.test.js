@@ -1,26 +1,47 @@
-import React, { Suspense } from 'react';
-import Menu from './Menu';
-import { FirebaseAppProvider } from 'reactfire';
-import { render, waitForElement } from '@testing-library/react';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { BrowserRouter } from 'react-router-dom';
+import MenuComponent from './Menu';
 
-test('should show menu items', async () => {
-  const { getByText } = render(
-    <Suspense fallback="...">
-      <FirebaseAppProvider firebaseConfig={{ apiKey: 'apiKey' }}>
-        <BrowserRouter>
-          <Menu />
-        </BrowserRouter>
-      </FirebaseAppProvider>
-    </Suspense>
-  );
+const Menu = props => (
+  <Router>
+    <MenuComponent {...props} />
+  </Router>
+);
 
-  const register = await waitForElement(() => getByText('Cadastro'));
-  const list = await waitForElement(() => getByText('Lista'));
-  const exit = await waitForElement(() => getByText('Sair'));
+const mockHistoryPush = jest.fn();
 
-  expect(register).toBeInTheDocument();
-  expect(list).toBeInTheDocument();
-  expect(exit).toBeInTheDocument();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
+}));
+
+it('should push path on history when click the button and path is passed', () => {
+  const menuOptions = [
+    {
+      text: 'Button Text',
+      path: '/path',
+    },
+  ];
+  const { getByText } = render(<Menu menuOptions={menuOptions} />);
+  fireEvent.click(getByText('Button Text'));
+
+  expect(mockHistoryPush).toHaveBeenCalledWith('/path');
+});
+
+it('should call onClick when click the button and path is not passed', () => {
+  const onClick = jest.fn();
+  const menuOptions = [
+    {
+      text: 'Button Text',
+      onClick,
+    },
+  ];
+  const { getByText } = render(<Menu menuOptions={menuOptions} />);
+  fireEvent.click(getByText('Button Text'));
+
+  expect(onClick).toHaveBeenCalledTimes(1);
 });

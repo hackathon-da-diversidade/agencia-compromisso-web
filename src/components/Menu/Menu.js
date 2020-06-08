@@ -1,50 +1,41 @@
-import React, { Component } from 'react';
-import icon from '../../assets/icon.png';
-import banner from '../../assets/banner.png';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import classes from './Menu.module.css';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Exit = React.lazy(() => import('./Exit'));
+import styles from './Menu.module.css';
 
-class Menu extends Component {
-  render() {
-    return (
-      <>
-        <div className="menu">
-          <img
-            className="icon"
-            src={icon}
-            alt="ícone estilizado com o perfil de uma mulher com uma fita métrica no black power"
-          />
-          <img
-            className="banner"
-            src={banner}
-            alt="banner da Agência Compromisso"
-          />
-          <ul className="agencia-btn-group">
-            <li>
-              <Link to="/cadastro">
-                <Button variant="contained" className={classes.Button}>
-                  Cadastro
-                </Button>
-              </Link>
-            </li>
-            <li>
-              <Link to="/lista">
-                <Button variant="contained" className={classes.Button}>
-                  Lista
-                </Button>
-              </Link>
-            </li>
-            <li>
-              <Exit />
-            </li>
-          </ul>
-        </div>
-      </>
-    );
-  }
-}
+const Menu = ({ menuOptions }) => {
+  const history = useHistory();
 
+  const handleClick = (path, onClick) => {
+    if (path) return history.push(path);
+    onClick();
+  };
+
+  return (
+    <div className={styles.Menu}>
+      {menuOptions.map(({ text, icon = '', path, onClick }, index) => (
+        <button
+          key={index}
+          className={styles.MenuOption}
+          onClick={() => handleClick(path, onClick)}
+        >
+          {icon}
+          {text}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+Menu.propTypes = {
+  menuOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      path: PropTypes.string,
+      onClick: PropTypes.func,
+      icon: PropTypes.element,
+    })
+  ),
+};
 export default Menu;
