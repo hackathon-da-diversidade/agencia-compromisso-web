@@ -11,9 +11,11 @@ const Exit = () => {
   };
 
   return (
-    <Button onClick={signOut} className={classes.ButtonSignOut}>
-      Sair
-    </Button>
+    <div className={classes.Exit}>
+      <Button onClick={signOut} className={classes.ButtonSignOut}>
+        Sair
+      </Button>
+    </div>
   );
 };
 
