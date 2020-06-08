@@ -1,116 +1,57 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
-html, body {
-  background-color: white;
+html,
+body {
+    background-color: white;
 }
 
 .App {
-  text-align: center;
-  background-color: #ffffff;
+    text-align: center;
+    background-color: #ffffff;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 a,
 a:hover {
-  color: #000;
+    color: #000;
 }
 
 button,
 a {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 ul {
-  margin: 0;
+    margin: 0;
 }
 
 ul li {
-  list-style-type: none;
-}
-
-.agencia-btn-group {
-  margin-top: 60px;
-}
-
-.btn.btn-secondary.btn-raised {
-  margin-top: 20px;
-  background-color: #000;
-  width: 230px;
-  height: 50px;
-  padding: 12px;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.btn-label {
-  width: 100%;
-  height: 100%;
-}
-
-.btn .google-icon {
-  float: left;
-  padding-top: 2px;
-  padding-left: 5px;
-}
-
-.logout a {
-  width: 230px;
-  height: 50px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.logout a:hover {
-  color: gray !important;
-}
-
-.logout {
-  margin-top: 60px;
-  text-decoration: underline;
-}
-
-.menu {
-  margin-top: 40px;
-}
-
-.menu > .icon {
-  display: block;
-  margin: auto;
-  height: 62px;
-}
-
-.menu > .banner {
-  display: block;
-  margin: auto;
-  width: 282px;
-  margin-top: 17px;
+    list-style-type: none;
 }
 
 .react-datepicker-wrapper,
 .react-datepicker__input-container {
-  width: 100%;
+    width: 100%;
 }
 
 .MuiAlert-root {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 14px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
 }

@@ -1,0 +1,8 @@
+.Button {
+    background-color: black !important;
+    color: white !important;
+    width: 250px;
+    height: 50px;
+    font-size: 1rem !important;
+    margin-bottom: 25px !important;
+}
