@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import Login from './Login';
-import { BrowserRouter, Router, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import { render, waitForElement } from '@testing-library/react';
 import { FirebaseAppProvider } from 'reactfire';
 import '@testing-library/jest-dom/extend-expect';

@@ -5,10 +5,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import Logo from 'components/Logo/Logo';
 import Menu from 'components/Menu/Menu';
-import AuthorizeAPI from '../../api/authorizeAPI';
+import AuthorizeAPI from 'api/authorizeAPI';
 import googleIcon from 'assets/googleIconSmall.png';
-
-import classes from './Login.module.css';
 
 const Login = ({ history }) => {
   const auth = useAuth();
@@ -21,7 +19,6 @@ const Login = ({ history }) => {
     const status = await AuthorizeAPI.get(userCredential.user.email);
 
     if (status === 200) {
-      console.log(history);
       return history.push('/');
     }
 
@@ -36,13 +33,7 @@ const Login = ({ history }) => {
           {
             text: 'Login',
             onClick: signIn,
-            icon: (
-              <img
-                className={classes.GoogleIcon}
-                src={googleIcon}
-                alt="ícone do Google"
-              ></img>
-            ),
+            icon: <img src={googleIcon} alt="ícone do Google"></img>,
           },
         ]}
       />

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Information from 'components/Information/Information';
 import { calculateAge } from '../../../../utils/dateUtils';
 import { GENDER_EXPRESSION } from '../../../../utils/constants';
-import { classes } from './MainInformation.module.css';
+import classes from './MainInformation.module.css';
 
 const MainInformation = ({ candidate }) => {
   const { birthday, genderExpression, name } = candidate;

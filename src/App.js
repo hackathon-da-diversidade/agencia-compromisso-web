@@ -5,17 +5,17 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { AuthCheck, FirebaseAppProvider } from 'reactfire';
 
 import List from 'pages/List/List';
 import Home from 'pages/Home/Home';
 import CandidateForm from 'pages/CandidateForm/CandidateForm';
 import Detail from 'pages/Detail/Detail';
 import PageNotFound from 'pages/PageNotFound/PageNotFound';
-import './App.css';
-import firebaseConfig from './utils/firebase';
-import { AuthCheck, FirebaseAppProvider } from 'reactfire';
 import Login from 'pages/Login/Login';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import firebaseConfig from 'utils/firebase';
+import 'App.css';
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
         <Suspense fallback={<CircularProgress />}>
           <FirebaseAppProvider firebaseConfig={firebaseConfig}>
             <Router>
-              <div className="classes.App">
+              <div className="App">
                 <Switch>
                   <Route exact path="/">
                     <AuthCheck fallback={<Redirect to="/login" />}>

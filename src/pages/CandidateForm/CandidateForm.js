@@ -41,6 +41,8 @@ class CandidateForm extends Component {
 
   saveCandidate = async () => {
     try {
+      console.log('aqui');
+
       const id = await (this.state.id ? this.update() : this.create());
 
       this.props.history.push(`/candidato/${id}`, {
@@ -52,6 +54,7 @@ class CandidateForm extends Component {
   };
 
   async create() {
+    console.log('aqui');
     const { headers } = await candidateAPI.create(this.state.candidateData);
     const locationArray = headers.location.split('/');
 
@@ -101,7 +104,11 @@ class CandidateForm extends Component {
           </Alert>
         )}
         <div className={classes.Actions}>
-          <Button id="saveButton" clicked={this.saveCandidate}>
+          <Button
+            className="SecundaryButton"
+            id="saveButton"
+            onClick={this.saveCandidate}
+          >
             Salvar
           </Button>
           <Link to="/">Cancelar</Link>

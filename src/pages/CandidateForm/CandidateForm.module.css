@@ -32,7 +32,7 @@
 }
 
 .Tabs div[role='tablist'] {
-    display: block;
+    display: block !important;
 }
 
 .Tabs button:not(:last-child):after {

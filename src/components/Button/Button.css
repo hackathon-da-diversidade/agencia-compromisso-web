@@ -1,0 +1,49 @@
+Button:hover {
+    opacity: 0.9;
+}
+
+.PrimaryButton {
+    padding: 10px 52px;
+    margin: 20px;
+    border: none;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    margin-top: 20px;
+    background-color: #000 !important;
+    width: 250px;
+    height: 50px;
+    color: white !important;
+    margin-bottom: 25px !important;
+}
+
+.PrimaryButton :first-child {
+    display: inline;
+    font-size: 14px;
+}
+
+.PrimaryButton :first-child img {
+    float: left;
+    padding-top: 2px;
+    padding-left: 5px;
+}
+
+.PrimaryButton:disabled {
+    background-color: #f6f5c5;
+    cursor: not-allowed;
+}
+
+.SecundaryButton {
+    padding: 10px 52px !important;
+    margin: 20px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    background-color: #fff952 !important;
+    font-weight: 600 !important;
+}
+
+.SecundaryButton :first-child {
+    font-size: 14px;
+}

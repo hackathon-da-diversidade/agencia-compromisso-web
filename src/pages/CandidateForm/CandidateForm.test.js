@@ -128,7 +128,6 @@ describe('<CandidateForm />', () => {
   });
 
   it('should load candidate data to edit', async () => {
-    // const candidateAPI = jest.fn().mockReturnValue({});
     candidateAPI.get.mockReturnValue({});
 
     const props = {

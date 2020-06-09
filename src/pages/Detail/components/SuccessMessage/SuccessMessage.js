@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from '@material-ui/lab/Alert';
-import { classes } from './SuccessMessage.module.css';
+import classes from './SuccessMessage.module.css';
 
 const SuccessMessage = ({ location }) => {
   return location.state && location.state.registrationSuccessful ? (

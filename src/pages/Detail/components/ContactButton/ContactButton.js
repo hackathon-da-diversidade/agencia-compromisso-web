@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from 'components/Button/Button';
-import { classes } from './ContactButton.module.css';
+import classes from './ContactButton.module.css';
 
 const ContactButton = ({ phoneNumber, guardianPhoneNumber }) => {
   const hasNoPhoneNumber = () => {

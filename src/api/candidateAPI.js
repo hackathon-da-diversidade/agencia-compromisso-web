@@ -12,7 +12,7 @@ export default {
   async get(id) {
     return await axios.get(`${URL}/${id}`);
   },
-  async searchByName(name, page, size) {
+  async searchByName(name, { page, size }) {
     return await axios.get(`${URL}/search`, {
       params: { name, page, size },
     });
@@ -20,7 +20,7 @@ export default {
   async update(candidate) {
     return await axios.put(`${URL}/${candidate.id}`, candidate);
   },
-  async getAllPaginated(page, size) {
+  async getAllPaginated({ page, size }) {
     return await axios.get(`${URL}/paginated`, {
       params: { page, size },
     });
