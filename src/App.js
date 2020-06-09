@@ -15,53 +15,76 @@ import './App.css';
 import firebaseConfig from './utils/firebase';
 import { AuthCheck, FirebaseAppProvider } from 'reactfire';
 import Login from './components/Login/Login';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {
+  ThemeProvider,
+  createMuiTheme,
+  responsiveFontSizes,
+  CircularProgress,
+} from '@material-ui/core';
+import yellow from '@material-ui/core/colors/yellow';
+
+const theme = responsiveFontSizes(createMuiTheme({
+  palette: {
+    primary: yellow,
+    secondary: yellow,
+  },
+  typography: {
+    fontFamily: [
+      'Montserrat',
+      'Roboto',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+}));
 
 class App extends Component {
   render() {
     return (
       <>
-        <Suspense fallback={<CircularProgress />}>
-          <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-            <Router>
-              <div className="App">
-                <Switch>
-                  <Route exact path="/">
-                    <AuthCheck fallback={<Redirect to="/login" />}>
-                      <Menu />
-                    </AuthCheck>
-                  </Route>
-                  <Route exact path="/login">
-                    <Login />
-                  </Route>
-                  <Route exact path="/menu">
-                    <AuthCheck fallback={<Redirect to="/login" />}>
-                      <Menu />
-                    </AuthCheck>
-                  </Route>
-                  <Route exact path="/lista">
-                    <AuthCheck fallback={<Redirect to="/login" />}>
-                      <List />
-                    </AuthCheck>
-                  </Route>
-                  <Route exact path="/cadastro/:id?">
-                    <AuthCheck fallback={<Redirect to="/login" />}>
-                      <FitModelForm />
-                    </AuthCheck>
-                  </Route>
-                  <Route exact path="/modelo/:id">
-                    <AuthCheck fallback={<Redirect to="/login" />}>
-                      <Detail />
-                    </AuthCheck>
-                  </Route>
-                  <Route exact path="*">
-                    <PageNotFound />
-                  </Route>
-                </Switch>
-              </div>
-            </Router>
-          </FirebaseAppProvider>
-        </Suspense>
+        <ThemeProvider theme={theme}>
+          <Suspense fallback={<CircularProgress/>}>
+            <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+              <Router>
+                <div className="App">
+                  <Switch>
+                    <Route exact path="/">
+                      <AuthCheck fallback={<Redirect to="/login"/>}>
+                        <Menu/>
+                      </AuthCheck>
+                    </Route>
+                    <Route exact path="/login">
+                      <Login/>
+                    </Route>
+                    <Route exact path="/menu">
+                      <AuthCheck fallback={<Redirect to="/login"/>}>
+                        <Menu/>
+                      </AuthCheck>
+                    </Route>
+                    <Route exact path="/lista">
+                      <AuthCheck fallback={<Redirect to="/login"/>}>
+                        <List/>
+                      </AuthCheck>
+                    </Route>
+                    <Route exact path="/cadastro/:id?">
+                      <AuthCheck fallback={<Redirect to="/login"/>}>
+                        <FitModelForm/>
+                      </AuthCheck>
+                    </Route>
+                    <Route exact path="/modelo/:id">
+                      <AuthCheck fallback={<Redirect to="/login"/>}>
+                        <Detail/>
+                      </AuthCheck>
+                    </Route>
+                    <Route exact path="*">
+                      <PageNotFound/>
+                    </Route>
+                  </Switch>
+                </div>
+              </Router>
+            </FirebaseAppProvider>
+          </Suspense>
+        </ThemeProvider>
       </>
     );
   }
