@@ -30,7 +30,7 @@ test('should search candidate by name to Agência Compromisso API ', () => {
   const page = 0;
   const size = 10;
 
-  candidateAPI.searchByName(name, page, size);
+  candidateAPI.searchByName(name, { page, size });
   expect(axios.get).toHaveBeenCalledWith(`${URL}/search`, {
     params: { name, page, size },
   });
@@ -40,7 +40,7 @@ test('should get all candidates paginated', () => {
   let page = 1;
   let size = 10;
 
-  candidateAPI.getAllPaginated(page, size);
+  candidateAPI.getAllPaginated({ page, size });
 
   expect(axios.get).toHaveBeenCalledWith(`${URL}/paginated`, {
     params: { page, size },

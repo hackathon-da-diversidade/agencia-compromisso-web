@@ -10,7 +10,7 @@ import Notes from './components/Notes/Notes';
 import ContactButton from './components/ContactButton/ContactButton';
 
 import candidateAPI from '../../api/candidateAPI';
-import { classes } from './Detail.module.css';
+import classes from './Detail.module.css';
 import { withRouter } from 'react-router-dom';
 
 const useCandidate = id => {
@@ -44,6 +44,7 @@ const Detail = ({ match, location }) => {
         {candidate.name ? (
           <div className={classes.Details}>
             <SuccessMessage location={location} />
+
             <MainInformation candidate={candidate} />
             <PersonalInformation data={candidate} />
             <MeasuresInformation data={candidate.sizes} />
@@ -57,7 +58,8 @@ const Detail = ({ match, location }) => {
         ) : null}
       </div>
     );
-  } catch {
+  } catch (error) {
+    console.log(error);
     return (
       <Alert severity="warning">Não foi possível carregar o perfil.</Alert>
     );

@@ -22,13 +22,13 @@ const Search = ({ term, onChange }) => {
   };
 
   return (
-    <div className={classes.Search}>
+    <div className={classes.search}>
       <TextField
         name="searchField"
         label="Busca"
         value={term}
         onChange={e => handleChange(e.target.value)}
-        className={classes.SearchField}
+        className={classes.searchField}
         variant="outlined"
         InputProps={{
           startAdornment: (

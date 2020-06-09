@@ -23,7 +23,7 @@ const List = () => {
         const { content, totalPages, number } = res.data;
         setCandidates(content);
         setPagination({
-          ...pagination,
+          size: 10,
           count: totalPages,
           page: number,
         });

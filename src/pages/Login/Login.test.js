@@ -1,5 +1,9 @@
 import React, { Suspense } from 'react';
+import Login from './Login';
+import { BrowserRouter, Router } from 'react-router-dom';
 import { render, waitFor } from '@testing-library/react';
+import { FirebaseAppProvider } from 'reactfire';
+import '@testing-library/jest-dom/extend-expect';
 import * as ReactFire from 'reactfire';
 import AuthorizeAPI from 'api/authorizeAPI';
 import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
