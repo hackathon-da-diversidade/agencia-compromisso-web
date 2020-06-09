@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { render, waitFor } from '@testing-library/react';
-import { FirebaseAppProvider } from 'reactfire';
 import Home from './Home';
+import { FirebaseAppProvider } from 'reactfire';
+import { render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { BrowserRouter } from 'react-router-dom';
 
 test('should show home items', async () => {
   const { getByText } = render(

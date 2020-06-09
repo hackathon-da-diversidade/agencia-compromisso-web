@@ -25,7 +25,4 @@ export default {
       params: { page, size },
     });
   },
-  async delete(id) {
-    await axios.delete(`${URL}/${id}`);
-  },
 };
