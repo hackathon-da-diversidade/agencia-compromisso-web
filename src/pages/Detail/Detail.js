@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
-import Header from '../../components/Header/Header';
+import Header from 'components/Header/Header';
 import MainInformation from './components/MainInformation/MainInformation';
 import SuccessMessage from './components/SuccessMessage/SuccessMessage';
 import PersonalInformation from './components/PersonalInformation/PersonalInformation';
@@ -9,7 +9,7 @@ import SocialInformation from './components/SocialInformation/SocialInformation'
 import Notes from './components/Notes/Notes';
 import ContactButton from './components/ContactButton/ContactButton';
 
-import candidateAPI from '../../api/candidateAPI';
+import candidateAPI from 'api/candidateAPI';
 import classes from './Detail.module.css';
 import { withRouter } from 'react-router-dom';
 
@@ -44,7 +44,6 @@ const Detail = ({ match, location }) => {
         {candidate.name ? (
           <div className={classes.Details}>
             <SuccessMessage location={location} />
-
             <MainInformation candidate={candidate} />
             <PersonalInformation data={candidate} />
             <MeasuresInformation data={candidate.sizes} />

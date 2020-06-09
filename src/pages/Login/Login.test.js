@@ -23,7 +23,7 @@ test('should render the login button', async () => {
 
   const signIn = await waitFor(() => getByText('Login'));
 
-  expect(login).toBeInTheDocument();
+  expect(signIn).toBeInTheDocument();
 });
 
 test('should sign in', async () => {

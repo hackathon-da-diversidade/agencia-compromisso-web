@@ -1,5 +1,7 @@
 import React from 'react';
 import { configure, mount } from 'enzyme';
+import { render, waitFor } from '@testing-library/react';
+
 import { BrowserRouter as Router, MemoryRouter, Route } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import candidateAPI from 'api/candidateAPI';
@@ -202,13 +204,16 @@ describe('<CandidateForm />', () => {
       },
     };
 
-    const wrapper = mount(
-      <Router>
-        <CandidateForm {...props} />
-      </Router>
+    const { getByText } = render(
+      <MemoryRouter initialEntries={['/cadastro/id']}>
+        <Route exact path="/cadastro/:id">
+          <CandidateForm {...props} />
+        </Route>
+      </MemoryRouter>
     );
 
-    wrapper.find('#saveButton').simulate('click');
+    const save = await waitFor(() => getByText('Salvar'));
+    save.click();
 
     await flushMicroTasks();
 
