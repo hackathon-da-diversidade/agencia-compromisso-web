@@ -55,3 +55,11 @@ test('should update candidate profile info', () => {
 
   expect(axios.put).toHaveBeenCalledWith(`${URL}/${id}`, candidate);
 });
+
+test('should delete candidate', () => {
+  const id = '5a1154523a6bcc1d245e143d';
+
+  candidateAPI.delete(id);
+
+  expect(axios.delete).toHaveBeenCalledWith(`${URL}/${id}`);
+});

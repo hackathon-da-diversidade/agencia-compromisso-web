@@ -2,11 +2,11 @@ import React from 'react';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Detail from './Detail';
-import candidateAPI from '../../api/candidateAPI';
+import candidateAPI from 'api/candidateAPI';
 import { MemoryRouter, Route } from 'react-router-dom';
-import { resolvePromises } from '../../utils/formHelpers';
+import { resolvePromises } from 'utils/formHelpers';
 
-jest.mock('../../api/candidateAPI');
+jest.mock('api/candidateAPI');
 
 configure({ adapter: new Adapter() });
 

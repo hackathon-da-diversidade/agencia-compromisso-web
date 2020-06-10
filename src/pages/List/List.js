@@ -9,9 +9,19 @@ import classes from './List.module.css';
 
 const List = () => {
   const [candidates, setCandidates] = useState([]);
+  const [isUpdated, setIsUpdated] = useState(true);
   const [error, setError] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [pagination, setPagination] = useState({ size: 10, count: 0, page: 0 });
+
+  const onDelete = async (id) => {
+    try {
+      await candidateAPI.delete(id);
+      setIsUpdated(!isUpdated);
+    } catch {
+      setError(true);
+    }
+  };
 
   useEffect(() => {
     const loadCandidates = async () => {
@@ -21,6 +31,7 @@ const List = () => {
           : await candidateAPI.getAllPaginated(pagination);
 
         const { content, totalPages, number } = res.data;
+
         setCandidates(content);
         setPagination({
           size: 10,
@@ -34,18 +45,24 @@ const List = () => {
     };
 
     loadCandidates();
-  }, [searchTerm, pagination.page]);
+  }, [isUpdated]);
 
   const changePage = (_, page) => {
     setPagination({ ...pagination, page: page - 1 });
+    setIsUpdated(!isUpdated);
   };
 
   return (
     <>
       <Header title="Lista" />
-      <Search onChange={setSearchTerm} />
-      {candidates.map(candidate => (
-        <CandidateCard key={candidate.id} {...candidate} />
+      <Search
+        onChange={(term) => {
+          setSearchTerm(term);
+          setIsUpdated(!isUpdated);
+        }}
+      />
+      {candidates.map((candidate) => (
+        <CandidateCard key={candidate.id} {...candidate} onDelete={onDelete} />
       ))}
       <div className={classes.PaginationWrapper}>
         <Pagination count={pagination.count} onChange={changePage} />

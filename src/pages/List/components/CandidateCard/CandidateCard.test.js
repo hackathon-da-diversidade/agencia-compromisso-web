@@ -1,12 +1,18 @@
 import React from 'react';
 import { configure, mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Adapter from 'enzyme-adapter-react-16';
+import Dialog from '@material-ui/core/Dialog';
+import Button from 'components/Button/Button';
+
+import DialogActions from '@material-ui/core/DialogActions';
+
 import CandidateCardComponent from './CandidateCard';
 
 configure({ adapter: new Adapter() });
 
-const CandidateCard = props => (
+const CandidateCard = (props) => (
   <MemoryRouter>
     <CandidateCardComponent {...props} />
   </MemoryRouter>
@@ -42,5 +48,27 @@ describe('<CandidateCard />', () => {
     const link = wrapper.find('#link-details').first();
 
     expect(link.props().to).toBe('/candidato/1');
+  });
+
+  it('should call on delete function', () => {
+    const data = {
+      id: 'id',
+    };
+
+    const onDelete = jest.fn();
+
+    const wrapper = mount(<CandidateCard {...data} onDelete={onDelete} />);
+
+    wrapper.find(DeleteIcon).simulate('click');
+    wrapper
+      .find(Dialog)
+      .find(DialogActions)
+      .find(Button)
+      .findWhere((node) => node.text() === 'Excluir')
+      .first()
+      .simulate('click');
+
+    expect(onDelete).toBeCalledTimes(1);
+    expect(onDelete).toBeCalledWith(data.id);
   });
 });

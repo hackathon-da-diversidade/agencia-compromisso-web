@@ -9,7 +9,7 @@ import classes from './Search.module.css';
 const Search = ({ term, onChange }) => {
   const [typingTimeout, setTypingTimeout] = useState(0);
 
-  const handleChange = term => {
+  const handleChange = (term) => {
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
@@ -27,7 +27,7 @@ const Search = ({ term, onChange }) => {
         name="searchField"
         label="Busca"
         value={term}
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         className={classes.searchField}
         variant="outlined"
         InputProps={{

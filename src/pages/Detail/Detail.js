@@ -13,14 +13,14 @@ import candidateAPI from 'api/candidateAPI';
 import classes from './Detail.module.css';
 import { withRouter } from 'react-router-dom';
 
-const useCandidate = id => {
+const useCandidate = (id) => {
   const [candidate, setCandidate] = useState({
     sizes: {},
     socialInformation: {},
   });
 
   useEffect(() => {
-    const loadCandidateInfo = async id => {
+    const loadCandidateInfo = async (id) => {
       try {
         const { data } = await candidateAPI.get(id);
         setCandidate(data);
