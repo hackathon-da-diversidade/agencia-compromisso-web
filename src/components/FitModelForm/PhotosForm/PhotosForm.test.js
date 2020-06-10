@@ -9,10 +9,8 @@ describe('<PhotosForm/>', () => {
   it('should load list', async () => {
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
-    const photos = {
-      photos: [{ photo: file, url: fileName }],
-    };
-    const wrapper = mount(<PhotosForm data={photos} />);
+    const photos = [{ photo: file, url: fileName, exists: false }];
+    const wrapper = mount(<PhotosForm photos={photos} />);
 
     expect(wrapper.find(`#photo0`).getDOMNode()).toBeVisible();
   });
@@ -64,18 +62,16 @@ describe('<PhotosForm/>', () => {
       .find('input[type="file"]')
       .simulate('change', { target: { files: [file] } });
 
-    expect(onChange).toHaveBeenCalledWith({
-      photos: [{ photo: file, url: fileName }],
-    });
+    expect(onChange).toHaveBeenCalledWith([
+      { photo: file, url: fileName, exists: false },
+    ]);
   });
 
   it('should open image', async () => {
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
-    const photos = {
-      photos: [{ photo: file, url: fileName }],
-    };
-    const wrapper = mount(<PhotosForm data={photos} />);
+    const photos = [{ photo: file, url: fileName, exists: false }];
+    const wrapper = mount(<PhotosForm photos={photos} />);
 
     wrapper.find(`#photo0`).find(VisibilityIcon).simulate('click');
 
@@ -83,5 +79,20 @@ describe('<PhotosForm/>', () => {
 
     expect(dialog.getDOMNode()).toBeVisible();
     expect(dialog.find(`img[src="${fileName}"]`).getDOMNode()).toBeVisible();
+  });
+
+  it('should remove photo from Firebase', async () => {
+    const fileName = 'image.png';
+    const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
+    const fileDelete = jest.fn();
+
+    file['delete'] = fileDelete;
+
+    const photos = [{ photo: file, url: fileName, exists: true }];
+    const wrapper = mount(<PhotosForm photos={photos} />);
+
+    wrapper.find(`#photo0`).find(DeleteIcon).simulate('click');
+
+    expect(fileDelete).toHaveBeenCalled();
   });
 });

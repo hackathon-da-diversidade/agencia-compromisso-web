@@ -12,6 +12,7 @@ import {
 } from '../../utils/formHelpers';
 import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
 import { act, render, waitFor } from '@testing-library/react';
+import * as ReactFire from 'reactfire';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -20,8 +21,17 @@ configure({ adapter: new Adapter() });
 beforeEach(() => jest.clearAllMocks());
 
 describe('<FitModelForm />', () => {
+  const put = jest.fn();
+  const listAll = jest.fn().mockReturnValue({ items: [] });
+  const ref = jest.fn().mockReturnValue({ put, listAll });
+  const useStorage = jest.fn().mockReturnValue({ ref });
+
+  ReactFire['useStorage'] = useStorage;
+
   it('should show default fields', async () => {
-    fitModelAPI.create.mockReturnValue({ headers: { location: '' } });
+    fitModelAPI.create.mockReturnValue({
+      headers: { location: '/candidate/id' },
+    });
 
     const props = {
       match: {
@@ -87,6 +97,21 @@ describe('<FitModelForm />', () => {
     fillSelect(wrapper, data.education, 'education');
     fillTextarea(wrapper, data.notes, 'notes');
 
+    // Photos Tab
+
+    wrapper.find('#tab-1').first().simulate('click');
+
+    const fileName = 'image.png';
+    const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
+
+    global.URL.createObjectURL = jest.fn().mockReturnValue(fileName);
+
+    wrapper
+      .find('input[type="file"]')
+      .simulate('change', { target: { files: [file] } });
+
+    // Photos Tab End
+
     wrapper.find('#tab-2').first().simulate('click');
 
     fillInput(
@@ -127,84 +152,90 @@ describe('<FitModelForm />', () => {
 
     await resolvePromises(wrapper);
 
+    expect(useStorage).toHaveBeenCalled();
+    expect(ref).toHaveBeenCalledWith(`photos/id/${fileName}`);
+    expect(put).toHaveBeenCalledWith(file);
     expect(fitModelAPI.create).toBeCalledTimes(1);
     expect(fitModelAPI.create).toBeCalledWith(data);
   });
-});
 
-test('should load fit model data to edit', async () => {
-  fitModelAPI.get.mockReturnValue({ data: {} });
+  test('should load fit model data to edit', async () => {
+    fitModelAPI.get.mockReturnValue({ data: {} });
 
-  await act(async () => {
-    render(
-      <MemoryRouter initialEntries={['/cadastro/id']}>
-        <Route exact path="/cadastro/:id">
-          <FitModelForm />
-        </Route>
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={['/cadastro/id']}>
+          <Route exact path="/cadastro/:id">
+            <FitModelForm />
+          </Route>
+        </MemoryRouter>
+      );
 
-    await flushMicroTasks();
+      await flushMicroTasks();
+    });
+
+    expect(useStorage).toHaveBeenCalled();
+    expect(ref).toHaveBeenCalledWith(`photos/id`);
+    expect(listAll).toHaveBeenCalled();
+    expect(fitModelAPI.get).toBeCalledTimes(1);
+    expect(fitModelAPI.get).toBeCalledWith('id');
   });
 
-  expect(fitModelAPI.get).toBeCalledTimes(1);
-  expect(fitModelAPI.get).toBeCalledWith('id');
-});
+  test('should call update when editing', async () => {
+    const data = {
+      id: 'id',
+      name: 'Name',
+      birthday: '00/00/0000',
+      availability: 'availability',
+      inProjects: 'inProjects',
+      projects: null,
+      phoneNumber: '0000000000000',
+      address: 'address',
+      genderExpression: 'genderExpression',
+      identifyAsLGBTQIA: 'identifyAsLGBTQIA',
+      education: 'education',
+      notes: 'notes',
+      sizes: {
+        totalBustCircumference: 'totalBustCircumference',
+        totalWaistCircumference: 'totalWaistCircumference',
+        totalHipCircumference: 'totalHipCircumference',
+        height: 'height',
+        shirtSize: 'M',
+        pantsSize: 42,
+        shoeSize: '40',
+      },
+      socialInformation: {
+        ethnicity: 'ethnicity',
+        housing: 'housing',
+        numberOfResidents: 'numberOfResidents',
+        occupation: 'occupation',
+        occupationMode: 'occupationMode',
+        familyIncome: 'familyIncome',
+        hasChildren: 'no',
+        numberOfChildren: null,
+      },
+    };
 
-test('should call update when editing', async () => {
-  const data = {
-    id: 'id',
-    name: 'Name',
-    birthday: '00/00/0000',
-    availability: 'availability',
-    inProjects: 'inProjects',
-    projects: null,
-    phoneNumber: '0000000000000',
-    address: 'address',
-    genderExpression: 'genderExpression',
-    identifyAsLGBTQIA: 'identifyAsLGBTQIA',
-    education: 'education',
-    notes: 'notes',
-    sizes: {
-      totalBustCircumference: 'totalBustCircumference',
-      totalWaistCircumference: 'totalWaistCircumference',
-      totalHipCircumference: 'totalHipCircumference',
-      height: 'height',
-      shirtSize: 'M',
-      pantsSize: 42,
-      shoeSize: '40',
-    },
-    socialInformation: {
-      ethnicity: 'ethnicity',
-      housing: 'housing',
-      numberOfResidents: 'numberOfResidents',
-      occupation: 'occupation',
-      occupationMode: 'occupationMode',
-      familyIncome: 'familyIncome',
-      hasChildren: 'no',
-      numberOfChildren: null,
-    },
-  };
+    fitModelAPI.get.mockReturnValue({ data });
+    fitModelAPI.update.mockReturnValue({ data: { id: 'id' } });
 
-  fitModelAPI.get.mockReturnValue({ data });
-  fitModelAPI.update.mockReturnValue({ data: { id: 'id' } });
+    await act(async () => {
+      const { getByText } = render(
+        <MemoryRouter initialEntries={['/cadastro/id']}>
+          <Route exact path="/cadastro/:id">
+            <FitModelForm />
+          </Route>
+        </MemoryRouter>
+      );
 
-  await act(async () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={['/cadastro/id']}>
-        <Route exact path="/cadastro/:id">
-          <FitModelForm />
-        </Route>
-      </MemoryRouter>
-    );
+      await flushMicroTasks();
+      await flushMicroTasks();
 
-    await flushMicroTasks();
-    await flushMicroTasks();
+      const save = await waitFor(() => getByText('Salvar'));
+      save.click();
+    });
 
-    const save = await waitFor(() => getByText('Salvar'));
-    save.click();
+    expect(fitModelAPI.update).toBeCalledTimes(1);
+    expect(fitModelAPI.update).toBeCalledWith(data);
   });
-
-  expect(fitModelAPI.update).toBeCalledTimes(1);
-  expect(fitModelAPI.update).toBeCalledWith(data);
 });

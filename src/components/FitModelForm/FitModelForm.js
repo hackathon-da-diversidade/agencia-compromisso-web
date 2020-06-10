@@ -11,6 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import fitModelAPI from '../../api/fitModelAPI';
 import classes from './FitModelForm.module.css';
 import PhotosForm from './PhotosForm/PhotosForm';
+import { useStorage } from 'reactfire';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,9 +39,11 @@ function a11yProps(index) {
 const FitModelForm = ({ match, history }) => {
   let id = match.params.id;
 
+  const storage = useStorage();
   const [candidate, setCandidate] = useState({});
   const [selectedTab, setSelectedTab] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const [photos, setPhotos] = useState([]);
 
   const handleTabChange = (event, tab) => {
     setSelectedTab(tab);
@@ -64,9 +67,29 @@ const FitModelForm = ({ match, history }) => {
     return data.id;
   };
 
+  const uploadPhotos = async (candidateId) => {
+    (photos || [])
+      .filter((file) => !file.exists)
+      .forEach((file) => {
+        storage.ref(`photos/${candidateId}/${file.photo.name}`).put(file.photo);
+      });
+  };
+
+  const getPhotos = async (candidateId) => {
+    const list = await storage.ref(`photos/${candidateId}`).listAll();
+
+    const items = list.items.map(async (item) => {
+      return { photo: item, url: await item.getDownloadURL(), exists: true };
+    });
+
+    setPhotos(await Promise.all(items));
+  };
+
   const saveCandidate = async () => {
     try {
       id = await (candidate.id ? update() : create());
+
+      await uploadPhotos(id);
 
       history.push(`/modelo/${id}`, { registrationSuccessful: true });
     } catch (e) {
@@ -78,6 +101,8 @@ const FitModelForm = ({ match, history }) => {
     const getCandidate = async () => {
       try {
         const { data } = await fitModelAPI.get(id);
+
+        await getPhotos(id);
 
         setCandidate(data);
       } catch (e) {
@@ -116,10 +141,8 @@ const FitModelForm = ({ match, history }) => {
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
         <PhotosForm
-          data={candidate}
-          onChange={(updatedFields) => {
-            setCandidate({ ...candidate, ...updatedFields });
-          }}
+          photos={photos}
+          onChange={(photosList) => setPhotos(photosList)}
         />
       </TabPanel>
       <TabPanel value={selectedTab} index={2}>

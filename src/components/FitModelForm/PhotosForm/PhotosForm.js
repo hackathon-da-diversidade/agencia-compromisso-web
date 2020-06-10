@@ -26,7 +26,7 @@ class PhotosForm extends Component {
     this.state = {
       src: '',
       open: false,
-      photos: props.data?.photos || [],
+      photos: 'photos' in props ? props.photos : [],
     };
   }
 
@@ -36,11 +36,15 @@ class PhotosForm extends Component {
     const photos = [];
 
     for (let file of event.target.files) {
-      photos.push({ photo: file, url: URL.createObjectURL(file) });
+      photos.push({
+        photo: file,
+        url: URL.createObjectURL(file),
+        exists: false,
+      });
     }
 
     this.setState({ photos: [...this.state.photos, ...photos] });
-    this.onChange({ photos });
+    this.onChange(photos);
   };
 
   closePhoto = () => this.setState({ open: false, src: '' });
@@ -49,10 +53,14 @@ class PhotosForm extends Component {
 
   removePhoto = (index) => {
     const photos = [...this.state.photos];
-    photos.splice(index, 1);
+    const file = photos.splice(index, 1).pop();
+
+    if (file.exists) {
+      file.photo.delete();
+    }
 
     this.setState({ photos });
-    this.onChange({ photos });
+    this.onChange(photos);
   };
 
   render() {
