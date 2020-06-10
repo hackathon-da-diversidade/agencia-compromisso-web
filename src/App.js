@@ -5,16 +5,15 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
-import List from './components/List/List';
-import Menu from './components/Menu/Menu';
-import FitModelForm from './components/FitModelForm/FitModelForm';
-import Detail from './components/Detail/Detail';
-import PageNotFound from './components/PageNotFound/PageNotFound';
-import './App.css';
-import firebaseConfig from './utils/firebase';
 import { AuthCheck, FirebaseAppProvider } from 'reactfire';
-import Login from './components/Login/Login';
+import List from './pages/List/List';
+import Home from './pages/Home/Home';
+import CandidateForm from './pages/CandidateForm/CandidateForm';
+import Detail from './pages/Detail/Detail';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
+import Login from './pages/Login/Login';
+import firebaseConfig from './utils/firebase';
+import './App.css';
 import {
   ThemeProvider,
   createMuiTheme,
@@ -47,16 +46,11 @@ class App extends Component {
                   <Switch>
                     <Route exact path="/">
                       <AuthCheck fallback={<Redirect to="/login" />}>
-                        <Menu />
+                        <Home />
                       </AuthCheck>
                     </Route>
                     <Route exact path="/login">
                       <Login />
-                    </Route>
-                    <Route exact path="/menu">
-                      <AuthCheck fallback={<Redirect to="/login" />}>
-                        <Menu />
-                      </AuthCheck>
                     </Route>
                     <Route exact path="/lista">
                       <AuthCheck fallback={<Redirect to="/login" />}>
@@ -65,10 +59,10 @@ class App extends Component {
                     </Route>
                     <Route exact path="/cadastro/:id?">
                       <AuthCheck fallback={<Redirect to="/login" />}>
-                        <FitModelForm />
+                        <CandidateForm />
                       </AuthCheck>
                     </Route>
-                    <Route exact path="/modelo/:id">
+                    <Route exact path="/candidato/:id">
                       <AuthCheck fallback={<Redirect to="/login" />}>
                         <Detail />
                       </AuthCheck>
