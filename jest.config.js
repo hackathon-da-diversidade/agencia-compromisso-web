@@ -1,6 +1,3 @@
 module.exports = {
-  collectCoverageFrom: [
-    "./src/api/**",
-    "./src/components/**",
-  ],
+  collectCoverageFrom: ['./src/api/**', './src/components/**'],
 };

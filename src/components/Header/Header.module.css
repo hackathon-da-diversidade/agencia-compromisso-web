@@ -1,47 +1,49 @@
 .Header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3vh;
 }
+
 .HeaderIcon {
-  display: block;
-  margin: auto;
-  width: 5vh;
+    display: block;
+    margin: auto;
+    width: 5vh;
 }
+
 .HeaderBanner {
-  margin-top: 5px;
-  width: 20vh;
+    margin-top: 5px;
+    width: 20vh;
 }
 
 .HeaderTitle {
-  text-transform: uppercase;
-  margin-top: 25px;
-  font-size: 16px;
-  font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .HeaderBack {
-  position: fixed;
-  left: 16px;
-  top: 40px;
+    position: fixed;
+    left: 16px;
+    top: 40px;
 }
 
-.HeaderBack > svg {
-  width: 40px;
-  height: 40px;
+.HeaderBack>svg {
+    width: 40px;
+    height: 40px;
 }
 
 .HeaderBack:hover {
-  text-decoration: none;
-  color: #ffc42e;
+    text-decoration: none;
+    color: #ffc42e;
 }
 
 @media only screen and (max-width: 600px) {
-  .HeaderBack {
-    position: absolute;
-  }
+    .HeaderBack {
+        position: absolute;
+    }
 }
