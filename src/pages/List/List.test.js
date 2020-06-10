@@ -102,6 +102,9 @@ describe('<List />', () => {
       await flushMicroTasks();
 
       wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
+
+      await resolvePromises(wrapper);
+
       wrapper
         .find(Dialog)
         .find(DialogActions)

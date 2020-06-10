@@ -1,5 +1,33 @@
 .PaginationWrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 2.5%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5%;
+}
+
+.ListWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5%;
+}
+
+.List {
+  width: 90%;
+}
+
+@media (min-width: 768px) {
+  .List {
+    width: 75%;
+  }
+}
+
+@media (min-width: 992px) {
+  .List {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .List {
+    width: 25%;
+  }
 }
