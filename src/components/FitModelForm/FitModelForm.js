@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import PersonalForm from './PersonalForm/PersonalForm';
@@ -10,102 +10,147 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import fitModelAPI from '../../api/fitModelAPI';
 import classes from './FitModelForm.module.css';
+import PhotosForm from './PhotosForm/PhotosForm';
 
-const TABS = [PersonalForm, MeasuresForm, SocialForm];
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-class FitModelForm extends Component {
-  constructor(props) {
-    super(props);
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && children}
+    </div>
+  );
+}
 
-    this.state = {
-      id: this.props.match.params.id,
-      selectedTabIndex: 0,
-      fitModelData: {},
-      hasError: false,
-    };
-  }
+function a11yProps(index) {
+  return {
+    id: `tab-${index}`,
+    'aria-controls': `tabpanel-${index}`,
+  };
+}
 
-  componentDidMount() {
-    if (this.state.id) {
-      this.getModel();
-    }
-  }
+const FitModelForm = ({ match, history }) => {
+  let id = match.params.id;
 
-  getModel = async () => {
-    const response = await fitModelAPI.get(this.state.id);
-    this.setState({ fitModelData: response.data });
+  const [candidate, setCandidate] = useState({});
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [hasError, setHasError] = useState(false);
+
+  const handleTabChange = (event, tab) => {
+    setSelectedTab(tab);
   };
 
-  saveFitModel = async () => {
-    try {
-      const id = await (this.state.id ? this.update() : this.create());
-
-      this.props.history.push(`/modelo/${id}`, {
-        registrationSuccessful: true,
-      });
-    } catch (error) {
-      this.setState({ hasError: true });
-    }
+  const handleError = async (error) => {
+    setHasError(true);
+    console.error(error);
   };
 
-  async create() {
-    const { headers } = await fitModelAPI.create(this.state.fitModelData);
+  const create = async () => {
+    const { headers } = await fitModelAPI.create(candidate);
     const locationArray = headers.location.split('/');
 
     return locationArray[locationArray.length - 1];
-  }
+  };
 
-  async update() {
-    const { data } = await fitModelAPI.update(this.state.fitModelData);
+  const update = async () => {
+    const { data } = await fitModelAPI.update(candidate);
 
     return data.id;
-  }
+  };
 
-  render() {
-    const TabComponent = TABS[this.state.selectedTabIndex];
+  const saveCandidate = async () => {
+    try {
+      id = await (candidate.id ? update() : create());
 
-    return (
-      <div className={classes.FitModelForm}>
-        <Header />
-        <Tabs
-          value={this.state.selectedTabIndex}
-          onChange={(event, index) =>
-            this.setState({ selectedTabIndex: index })
-          }
-          variant="scrollable"
-          scrollButtons="auto"
-          className={classes.Tabs}
-          TabIndicatorProps={{ className: classes.Indicator }}
-        >
-          <Tab label="PESSOAL" />
-          <Tab id="measuresTab" label="MEDIDAS" />
-          <Tab id="socialTab" label="SOCIAL" />
-        </Tabs>
-        <TabComponent
-          data={this.state.fitModelData}
+      history.push(`/modelo/${id}`, { registrationSuccessful: true });
+    } catch (e) {
+      await handleError(e);
+    }
+  };
+
+  useEffect(() => {
+    const getCandidate = async () => {
+      try {
+        const { data } = await fitModelAPI.get(id);
+
+        setCandidate(data);
+      } catch (e) {
+        await handleError(e);
+      }
+    };
+
+    if (id) {
+      getCandidate();
+    }
+  }, [id]);
+
+  return (
+    <div className={classes.FitModelForm}>
+      <Header />
+      <Tabs
+        value={selectedTab}
+        onChange={handleTabChange}
+        variant="scrollable"
+        scrollButtons="auto"
+        className={classes.Tabs}
+        TabIndicatorProps={{ className: classes.Indicator }}
+      >
+        <Tab label="PESSOAL" {...a11yProps(0)} />
+        <Tab label="FOTOS" {...a11yProps(1)} />
+        <Tab label="MEDIDAS" {...a11yProps(2)} />
+        <Tab label="SOCIAL" {...a11yProps(3)} />
+      </Tabs>
+      <TabPanel value={selectedTab} index={0}>
+        <PersonalForm
+          data={candidate}
           onChange={(updatedFields) => {
-            this.setState({
-              fitModelData: {
-                ...this.state.fitModelData,
-                ...updatedFields,
-              },
-            });
+            setCandidate({ ...candidate, ...updatedFields });
           }}
         />
-        {this.state.hasError && (
-          <Alert severity="error">
-            Ocorreu um erro ao salvar os dados. Tente novamente.
-          </Alert>
-        )}
-        <div className={classes.Actions}>
-          <Button id="saveButton" clicked={this.saveFitModel}>
-            Salvar
-          </Button>
-          <Link to="/">Cancelar</Link>
-        </div>
+      </TabPanel>
+      <TabPanel value={selectedTab} index={1}>
+        <PhotosForm
+          data={candidate}
+          onChange={(updatedFields) => {
+            setCandidate({ ...candidate, ...updatedFields });
+          }}
+        />
+      </TabPanel>
+      <TabPanel value={selectedTab} index={2}>
+        <MeasuresForm
+          data={candidate}
+          onChange={(updatedFields) => {
+            setCandidate({ ...candidate, ...updatedFields });
+          }}
+        />
+      </TabPanel>
+      <TabPanel value={selectedTab} index={3}>
+        <SocialForm
+          data={candidate}
+          onChange={(updatedFields) => {
+            setCandidate({ ...candidate, ...updatedFields });
+          }}
+        />
+      </TabPanel>
+      {hasError && (
+        <Alert severity="error">
+          Ocorreu um erro ao salvar os dados. Tente novamente.
+        </Alert>
+      )}
+      <div className={classes.Actions}>
+        <Button id="saveButton" clicked={saveCandidate}>
+          Salvar
+        </Button>
+        <Link to="/">Cancelar</Link>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default withRouter(FitModelForm);

@@ -11,7 +11,7 @@ import {
   resolvePromises,
 } from '../../utils/formHelpers';
 import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
-import { render, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 
 jest.mock('../../api/fitModelAPI');
 
@@ -21,7 +21,7 @@ beforeEach(() => jest.clearAllMocks());
 
 describe('<FitModelForm />', () => {
   it('should show default fields', async () => {
-    fitModelAPI.create.mockReturnValue({});
+    fitModelAPI.create.mockReturnValue({ headers: { location: '' } });
 
     const props = {
       match: {
@@ -64,13 +64,17 @@ describe('<FitModelForm />', () => {
       },
     };
 
-    const wrapper = mount(
-      <Router>
-        <FitModelForm {...props} />
-      </Router>
-    );
+    let wrapper = null;
 
-    await resolvePromises(wrapper);
+    await act(async () => {
+      wrapper = mount(
+        <Router>
+          <FitModelForm {...props} />
+        </Router>
+      );
+
+      await resolvePromises(wrapper);
+    });
 
     fillInput(wrapper, data.name, 'name');
     fillInput(wrapper, data.birthday, 'birthday');
@@ -83,7 +87,7 @@ describe('<FitModelForm />', () => {
     fillSelect(wrapper, data.education, 'education');
     fillTextarea(wrapper, data.notes, 'notes');
 
-    wrapper.find('#measuresTab').first().simulate('click');
+    wrapper.find('#tab-2').first().simulate('click');
 
     fillInput(
       wrapper,
@@ -105,7 +109,7 @@ describe('<FitModelForm />', () => {
     fillInput(wrapper, data.sizes.pantsSize, 'pantsSize');
     fillInput(wrapper, data.sizes.shoeSize, 'shoeSize');
 
-    wrapper.find('#socialTab').first().simulate('click');
+    wrapper.find('#tab-3').first().simulate('click');
 
     fillSelect(wrapper, data.socialInformation.ethnicity, 'ethnicity');
     fillInput(wrapper, data.socialInformation.housing, 'housing');
@@ -126,35 +130,30 @@ describe('<FitModelForm />', () => {
     expect(fitModelAPI.create).toBeCalledTimes(1);
     expect(fitModelAPI.create).toBeCalledWith(data);
   });
+});
 
-  it('should load fit model data to edit', async () => {
-    fitModelAPI.get.mockReturnValue({});
+test('should load fit model data to edit', async () => {
+  fitModelAPI.get.mockReturnValue({ data: {} });
 
-    const props = {
-      match: {
-        params: {
-          id: 'id',
-        },
-      },
-    };
-
-    const wrapper = mount(
+  await act(async () => {
+    render(
       <MemoryRouter initialEntries={['/cadastro/id']}>
         <Route exact path="/cadastro/:id">
-          <FitModelForm {...props} />
+          <FitModelForm />
         </Route>
       </MemoryRouter>
     );
 
-    await resolvePromises(wrapper);
-
-    expect(fitModelAPI.get).toBeCalledTimes(1);
-    expect(fitModelAPI.get).toBeCalledWith(props.match.params.id);
+    await flushMicroTasks();
   });
+
+  expect(fitModelAPI.get).toBeCalledTimes(1);
+  expect(fitModelAPI.get).toBeCalledWith('id');
 });
 
 test('should call update when editing', async () => {
   const data = {
+    id: 'id',
     name: 'Name',
     birthday: '00/00/0000',
     availability: 'availability',
@@ -188,28 +187,23 @@ test('should call update when editing', async () => {
   };
 
   fitModelAPI.get.mockReturnValue({ data });
-  fitModelAPI.update.mockReturnValue({});
+  fitModelAPI.update.mockReturnValue({ data: { id: 'id' } });
 
-  const props = {
-    match: {
-      params: {
-        id: 'id',
-      },
-    },
-  };
+  await act(async () => {
+    const { getByText } = render(
+      <MemoryRouter initialEntries={['/cadastro/id']}>
+        <Route exact path="/cadastro/:id">
+          <FitModelForm />
+        </Route>
+      </MemoryRouter>
+    );
 
-  const { getByText } = render(
-    <MemoryRouter initialEntries={['/cadastro/id']}>
-      <Route exact path="/cadastro/:id">
-        <FitModelForm {...props} />
-      </Route>
-    </MemoryRouter>
-  );
+    await flushMicroTasks();
+    await flushMicroTasks();
 
-  const save = await waitFor(() => getByText('Salvar'));
-  save.click();
-
-  await flushMicroTasks();
+    const save = await waitFor(() => getByText('Salvar'));
+    save.click();
+  });
 
   expect(fitModelAPI.update).toBeCalledTimes(1);
   expect(fitModelAPI.update).toBeCalledWith(data);
