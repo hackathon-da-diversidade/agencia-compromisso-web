@@ -10,24 +10,22 @@ describe('<PhotosForm/>', () => {
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
     const photos = {
-      photos: [
-        { photo: file, url: fileName },
-      ],
+      photos: [{ photo: file, url: fileName }],
     };
-    const wrapper = mount(<PhotosForm data={photos}/>);
+    const wrapper = mount(<PhotosForm data={photos} />);
 
     expect(wrapper.find(`#photo0`).getDOMNode()).toBeVisible();
   });
 
   it('should add photo to the list', async () => {
-    const wrapper = mount(<PhotosForm/>);
+    const wrapper = mount(<PhotosForm />);
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
 
     global.URL.createObjectURL = jest.fn().mockReturnValue(fileName);
 
     wrapper
-      .findWhere(node => node.text() === 'Adicionar Foto')
+      .findWhere((node) => node.text() === 'Adicionar Foto')
       .first()
       .simulate('click');
 
@@ -39,7 +37,7 @@ describe('<PhotosForm/>', () => {
   });
 
   it('should remove photo from the list', async () => {
-    const wrapper = mount(<PhotosForm/>);
+    const wrapper = mount(<PhotosForm />);
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
 
@@ -49,17 +47,14 @@ describe('<PhotosForm/>', () => {
       .find('input[type="file"]')
       .simulate('change', { target: { files: [file] } });
 
-    wrapper
-      .find(`#photo0`)
-      .find(DeleteIcon)
-      .simulate('click');
+    wrapper.find(`#photo0`).find(DeleteIcon).simulate('click');
 
     expect(wrapper.find(`#photo0`)).toHaveLength(0);
   });
 
   it('should call on change', async () => {
     const onChange = jest.fn();
-    const wrapper = mount(<PhotosForm onChange={onChange}/>);
+    const wrapper = mount(<PhotosForm onChange={onChange} />);
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
 
@@ -69,23 +64,20 @@ describe('<PhotosForm/>', () => {
       .find('input[type="file"]')
       .simulate('change', { target: { files: [file] } });
 
-    expect(onChange).toHaveBeenCalledWith({ photos: [{ photo: file, url: fileName }] });
+    expect(onChange).toHaveBeenCalledWith({
+      photos: [{ photo: file, url: fileName }],
+    });
   });
 
   it('should open image', async () => {
     const fileName = 'image.png';
     const file = new File(['(⌐□_□)'], fileName, { type: 'image/png' });
     const photos = {
-      photos: [
-        { photo: file, url: fileName },
-      ],
+      photos: [{ photo: file, url: fileName }],
     };
-    const wrapper = mount(<PhotosForm data={photos}/>);
+    const wrapper = mount(<PhotosForm data={photos} />);
 
-    wrapper
-      .find(`#photo0`)
-      .find(VisibilityIcon)
-      .simulate('click');
+    wrapper.find(`#photo0`).find(VisibilityIcon).simulate('click');
 
     const dialog = wrapper.find(Dialog);
 

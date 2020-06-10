@@ -23,61 +23,58 @@ import {
 } from '@material-ui/core';
 import yellow from '@material-ui/core/colors/yellow';
 
-const theme = responsiveFontSizes(createMuiTheme({
-  palette: {
-    primary: yellow,
-    secondary: yellow,
-  },
-  typography: {
-    fontFamily: [
-      'Montserrat',
-      'Roboto',
-      'Arial',
-      'sans-serif',
-    ].join(','),
-  },
-}));
+const theme = responsiveFontSizes(
+  createMuiTheme({
+    palette: {
+      primary: yellow,
+      secondary: yellow,
+    },
+    typography: {
+      fontFamily: ['Montserrat', 'Roboto', 'Arial', 'sans-serif'].join(','),
+    },
+  })
+);
 
 class App extends Component {
   render() {
     return (
       <>
         <ThemeProvider theme={theme}>
-          <Suspense fallback={<CircularProgress/>}>
+          <Suspense fallback={<CircularProgress />}>
             <FirebaseAppProvider firebaseConfig={firebaseConfig}>
               <Router>
                 <div className="App">
                   <Switch>
                     <Route exact path="/">
-                      <AuthCheck fallback={<Redirect to="/login"/>}>
-                        <Menu/>
+                      <AuthCheck fallback={<Redirect to="/login" />}>
+                        <Menu />
                       </AuthCheck>
                     </Route>
                     <Route exact path="/login">
-                      <Login/>
+                      <Login />
                     </Route>
                     <Route exact path="/menu">
-                      <AuthCheck fallback={<Redirect to="/login"/>}>
-                        <Menu/>
+                      <AuthCheck fallback={<Redirect to="/login" />}>
+                        <Menu />
                       </AuthCheck>
                     </Route>
                     <Route exact path="/lista">
-                      <AuthCheck fallback={<Redirect to="/login"/>}>
-                        <List/>
+                      <AuthCheck fallback={<Redirect to="/login" />}>
+                        <List />
                       </AuthCheck>
                     </Route>
                     <Route exact path="/cadastro/:id?">
-                      <AuthCheck fallback={<Redirect to="/login"/>}>
-                        <FitModelForm/>
+                      <AuthCheck fallback={<Redirect to="/login" />}>
+                        <FitModelForm />
                       </AuthCheck>
                     </Route>
                     <Route exact path="/modelo/:id">
-                      <AuthCheck fallback={<Redirect to="/login"/>}>
-                        <Detail/>
+                      <AuthCheck fallback={<Redirect to="/login" />}>
+                        <Detail />
                       </AuthCheck>
                     </Route>
                     <Route exact path="*">
-                      <PageNotFound/>
+                      <PageNotFound />
                     </Route>
                   </Switch>
                 </div>

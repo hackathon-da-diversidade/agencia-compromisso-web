@@ -22,8 +22,7 @@ class PhotosForm extends Component {
   constructor(props) {
     super(props);
 
-    this.onChange = 'onChange' in props ? props.onChange : () => {
-    };
+    this.onChange = 'onChange' in props ? props.onChange : () => {};
     this.state = {
       src: '',
       open: false,
@@ -62,30 +61,42 @@ class PhotosForm extends Component {
         <Grid item xs={12}>
           <Paper variant="outlined">
             <List>
-              <input accept="image/*" multiple type="file" ref={ref => this.inputRef = ref} className={classes.Input}
-                     onChange={this.addPhoto}/>
+              <input
+                accept="image/*"
+                multiple
+                type="file"
+                ref={(ref) => (this.inputRef = ref)}
+                className={classes.Input}
+                onChange={this.addPhoto}
+              />
               <ListItem button onClick={this.openDialog}>
                 <ListItemAvatar>
                   <Avatar>
-                    <AddIcon/>
+                    <AddIcon />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="Adicionar Foto"/>
+                <ListItemText primary="Adicionar Foto" />
               </ListItem>
               {this.state.photos.map(({ photo, url }, index) => (
                 <div key={url} id={`photo${index}`}>
-                  <Divider/>
+                  <Divider />
                   <ListItem>
                     <ListItemAvatar>
-                      <Avatar src={url}/>
+                      <Avatar src={url} />
                     </ListItemAvatar>
-                    <ListItemText primary={photo.name}/>
+                    <ListItemText primary={photo.name} />
                     <ListItemSecondaryAction>
-                      <IconButton edge="end" onClick={() => this.removePhoto(index)}>
-                        <DeleteIcon/>
+                      <IconButton
+                        edge="end"
+                        onClick={() => this.removePhoto(index)}
+                      >
+                        <DeleteIcon />
                       </IconButton>
-                      <IconButton edge="end" onClick={() => this.openPhoto(url)}>
-                        <VisibilityIcon/>
+                      <IconButton
+                        edge="end"
+                        onClick={() => this.openPhoto(url)}
+                      >
+                        <VisibilityIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -95,7 +106,7 @@ class PhotosForm extends Component {
           </Paper>
         </Grid>
         <Dialog onClose={this.closePhoto} open={this.state.open}>
-          <img src={this.state.src} alt="Image" className={classes.Image}/>
+          <img src={this.state.src} alt="Image" className={classes.Image} />
         </Dialog>
       </Grid>
     );
