@@ -12,6 +12,7 @@ import Button from '../../components/Button/Button';
 import candidateAPI from '../../api/candidateAPI';
 import classes from './CandidateForm.module.css';
 import { useStorage } from 'reactfire';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,6 +45,7 @@ const CandidateForm = ({ match, history }) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [hasError, setHasError] = useState(false);
   const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleTabChange = (event, tab) => {
     setSelectedTab(tab);
@@ -91,19 +93,27 @@ const CandidateForm = ({ match, history }) => {
   };
 
   const saveCandidate = async () => {
+    setLoading(true);
+
     try {
       id = await (candidate.id ? update() : create());
 
       await uploadPhotos(id);
 
+      setLoading(false);
+
       history.push(`/candidato/${id}`, { registrationSuccessful: true });
     } catch (e) {
+      setLoading(false);
+
       await handleError(e);
     }
   };
 
   useEffect(() => {
     const getCandidate = async () => {
+      setLoading(true);
+
       try {
         const { data } = await candidateAPI.get(id);
 
@@ -113,6 +123,8 @@ const CandidateForm = ({ match, history }) => {
       } catch (e) {
         await handleError(e);
       }
+
+      setLoading(false);
     };
 
     if (id) {
@@ -123,64 +135,69 @@ const CandidateForm = ({ match, history }) => {
   return (
     <div className={classes.CandidateForm}>
       <Header />
-      <Tabs
-        value={selectedTab}
-        onChange={handleTabChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        className={classes.Tabs}
-        TabIndicatorProps={{ className: classes.Indicator }}
-      >
-        <Tab label="PESSOAL" {...a11yProps(0)} />
-        <Tab label="FOTOS" {...a11yProps(1)} />
-        <Tab label="MEDIDAS" {...a11yProps(2)} />
-        <Tab label="SOCIAL" {...a11yProps(3)} />
-      </Tabs>
-      <TabPanel value={selectedTab} index={0}>
-        <PersonalForm
-          data={candidate}
-          onChange={(updatedFields) => {
-            setCandidate({ ...candidate, ...updatedFields });
-          }}
-        />
-      </TabPanel>
-      <TabPanel value={selectedTab} index={1}>
-        <PhotosForm
-          photos={photos}
-          onChange={(photosList) => setPhotos(photosList)}
-        />
-      </TabPanel>
-      <TabPanel value={selectedTab} index={2}>
-        <MeasuresForm
-          data={candidate}
-          onChange={(updatedFields) => {
-            setCandidate({ ...candidate, ...updatedFields });
-          }}
-        />
-      </TabPanel>
-      <TabPanel value={selectedTab} index={3}>
-        <SocialForm
-          data={candidate}
-          onChange={(updatedFields) => {
-            setCandidate({ ...candidate, ...updatedFields });
-          }}
-        />
-      </TabPanel>
-      {hasError && (
-        <Alert severity="error">
-          Ocorreu um erro ao salvar os dados. Tente novamente.
-        </Alert>
+      {loading && <CircularProgress />}
+      {!loading && (
+        <>
+          <Tabs
+            value={selectedTab}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            className={classes.Tabs}
+            TabIndicatorProps={{ className: classes.Indicator }}
+          >
+            <Tab label="PESSOAL" {...a11yProps(0)} />
+            <Tab label="FOTOS" {...a11yProps(1)} />
+            <Tab label="MEDIDAS" {...a11yProps(2)} />
+            <Tab label="SOCIAL" {...a11yProps(3)} />
+          </Tabs>
+          <TabPanel value={selectedTab} index={0}>
+            <PersonalForm
+              data={candidate}
+              onChange={(updatedFields) => {
+                setCandidate({ ...candidate, ...updatedFields });
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={1}>
+            <PhotosForm
+              photos={photos}
+              onChange={(photosList) => setPhotos(photosList)}
+            />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={2}>
+            <MeasuresForm
+              data={candidate}
+              onChange={(updatedFields) => {
+                setCandidate({ ...candidate, ...updatedFields });
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={3}>
+            <SocialForm
+              data={candidate}
+              onChange={(updatedFields) => {
+                setCandidate({ ...candidate, ...updatedFields });
+              }}
+            />
+          </TabPanel>
+          {hasError && (
+            <Alert severity="error">
+              Ocorreu um erro ao salvar os dados. Tente novamente.
+            </Alert>
+          )}
+          <div className={classes.Actions}>
+            <Button
+              id="saveButton"
+              className="SecundaryButton"
+              onClick={saveCandidate}
+            >
+              Salvar
+            </Button>
+            <Link to="/">Cancelar</Link>
+          </div>
+        </>
       )}
-      <div className={classes.Actions}>
-        <Button
-          id="saveButton"
-          className="SecundaryButton"
-          onClick={saveCandidate}
-        >
-          Salvar
-        </Button>
-        <Link to="/">Cancelar</Link>
-      </div>
     </div>
   );
 };
