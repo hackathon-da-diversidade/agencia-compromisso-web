@@ -48,7 +48,6 @@ describe('<CandidateCard />', () => {
       wrapper = mount(<CandidateCard {...data} />);
 
       await resolvePromises(wrapper);
-      await flushMicroTasks();
 
       wrapper.find(EditIcon).first().simulate('click');
     });
@@ -59,7 +58,6 @@ describe('<CandidateCard />', () => {
       wrapper = mount(<CandidateCard {...data} />);
 
       await resolvePromises(wrapper);
-      await flushMicroTasks();
 
       wrapper.find(ArrowForwardIcon).first().simulate('click');
     });
@@ -76,7 +74,6 @@ describe('<CandidateCard />', () => {
       wrapper = mount(<CandidateCard {...data} onDelete={onDelete} />);
 
       await resolvePromises(wrapper);
-      await flushMicroTasks();
 
       wrapper.find(DeleteIcon).simulate('click');
       wrapper
@@ -88,7 +85,6 @@ describe('<CandidateCard />', () => {
         .simulate('click');
 
       await resolvePromises(wrapper);
-      await flushMicroTasks();
     });
 
     expect(onDelete).toBeCalledTimes(1);

@@ -97,8 +97,6 @@ describe('<List />', () => {
         </Router>
       );
 
-      await flushMicroTasks();
-      await flushMicroTasks();
       await resolvePromises(wrapper);
 
       wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
@@ -112,6 +110,8 @@ describe('<List />', () => {
         .findWhere((node) => node.text() === 'Excluir')
         .first()
         .simulate('click');
+
+      await resolvePromises(wrapper);
     });
 
     expect(candidateAPI.delete).toBeCalledTimes(1);
@@ -142,6 +142,9 @@ describe('<List />', () => {
       });
 
       wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
+
+      await resolvePromises(wrapper);
+
       wrapper
         .find(Dialog)
         .find(DialogActions)
