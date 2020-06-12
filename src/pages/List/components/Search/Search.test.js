@@ -4,13 +4,11 @@ import Adapter from 'enzyme-adapter-react-16';
 import Search from './Search';
 import candidateAPI from 'api/candidateAPI';
 
-configure({ adapter: new Adapter() });
-
 jest.mock('api/candidateAPI');
 
 describe('<Search />', () => {
-  const fakeDebounceTime = ms => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  const fakeDebounceTime = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
   it('should call onChange with typed name with debounce time', async () => {

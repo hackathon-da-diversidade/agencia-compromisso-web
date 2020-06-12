@@ -4,8 +4,6 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import PersonalForm from './PersonalForm';
 
-configure({ adapter: new Adapter() });
-
 describe('<PersonalForm />', () => {
   let wrapper;
 

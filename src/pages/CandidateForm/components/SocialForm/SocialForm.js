@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 
-import CheckboxField from 'components/Field/CheckboxField';
-import NumberField from 'components/Field/NumberField';
-import SelectField from 'components/Field/SelectField';
-import TextField from 'components/Field/TextField';
+import CheckboxField from '../../../../components/Field/CheckboxField';
+import NumberField from '../../../../components/Field/NumberField';
+import SelectField from '../../../../components/Field/SelectField';
+import TextField from '../../../../components/Field/TextField';
 import ChildrenInformationField from './components/ChildrenInformationField';
 
 function SocialForm({ data = {}, onChange }) {

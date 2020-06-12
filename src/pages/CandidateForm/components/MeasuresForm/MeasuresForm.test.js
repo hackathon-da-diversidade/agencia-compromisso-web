@@ -4,8 +4,6 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import MeasuresForm from './MeasuresForm';
 
-configure({ adapter: new Adapter() });
-
 describe('<MeasuresForm />', () => {
   let wrapper;
 

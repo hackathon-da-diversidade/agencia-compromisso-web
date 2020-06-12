@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import MenuComponent from './Menu';
 
-const Menu = props => (
+const Menu = (props) => (
   <Router>
     <MenuComponent {...props} />
   </Router>

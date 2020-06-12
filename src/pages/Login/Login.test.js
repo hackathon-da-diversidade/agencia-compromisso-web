@@ -5,10 +5,10 @@ import { render, waitFor } from '@testing-library/react';
 import { FirebaseAppProvider } from 'reactfire';
 import '@testing-library/jest-dom/extend-expect';
 import * as ReactFire from 'reactfire';
-import AuthorizeAPI from 'api/authorizeAPI';
+import AuthorizeAPI from '../../api/authorizeAPI';
 import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
 
-jest.mock('api/authorizeAPI');
+jest.mock('../../api/authorizeAPI');
 
 test('should render the login button', async () => {
   const { getByText } = render(

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from 'components/Button/Button';
+import Button from '../../components/Button/Button';
 import classes from './Menu.module.css';
 
 const Menu = ({ menuOptions }) => {

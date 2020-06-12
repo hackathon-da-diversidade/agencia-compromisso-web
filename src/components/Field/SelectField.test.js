@@ -6,8 +6,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import { Formik } from 'formik';
 import SelectField from './SelectField';
 
-configure({ adapter: new Adapter() });
-
 describe('<SelectField />', () => {
   it('should render one component <SelectField /> with the provided <option/> fields', () => {
     let wrapper = mount(

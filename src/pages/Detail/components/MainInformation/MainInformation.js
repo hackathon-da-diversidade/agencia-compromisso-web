@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Information from 'components/Information/Information';
+import Information from '../../../../components/Information/Information';
 import { calculateAge } from '../../../../utils/dateUtils';
 import { GENDER_EXPRESSION } from '../../../../utils/constants';
 import classes from './MainInformation.module.css';
@@ -29,7 +29,7 @@ const MainInformation = ({ candidate }) => {
 
 MainInformation.propTypes = {
   candidate: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     birthday: PropTypes.string,
     genderExpression: PropTypes.string,
   }),

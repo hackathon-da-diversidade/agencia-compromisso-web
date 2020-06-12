@@ -1,6 +1,6 @@
 import React from 'react';
-import CheckboxField from 'components/Field/CheckboxField';
-import NumberField from 'components/Field/NumberField';
+import CheckboxField from '../../../../../components/Field/CheckboxField';
+import NumberField from '../../../../../components/Field/NumberField';
 
 const ChildrenInformationField = ({
   socialInformation,

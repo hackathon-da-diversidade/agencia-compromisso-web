@@ -1,12 +1,12 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { isInvalid, isUnderage } from 'utils/dateUtils';
+import { isInvalid, isUnderage } from '../../../../utils/dateUtils';
 
-import TextField from 'components/Field/TextField';
-import SelectField from 'components/Field/SelectField';
-import MaskedField from 'components/Field/MaskedField';
-import CheckboxField from 'components/Field/CheckboxField';
-import TextArea from 'components/Field/TextArea';
+import TextField from '../../../../components/Field/TextField';
+import SelectField from '../../../../components/Field/SelectField';
+import MaskedField from '../../../../components/Field/MaskedField';
+import CheckboxField from '../../../../components/Field/CheckboxField';
+import TextArea from '../../../../components/Field/TextArea';
 
 function PersonalForm({ data = {}, onChange }) {
   const handleInProjects = ({ inProjects }) => {

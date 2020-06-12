@@ -1,24 +1,22 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import Detail from './Detail';
-import candidateAPI from 'api/candidateAPI';
+import candidateAPI from '../../api/candidateAPI';
 import { MemoryRouter, Route } from 'react-router-dom';
-import { resolvePromises } from 'utils/formHelpers';
+import { act, render } from '@testing-library/react';
+import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
+import * as ReactFire from 'reactfire';
 
-jest.mock('api/candidateAPI');
-
-configure({ adapter: new Adapter() });
+jest.mock('../../api/candidateAPI');
 
 describe('<Detail />', () => {
-  it('should call API', async () => {
-    candidateAPI.get.mockReturnValue({});
+  const listAll = jest.fn().mockReturnValue({ items: [] });
+  const ref = jest.fn().mockReturnValue({ listAll });
+  const useStorage = jest.fn().mockReturnValue({ ref });
 
-    const match = {
-      params: {
-        id: '1',
-      },
-    };
+  ReactFire['useStorage'] = useStorage;
+
+  test('should call API', async () => {
+    candidateAPI.get.mockReturnValue({ data: { name: '' } });
 
     const location = {
       state: {
@@ -26,17 +24,23 @@ describe('<Detail />', () => {
       },
     };
 
-    const wrapper = mount(
-      <MemoryRouter initialEntries={['/candidate/1']}>
-        <Route exact path="/candidate/:id">
-          <Detail location={location} />
-        </Route>
-      </MemoryRouter>
-    );
+    await act(async () => {
+      render(
+        <MemoryRouter initialEntries={['/candidate/1']}>
+          <Route exact path="/candidate/:id">
+            <Detail location={location} />
+          </Route>
+        </MemoryRouter>
+      );
 
-    await resolvePromises(wrapper);
+      await flushMicroTasks();
+      await flushMicroTasks();
+    });
 
+    expect(useStorage).toHaveBeenCalled();
     expect(candidateAPI.get).toBeCalledTimes(1);
-    expect(candidateAPI.get).toBeCalledWith(match.params.id);
+    expect(candidateAPI.get).toBeCalledWith('1');
+    expect(ref).toHaveBeenCalledWith(`photos/1`);
+    expect(listAll).toHaveBeenCalled();
   });
 });

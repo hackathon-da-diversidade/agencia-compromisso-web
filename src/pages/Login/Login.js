@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { useAuth } from 'reactfire';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import Logo from 'components/Logo/Logo';
-import Menu from 'components/Menu/Menu';
-import AuthorizeAPI from 'api/authorizeAPI';
-import googleIcon from 'assets/googleIconSmall.png';
+import Logo from '../../components/Logo/Logo';
+import Menu from '../../components/Menu/Menu';
+import AuthorizeAPI from '../../api/authorizeAPI';
+import googleIcon from '../../assets/googleIconSmall.png';
 
 const Login = ({ history }) => {
   const auth = useAuth();

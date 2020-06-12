@@ -1,118 +1,205 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
 import PersonalForm from './components/PersonalForm/PersonalForm';
 import MeasuresForm from './components/MeasuresForm/MeasuresForm';
 import SocialForm from './components/SocialForm/SocialForm';
-
-import Header from 'components/Header/Header';
-import Button from 'components/Button/Button';
-
-import candidateAPI from 'api/candidateAPI';
+import PhotosForm from './components/PhotosForm/PhotosForm';
+import Header from '../../components/Header/Header';
+import Button from '../../components/Button/Button';
+import candidateAPI from '../../api/candidateAPI';
 import classes from './CandidateForm.module.css';
+import { useStorage } from 'reactfire';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const TABS = [PersonalForm, MeasuresForm, SocialForm];
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-class CandidateForm extends Component {
-  constructor(props) {
-    super(props);
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && children}
+    </div>
+  );
+}
 
-    this.state = {
-      id: this.props.match.params.id,
-      selectedTabIndex: 0,
-      candidateData: {},
-      hasError: false,
-    };
-  }
+function a11yProps(index) {
+  return {
+    id: `tab-${index}`,
+    'aria-controls': `tabpanel-${index}`,
+  };
+}
 
-  componentDidMount() {
-    if (this.state.id) {
-      this.getCandidate();
-    }
-  }
+const CandidateForm = ({ match, history }) => {
+  let id = match.params.id;
 
-  getCandidate = async () => {
-    const response = await candidateAPI.get(this.state.id);
-    this.setState({ candidateData: response.data });
+  const storage = useStorage();
+  const [candidate, setCandidate] = useState({});
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [hasError, setHasError] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleTabChange = (event, tab) => {
+    setSelectedTab(tab);
   };
 
-  saveCandidate = async () => {
-    try {
-      const id = await (this.state.id ? this.update() : this.create());
-
-      this.props.history.push(`/candidato/${id}`, {
-        registrationSuccessful: true,
-      });
-    } catch (error) {
-      this.setState({ hasError: true });
-    }
+  const handleError = async (error) => {
+    setHasError(true);
+    console.error(error);
   };
 
-  async create() {
-    const { headers } = await candidateAPI.create(this.state.candidateData);
+  const create = async () => {
+    const { headers } = await candidateAPI.create(candidate);
     const locationArray = headers.location.split('/');
 
     return locationArray[locationArray.length - 1];
-  }
+  };
 
-  async update() {
-    const { data } = await candidateAPI.update(this.state.candidateData);
+  const update = async () => {
+    const { data } = await candidateAPI.update(candidate);
 
     return data.id;
-  }
+  };
 
-  render() {
-    const TabComponent = TABS[this.state.selectedTabIndex];
+  const uploadPhotos = async (candidateId) => {
+    const uploads = (photos || [])
+      .filter((file) => !file.exists)
+      .map((file) =>
+        storage
+          .ref(`photos/${candidateId}/${file.photo.name}`)
+          .put(file.photo)
+          .then()
+      );
 
-    return (
-      <div className={classes.CandidateForm}>
-        <Header />
-        <Tabs
-          value={this.state.selectedTabIndex}
-          onChange={(event, index) =>
-            this.setState({ selectedTabIndex: index })
-          }
-          variant="scrollable"
-          scrollButtons="auto"
-          className={classes.Tabs}
-          TabIndicatorProps={{ className: classes.Indicator }}
-        >
-          <Tab label="PESSOAL" />
-          <Tab id="measuresTab" label="MEDIDAS" />
-          <Tab id="socialTab" label="SOCIAL" />
-        </Tabs>
-        <TabComponent
-          data={this.state.candidateData}
-          onChange={updatedFields => {
-            this.setState({
-              candidateData: {
-                ...this.state.candidateData,
-                ...updatedFields,
-              },
-            });
-          }}
-        />
-        {this.state.hasError && (
-          <Alert severity="error">
-            Ocorreu um erro ao salvar os dados. Tente novamente.
-          </Alert>
-        )}
-        <div className={classes.Actions}>
-          <Button
-            className="SecundaryButton"
-            id="saveButton"
-            onClick={this.saveCandidate}
+    return Promise.all(uploads);
+  };
+
+  const getPhotos = async (candidateId) => {
+    const list = await storage.ref(`photos/${candidateId}`).listAll();
+
+    const items = list.items.map(async (item) => {
+      return { photo: item, url: await item.getDownloadURL(), exists: true };
+    });
+
+    setPhotos(await Promise.all(items));
+  };
+
+  const saveCandidate = async () => {
+    setLoading(true);
+
+    try {
+      id = await (candidate.id ? update() : create());
+
+      await uploadPhotos(id);
+
+      setLoading(false);
+
+      history.push(`/candidato/${id}`, { registrationSuccessful: true });
+    } catch (e) {
+      setLoading(false);
+
+      await handleError(e);
+    }
+  };
+
+  useEffect(() => {
+    const getCandidate = async () => {
+      setLoading(true);
+
+      try {
+        const { data } = await candidateAPI.get(id);
+
+        setCandidate(data);
+
+        await getPhotos(id);
+      } catch (e) {
+        await handleError(e);
+      }
+
+      setLoading(false);
+    };
+
+    if (id) {
+      getCandidate();
+    }
+  }, [id]);
+
+  return (
+    <div className={classes.CandidateForm}>
+      <Header />
+      {loading && <CircularProgress />}
+      {!loading && (
+        <>
+          <Tabs
+            value={selectedTab}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            className={classes.Tabs}
+            TabIndicatorProps={{ className: classes.Indicator }}
           >
-            Salvar
-          </Button>
-          <Link to="/">Cancelar</Link>
-        </div>
-      </div>
-    );
-  }
-}
+            <Tab label="PESSOAL" {...a11yProps(0)} />
+            <Tab label="FOTOS" {...a11yProps(1)} />
+            <Tab label="MEDIDAS" {...a11yProps(2)} />
+            <Tab label="SOCIAL" {...a11yProps(3)} />
+          </Tabs>
+          <TabPanel value={selectedTab} index={0}>
+            <PersonalForm
+              data={candidate}
+              onChange={(updatedFields) => {
+                setCandidate({ ...candidate, ...updatedFields });
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={1}>
+            <PhotosForm
+              photos={photos}
+              onChange={(photosList) => setPhotos(photosList)}
+            />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={2}>
+            <MeasuresForm
+              data={candidate}
+              onChange={(updatedFields) => {
+                setCandidate({ ...candidate, ...updatedFields });
+              }}
+            />
+          </TabPanel>
+          <TabPanel value={selectedTab} index={3}>
+            <SocialForm
+              data={candidate}
+              onChange={(updatedFields) => {
+                setCandidate({ ...candidate, ...updatedFields });
+              }}
+            />
+          </TabPanel>
+          {hasError && (
+            <Alert severity="error">
+              Ocorreu um erro ao salvar os dados. Tente novamente.
+            </Alert>
+          )}
+          <div className={classes.Actions}>
+            <Button
+              id="saveButton"
+              className="SecundaryButton"
+              onClick={saveCandidate}
+            >
+              Salvar
+            </Button>
+            <Link to="/">Cancelar</Link>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
 
 export default withRouter(CandidateForm);

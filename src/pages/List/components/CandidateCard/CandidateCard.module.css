@@ -22,6 +22,10 @@
     justify-items: center;
 }
 
+.IconsWrapper a {
+  display: flex;
+}
+
 .CandidateInfo {
     display: block;
     padding: 0;

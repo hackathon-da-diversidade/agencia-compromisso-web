@@ -4,14 +4,14 @@ import { Form, Formik } from 'formik';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 
-import bustMeasure from 'assets/bustMeasure.jpg';
-import hipMeasure from 'assets/hipMeasure.jpg';
-import waistMeasure from 'assets/waistMeasure.jpg';
+import bustMeasure from '../../../../assets/bustMeasure.jpg';
+import hipMeasure from '../../../../assets/hipMeasure.jpg';
+import waistMeasure from '../../../../assets/waistMeasure.jpg';
 
-import NumberField from 'components/Field/NumberField';
+import NumberField from '../../../../components/Field/NumberField';
 
 import classes from './MeasuresForm.module.css';
-import CheckboxField from 'components/Field/CheckboxField';
+import CheckboxField from '../../../../components/Field/CheckboxField';
 
 export default ({ data = {}, onChange }) => {
   const sizes = data.sizes || {};

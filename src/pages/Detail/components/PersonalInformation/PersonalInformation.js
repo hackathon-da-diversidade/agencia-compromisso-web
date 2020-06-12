@@ -1,6 +1,6 @@
 import React from 'react';
 import { AVAILABILITY } from '../../../../utils/constants';
-import Information from 'components/Information/Information';
+import Information from '../../../../components/Information/Information';
 
 const PersonalInformation = ({ data }) =>
   (data.birthday ||

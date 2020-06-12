@@ -3,8 +3,6 @@ import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import MeasuresInformation from './MeasuresInformation';
 
-configure({ adapter: new Adapter() });
-
 describe('<MeasuresInformation />', () => {
   it('should show detailed user measure information', () => {
     const data = {

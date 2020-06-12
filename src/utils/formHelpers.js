@@ -1,3 +1,5 @@
+import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
+
 const fill = (wrapper, value, id, type) => {
   wrapper
     .find(`${type}[name=\'${id}\']`)
@@ -11,6 +13,7 @@ const fillTextarea = (wrapper, value, id) =>
   fill(wrapper, value, id, 'textarea');
 
 const resolvePromises = async (wrapper) => {
+  await flushMicroTasks();
   await new Promise((resolve) => setImmediate(resolve));
 
   if (wrapper) {

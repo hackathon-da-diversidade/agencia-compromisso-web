@@ -1,16 +1,17 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Adapter from 'enzyme-adapter-react-16';
 import Dialog from '@material-ui/core/Dialog';
 import Button from 'components/Button/Button';
-
 import DialogActions from '@material-ui/core/DialogActions';
-
 import CandidateCardComponent from './CandidateCard';
-
-configure({ adapter: new Adapter() });
+import CandidateForm from '../../../CandidateForm/CandidateForm';
+import { act, render, waitFor } from '@testing-library/react';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { resolvePromises } from '../../../../utils/formHelpers';
+import flushMicroTasks from '@testing-library/react-hooks/lib/flush-microtasks';
 
 const CandidateCard = (props) => (
   <MemoryRouter>
@@ -27,46 +28,64 @@ const data = {
 };
 
 describe('<CandidateCard />', () => {
-  it('should show card with candidate info', () => {
-    const wrapper = mount(<CandidateCard {...data} />);
+  let wrapper;
 
-    expect(wrapper.find('#candidateName').text()).toContain(data.name);
-    expect(wrapper.find('#candidateInfo').text()).toContain(
-      'Mulher | 22 anos | (52)99999-9999'
-    );
+  test('should show card with candidate info', async () => {
+    await act(async () => {
+      const { getByText } = render(<CandidateCard {...data} />);
+
+      await flushMicroTasks();
+
+      await waitFor(() => expect(getByText(data.name)).toBeVisible());
+      await waitFor(() =>
+        expect(getByText('Mulher | 22 anos | (52)99999-9999')).toBeVisible()
+      );
+    });
   });
 
-  it('should redirect to edit page when EditIcon is clicked', async () => {
-    const wrapper = mount(<CandidateCard {...data} />);
-    const link = wrapper.find('#link-edit').first();
+  test('should redirect to edit page when EditIcon is clicked', async () => {
+    await act(async () => {
+      wrapper = mount(<CandidateCard {...data} />);
 
-    expect(link.props().to).toBe('/cadastro/1');
+      await resolvePromises(wrapper);
+
+      wrapper.find(EditIcon).first().simulate('click');
+    });
   });
 
-  it('should redirect to details page when ArrowForwardIcon is clicked', async () => {
-    const wrapper = mount(<CandidateCard {...data} />);
-    const link = wrapper.find('#link-details').first();
+  test('should redirect to details page when ArrowForwardIcon is clicked', async () => {
+    await act(async () => {
+      wrapper = mount(<CandidateCard {...data} />);
 
-    expect(link.props().to).toBe('/candidato/1');
+      await resolvePromises(wrapper);
+
+      wrapper.find(ArrowForwardIcon).first().simulate('click');
+    });
   });
 
-  it('should call on delete function', () => {
+  test('should call on delete function', async () => {
     const data = {
       id: 'id',
     };
 
     const onDelete = jest.fn();
 
-    const wrapper = mount(<CandidateCard {...data} onDelete={onDelete} />);
+    await act(async () => {
+      wrapper = mount(<CandidateCard {...data} onDelete={onDelete} />);
 
-    wrapper.find(DeleteIcon).simulate('click');
-    wrapper
-      .find(Dialog)
-      .find(DialogActions)
-      .find(Button)
-      .findWhere((node) => node.text() === 'Excluir')
-      .first()
-      .simulate('click');
+      await resolvePromises(wrapper);
+
+      wrapper.find(DeleteIcon).simulate('click');
+      wrapper
+        .find(Dialog)
+        .find(DialogActions)
+        .find(Button)
+        .findWhere((node) => node.text() === 'Excluir')
+        .first()
+        .simulate('click');
+
+      await resolvePromises(wrapper);
+    });
 
     expect(onDelete).toBeCalledTimes(1);
     expect(onDelete).toBeCalledWith(data.id);
