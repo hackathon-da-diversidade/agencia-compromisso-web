@@ -39,7 +39,7 @@ const CandidateCard = ({
 
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" id={`candidate${id}`}>
         <ListItemText
           primary={name}
           secondary={
