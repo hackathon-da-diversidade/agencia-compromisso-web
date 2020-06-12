@@ -60,15 +60,15 @@ const Detail = ({ match, location }) => {
 
   return (
     <div>
-      <Header path="/lista"/>
-      {loading && (<CircularProgress/>)}
+      <Header path="/lista" />
+      {loading && <CircularProgress />}
       {!loading && (
         <div className={classes.Details}>
-          <SuccessMessage location={location}/>
-          <MainInformation candidate={candidate}/>
-          <PersonalInformation data={candidate}/>
-          <MeasuresInformation data={candidate.sizes}/>
-          <SocialInformation data={candidate.socialInformation}/>
+          <SuccessMessage location={location} />
+          <MainInformation candidate={candidate} />
+          <PersonalInformation data={candidate} />
+          <MeasuresInformation data={candidate.sizes} />
+          <SocialInformation data={candidate.socialInformation} />
           <Notes>{candidate.notes}</Notes>
           {photos.length > 0 && (
             <div className={classes.ImagesWrapper}>
@@ -76,7 +76,7 @@ const Detail = ({ match, location }) => {
                 <GridList cellHeight="auto" cols={1}>
                   {photos.map((photo) => (
                     <GridListTile key={photo} cols={1}>
-                      <img src={photo} alt="Candidato"/>
+                      <img src={photo} alt="Candidato" />
                     </GridListTile>
                   ))}
                 </GridList>
@@ -87,7 +87,11 @@ const Detail = ({ match, location }) => {
             phoneNumber={candidate.phoneNumber}
             guardianPhoneNumber={candidate.guardianPhoneNumber}
           />
-          {error && (<Alert severity="warning" className={classes.Alert}>Não foi possível carregar o perfil.</Alert>)}
+          {error && (
+            <Alert severity="warning" className={classes.Alert}>
+              Não foi possível carregar o perfil.
+            </Alert>
+          )}
         </div>
       )}
     </div>

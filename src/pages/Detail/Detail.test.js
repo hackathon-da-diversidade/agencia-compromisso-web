@@ -28,11 +28,12 @@ describe('<Detail />', () => {
       render(
         <MemoryRouter initialEntries={['/candidate/1']}>
           <Route exact path="/candidate/:id">
-            <Detail location={location}/>
+            <Detail location={location} />
           </Route>
-        </MemoryRouter>,
+        </MemoryRouter>
       );
 
+      await flushMicroTasks();
       await flushMicroTasks();
     });
 
