@@ -68,11 +68,16 @@ const CandidateForm = ({ match, history }) => {
   };
 
   const uploadPhotos = async (candidateId) => {
-    (photos || [])
+    const uploads = (photos || [])
       .filter((file) => !file.exists)
-      .forEach((file) => {
-        storage.ref(`photos/${candidateId}/${file.photo.name}`).put(file.photo);
-      });
+      .map((file) =>
+        storage
+          .ref(`photos/${candidateId}/${file.photo.name}`)
+          .put(file.photo)
+          .then()
+      );
+
+    return Promise.all(uploads);
   };
 
   const getPhotos = async (candidateId) => {
@@ -102,9 +107,9 @@ const CandidateForm = ({ match, history }) => {
       try {
         const { data } = await candidateAPI.get(id);
 
-        await getPhotos(id);
-
         setCandidate(data);
+
+        await getPhotos(id);
       } catch (e) {
         await handleError(e);
       }
