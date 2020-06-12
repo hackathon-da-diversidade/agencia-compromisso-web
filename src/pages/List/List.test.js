@@ -97,9 +97,9 @@ describe('<List />', () => {
         </Router>
       );
 
+      await flushMicroTasks();
+      await flushMicroTasks();
       await resolvePromises(wrapper);
-      await flushMicroTasks();
-      await flushMicroTasks();
 
       wrapper.find('#candidate1').find(DeleteIcon).simulate('click');
 

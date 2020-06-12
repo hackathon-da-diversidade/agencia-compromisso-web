@@ -17,7 +17,8 @@ import * as ReactFire from 'reactfire';
 jest.mock('../../api/candidateAPI');
 
 describe('<CandidateForm />', () => {
-  const put = jest.fn();
+  const then = jest.fn();
+  const put = jest.fn().mockReturnValue({ then });
   const listAll = jest.fn().mockReturnValue({ items: [] });
   const ref = jest.fn().mockReturnValue({ put, listAll });
   const useStorage = jest.fn().mockReturnValue({ ref });
@@ -151,6 +152,7 @@ describe('<CandidateForm />', () => {
     expect(useStorage).toHaveBeenCalled();
     expect(ref).toHaveBeenCalledWith(`photos/id/${fileName}`);
     expect(put).toHaveBeenCalledWith(file);
+    expect(then).toHaveBeenCalled();
     expect(candidateAPI.create).toBeCalledTimes(1);
     expect(candidateAPI.create).toBeCalledWith(data);
   });
