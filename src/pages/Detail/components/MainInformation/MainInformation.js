@@ -29,7 +29,7 @@ const MainInformation = ({ candidate }) => {
 
 MainInformation.propTypes = {
   candidate: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     birthday: PropTypes.string,
     genderExpression: PropTypes.string,
   }),
