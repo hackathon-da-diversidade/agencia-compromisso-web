@@ -7,7 +7,7 @@ const Information = (props) =>
   props.children ? (
     <div className={classes.Information}>
       {props.strong ? <strong>{props.label}</strong> : props.label}
-      <span>{props.children}</span>
+      <span> {props.children}</span>
     </div>
   ) : null;
 
